@@ -1,4 +1,4 @@
-# LeagueLobbyHelper
+# LeagueCustomLobbyHelper
 英雄联盟创建5V5训练模式
 
 # 工具库
@@ -90,8 +90,6 @@ for name in team2:
 	await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
 ```
 
-
---
   
 <br>  
   
