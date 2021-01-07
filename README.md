@@ -1,25 +1,26 @@
 # LeagueLobbyHelper
 英雄联盟创建5V5训练模式
 
-### 工具库
+# 工具库
 [lcu-driver](https://github.com/sousa-andre/lcu-driver)
 
 
-### 参考资料
+# 参考资料
 - [LCU API 速查手册](https://lcu.vivide.re/#operation--lol-lobby-v2-lobby-get)
 - [训练模式数据格式](https://riot-api-libraries.readthedocs.io/en/latest/lcu.html)
 
 
-### 核心代码
+# 核心代码
 
-#### 获取召唤师数据
+## 获取召唤师数据
 ```python
 summoner = await connection.request('get', '/lol-summoner/v1/current-summoner')
 print(await summoner.json())
 ```
-
-
-####  自定义训练模式
+  
+<br>  
+  
+## 自定义训练模式
 ```json
 custom = {
   "customGameLobby": {
@@ -38,22 +39,26 @@ custom = {
   "isCustom": true
 }
 ```
-
-#### 创建房间
+  
+<br>  
+  
+## 创建房间
 ```python
 await connection.request('post', '/lol-lobby/v2/lobby', data=custom)
 ```
-
-
-#### 自定义模式机器人列表
+  
+<br>  
+  
+## 自定义模式机器人列表
 ```python
 data = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
 champions = {bots['name']: bots['id'] for bots in await data.json()}
 print(champions)
 ```
-
-
-#### 批量添加机器人
+  
+<br>  
+  
+## 批量添加机器人
 
 **根据ID**
 ```python
@@ -66,8 +71,9 @@ for id in champions:
 	}
 	await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
 ```
-
-
+  
+<br>  
+  
 **根据名称**
 ```python
 activedata = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
@@ -89,7 +95,7 @@ for name in team2:
   
 <br>  
   
-### TODO
+# TODO
 1. 做个简单的UI，并脱离python环境?
 
   
@@ -99,7 +105,7 @@ for name in team2:
   
 <br>  
   
-### 其他工具
+# 其他工具
 - [LeaueLobby](https://github.com/MarioCrane/LeaueLobby) @MarioCrane
 
 
