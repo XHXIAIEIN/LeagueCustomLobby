@@ -84,12 +84,21 @@ for name in team2:
 	await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
 ```
 
---
 
+--
+  
+<br>  
+  
 ### TODO
 1. 做个简单的UI，并脱离python环境?
 
-
+  
+<br>  
+  
+---
+  
+<br>  
+  
 ### 其他工具
 - [LeaueLobby](https://github.com/MarioCrane/LeaueLobby) @MarioCrane
 
