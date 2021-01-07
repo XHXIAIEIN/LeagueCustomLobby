@@ -9,7 +9,7 @@ from lcu_driver import Connector
 #===============================================================================
 
 #-------------------------------------------------------------------------------
-# 使用到的工具库
+# 工具库
 #-------------------------------------------------------------------------------
 #  - lcu-driver 
 #    https://github.com/sousa-andre/lcu-driver
@@ -28,21 +28,13 @@ from lcu_driver import Connector
 #-------------------------------------------------------------------------------
 # 接下来的计划 TODO 
 # 1. 可视化GUI
-# 2. 快速添加电脑玩家（自定义角色、难度）
 #-------------------------------------------------------------------------------
 
 connector = Connector()
 
-@connector.ready
-async def connect(connection):
-  await getSummonerInfo(connection)
-  await creatLabby(connection)
-
-@connector.close
-async def disconnect(connection):
-    print('Finished task')
-
+#-------------------------------------------------------------------------------
 # 获取召唤师信息
+#-------------------------------------------------------------------------------
 async def getSummonerInfo(connection):
   summoner = await connection.request('get', '/lol-summoner/v1/current-summoner')
   if summoner.status == 200:
@@ -51,9 +43,12 @@ async def getSummonerInfo(connection):
   else:
     print('账号信息获取失败')
 
+#-------------------------------------------------------------------------------
 # 创建训练模式 5V5自定义房间
+#-------------------------------------------------------------------------------
 async def creatLabby(connection):
-  customGameLobby = {
+  # 房间数据
+  custom = {
     "customGameLobby": {
       "configuration": {
         "gameMode": "PRACTICETOOL",
@@ -69,8 +64,41 @@ async def creatLabby(connection):
     },
     "isCustom": True
   }
-  lobby = await connection.request('post', '/lol-lobby/v2/lobby', data=customGameLobby)
+
+  lobby = await connection.request('post', '/lol-lobby/v2/lobby', data=custom)
+
   if lobby.status == 200:
     print(f'[创建5V5训练模式] 已成功创建 训练房间')
+
+#-------------------------------------------------------------------------------
+# 快速添加机器人
+#-------------------------------------------------------------------------------
+async def addBots(connection):
+  # 获取自定义模式电脑玩家列表
+  activedata = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
+  champions = { bot['name']: bot['id'] for bot in await activedata.json() }
+  # 添加机器人
+  team2 = ["诺克萨斯之手", "德玛西亚之力", "曙光女神", "皮城女警", "众星之子"]
+  for name in team2:
+    bots = {
+      "championId": champions[name],
+      "botDifficulty": "MEDIUM",
+      "teamId": "200"
+    }
+    await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
+
+#-------------------------------------------------------------------------------
+# Main
+#-------------------------------------------------------------------------------
+
+@connector.ready
+async def connect(connection):
+  await getSummonerInfo(connection)
+  await creatLabby(connection)
+  await addBots(connection)
+
+@connector.close
+async def disconnect(connection):
+    print('Finished')
 
 connector.start()
