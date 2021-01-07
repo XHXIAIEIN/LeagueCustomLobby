@@ -9,9 +9,13 @@
 - [LCU API 速查手册](https://lcu.vivide.re/#operation--lol-lobby-v2-lobby-get)
 - [训练模式数据格式](https://riot-api-libraries.readthedocs.io/en/latest/lcu.html)
 
-
+  
+<br>  
+  
 # 核心代码
-
+  
+<br>  
+  
 ## 获取召唤师数据
 ```python
 summoner = await connection.request('get', '/lol-summoner/v1/current-summoner')
@@ -80,6 +84,9 @@ for name in team2:
 	}
 	await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
 ```
+  
+
+<br>  
   
 ## 自定义模式机器人列表
  
