@@ -20,7 +20,7 @@ print(await summoner.json())
 ```
 
 
-###  自定义训练模式，基本数据格式
+###  自定义训练模式
 ```json
 custom = {
   "customGameLobby": {
@@ -46,7 +46,7 @@ await connection.request('post', '/lol-lobby/v2/lobby', data=custom)
 ```
 
 
-### 获取自定义模式的机器人列表
+### 自定义模式机器人列表
 ```python
 data = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
 champions = {bots['name']: bots['id'] for bots in await data.json()}
@@ -55,11 +55,30 @@ print(champions)
 
 
 ### 批量添加机器人
+
+**根据ID**
 ```python
 champions = [122, 86, 1, 51, 25]
 for id in champions:
 	bots = {
 		"championId": id,
+		"botDifficulty": "MEDIUM",
+		"teamId": "200"
+	}
+	await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
+```
+
+
+**根据名称**
+```
+activedata = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
+champions = { bot['name']: bot['id'] for bot in await activedata.json() }
+
+team2 = ["诺克萨斯之手", "德玛西亚之力", "曙光女神", "皮城女警", "众星之子"]
+
+for name in team2:
+	bots = {
+		"championId": champions[name],
 		"botDifficulty": "MEDIUM",
 		"teamId": "200"
 	}
