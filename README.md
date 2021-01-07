@@ -34,7 +34,7 @@ custom = {
       "teamSize": 5
     },
     "lobbyName": "Name",
-    "lobbyPassword": ''
+    "lobbyPassword": ""
   },
   "isCustom": true
 }
