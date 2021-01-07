@@ -70,7 +70,7 @@ for id in champions:
 
 
 **根据名称**
-```
+```python
 activedata = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
 champions = { bot['name']: bot['id'] for bot in await activedata.json() }
 
