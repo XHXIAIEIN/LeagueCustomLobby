@@ -46,11 +46,30 @@ await connection.request('post', '/lol-lobby/v2/lobby', data=custom)
 ```
 
 
+### 获取自定义模式的机器人列表
+```python
+data = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
+champions = {bots['name']: bots['id'] for bots in await data.json()}
+print(champions)
+```
+
+
+### 批量添加机器人
+```python
+champions = [122, 86, 1, 51, 25]
+for id in champions:
+	bots = {
+		"championId": id,
+		"botDifficulty": "MEDIUM",
+		"teamId": "200"
+	}
+	await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
+```
+
 --
 
 # TODO
 1. 做个简单的UI，并且可以脱离python环境?
-2. 快速添加电脑玩家，并且可以自定义角色，以及难度？
 
 
 
