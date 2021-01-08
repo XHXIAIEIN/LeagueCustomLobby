@@ -189,7 +189,7 @@ mapID 必须是开放状态才能创建。当前客户端可以玩极限闪击�
 <br>  
 
 
-## mapMode
+## gameModes
 
 必须是开放状态才能创建，当前客户端可以玩极限闪击，才能创建极限闪击的房间。完整的 gameMode 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/gameModes.json)查询。
 
