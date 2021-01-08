@@ -6,6 +6,7 @@
 
 
 # 参考资料
+- [Riot 开发者文档](https://developer.riotgames.com/docs/lol)
 - [LCU API 速查手册](https://lcu.vivide.re/#operation--lol-lobby-v2-lobby-get)
 - [训练模式数据格式](https://riot-api-libraries.readthedocs.io/en/latest/lcu.html)
 
