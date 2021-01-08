@@ -64,7 +64,7 @@ await connection.request('post', '/lol-lobby/v2/lobby', data=custom)
 参数解释：
 - **championId**: 英雄ID，可以在下方表格查询。
 - **botDifficulty**:  机器人难度。可惜国服只有 "EASY"
-- **teamId**: 左边蓝队：100 ；右边红队2：200
+- **teamId**: 左边蓝队：100 / 右边红队：200
 
 **根据ID**
 ```python
