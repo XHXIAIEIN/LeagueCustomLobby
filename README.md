@@ -29,8 +29,11 @@ print(await summoner.json())
 
 参数解释：
 - **gameMode**: 游戏模式。自定义模式为 "CLASSIC"
-- **mapId**:  地图ID。 召唤师峡谷：11
+- **mapId**:  地图ID。召唤师峡谷：11。
 - **lobbyName**: 房间名称
+
+注：mapID 必须是开放状态的才可以创建。如果正常客户端可以玩极限闪击，才能创建极限闪击的房间。
+完整的 mapID 可以到[官方文档](http://static.developer.riotgames.com/docs/lol/maps.json)查询。
 
 ```json
 custom = {
@@ -157,10 +160,10 @@ print(champions)
 | 122	| 诺克萨斯之手	| Darius		|	
 | 143	| 荆棘之兴		| Zyra			|	
 | 236	| 圣枪游侠		| Lucian		|		
-  
 
 <br>  
   
+ 
 # TODO
 1. 做个简单的UI，并脱离python环境?
 
