@@ -71,6 +71,7 @@ for id in champions:
   
 **根据名称**
 ```python
+# 获取自定义模式机器人列表
 activedata = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
 champions = { bot['name']: bot['id'] for bot in await activedata.json() }
 
