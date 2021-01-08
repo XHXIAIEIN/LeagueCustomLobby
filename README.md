@@ -16,20 +16,15 @@
 # 如何使用
 
 1.[Python 3](https://www.python.org) 
-> 下载最新版即可，跟着引导安装，点页面中那两个带着小盾牌图标的大按钮。  
-> - [x] 1. Install Now
-> - [x] 2. Disable path length limit
- 
 2.[lcu-driver](https://github.com/sousa-andre/lcu-driver)
 
-按下Win + R，输入 cmd 然后按 Ctrl + Shift + 回车键。    
-以管理员权限进入命令行。接着输入下方的两条指令：  
+按下 Windows + R 打开运行窗口，输入 cmd ，在控制台输入指令：  
+
 ```
-python -m pip install --upgrade pip
 pip install lcu-driver
 ```
 
-3.将 [LeagueLobby.py](https://github.com/XHXIAIEIN/LeagueCustomLobby/blob/main/LeagueLobby.py) 下载到本地任意地方。打开游戏客户端，运行脚本即可。
+3.将 [LeagueLobby.py](https://github.com/XHXIAIEIN/LeagueCustomLobby/blob/main/LeagueLobby.py) 下载到本地任意地方，运行脚本即可。
   
   
 <br>  
