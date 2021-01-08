@@ -32,8 +32,6 @@ print(await summoner.json())
 - **mapId**:  地图ID。召唤师峡谷：11。
 - **lobbyName**: 房间名称
 
-注：mapID 必须是开放状态才能创建。当前客户端可以玩极限闪击，才能创建极限闪击的房间。完整的 mapID 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/maps.json)查询。
-
 ```json
 custom = {
   "customGameLobby": {
@@ -111,7 +109,7 @@ champions = {bots['name']: bots['id'] for bots in await data.json()}
 print(champions)
 ```
 
-| id	| CN 		  | EN			   |	
+| id	| CN		   | EN			   |	
 | ----- | ---------------- | --------------------- |	
 | 1	| 黑暗之女		| Annie			|	
 | 3	| 正义巨像		| Galio			|	
@@ -162,7 +160,22 @@ print(champions)
 
 <br>  
   
- 
+  
+## mapID 地图模式
+
+mapID 必须是开放状态才能创建。当前客户端可以玩极限闪击，才能创建极限闪击的房间。完整的 mapID 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/maps.json)查询。
+
+| mapId	| CN		    | mapName		   |   notes		  |
+| ----- | ----------------- | -------------------- |  -------------------- |
+| 3	| 教学模式		| The Proving Grounds	|  Tutorial Map		|
+| 11	| 召唤师峡谷		| Summoner's Rift	| Current Version	|
+| 12	| 嚎哭深渊		| Howling Abyss		| ARAM map		|
+| 20	| 云顶之奕		| Convergence		| Teamfight Tactics map	|
+| 21	| 极限闪击		| Nexus Blitz		| Nexus Blitz map	|
+
+<br>  
+  
+  
 # TODO
 1. 做个简单的UI，并脱离python环境?
 
