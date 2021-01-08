@@ -32,8 +32,7 @@ print(await summoner.json())
 - **mapId**:  地图ID。召唤师峡谷：11。
 - **lobbyName**: 房间名称
 
-注：mapID 必须是开放状态的才可以创建。如果正常客户端可以玩极限闪击，才能创建极限闪击的房间。
-完整的 mapID 可以到[官方文档](http://static.developer.riotgames.com/docs/lol/maps.json)查询。
+注：mapID 必须是开放状态才能创建。当前客户端可以玩极限闪击，才能创建极限闪击的房间。完整的 mapID 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/maps.json)查询。
 
 ```json
 custom = {
