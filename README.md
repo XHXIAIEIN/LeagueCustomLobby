@@ -46,6 +46,7 @@ print(await summoner.json())
 - **lobbyName**: 房间名称
 
 ```json
+# 房间数据
 custom = {
   "customGameLobby": {
     "configuration": {
