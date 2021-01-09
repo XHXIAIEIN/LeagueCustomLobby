@@ -41,7 +41,7 @@ print(await summoner.json())
 ## 自定义训练模式
 
 参数解释：
-- **gameMode**: 游戏模式。自定义模式为 "CLASSIC"
+- **gameMode**: 游戏模式。训练模式为"PRACTICETOOL"，自定义模式为 "CLASSIC"
 - **mapId**:  地图ID。召唤师峡谷：11。
 - **lobbyName**: 房间名称
 
@@ -62,14 +62,11 @@ custom = {
   },
   "isCustom": true
 }
-```
-  
-<br>  
-  
-## 创建房间
-```python
+
+# 创建房间
 await connection.request('post', '/lol-lobby/v2/lobby', data=custom)
 ```
+  
   
 <br>  
   
@@ -122,7 +119,7 @@ champions = {bots['name']: bots['id'] for bots in await data.json()}
 print(champions)
 ```
 
-| id	| CN		   | EN			   |	
+| championId	| CN		   | EN			   |	
 | ----- | ---------------- | --------------------- |	
 | 1	| 黑暗之女		| Annie			|	
 | 3	| 正义巨像		| Galio			|	
@@ -176,7 +173,8 @@ print(champions)
   
 ## mapID
 
-mapID 必须是开放状态才能创建。当前客户端可以玩极限闪击，才能创建极限闪击的房间。完整的 mapID 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/maps.json)查询。
+mapID 必须是开放状态才能创建。当前客户端可以玩极限闪击，才能创建极限闪击的房间。  
+完整的 mapID 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/maps.json)查询。
 
 | mapId	| CN		    | mapName		   |   notes		  |
 | ----- | ----------------- | -------------------- |  -------------------- |
@@ -191,7 +189,8 @@ mapID 必须是开放状态才能创建。当前客户端可以玩极限闪击�
 
 ## gameModes
 
-必须是开放状态才能创建，当前客户端可以玩极限闪击，才能创建极限闪击的房间。完整的 gameMode 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/gameModes.json)查询。
+必须是开放状态才能创建，当前客户端可以玩极限闪击，才能创建极限闪击的房间。  
+完整的 gameMode 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/gameModes.json)查询。
 
 |gameMode	| CN		    | 	
 |---------------| ----------------- | 
