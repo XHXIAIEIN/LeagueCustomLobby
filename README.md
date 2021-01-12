@@ -193,12 +193,12 @@ mapID 必须是开放状态才能创建。当前客户端可以玩极限闪击�
 必须是开放状态才能创建，当前客户端可以玩极限闪击，才能创建极限闪击的房间。  
 完整的 gameMode 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/gameModes.json)查询。
 
-|gameMode	| CN		    | 	
-|---------------| ----------------- | 
+|gameMode	| CN		   | 	
+|---------------| ---------------- | 
 | PRACTICETOOL	| 训练模式		| 
 | CLASSIC	| 召唤师峡谷		|
 | ARAM		| 嚎哭深渊		|
-| TUTORIAL	| 训练模式		|
+| TUTORIAL	| 新手教程		|
 | NEXUSBLITZ	| 极限闪击		|
 
   
