@@ -31,10 +31,13 @@
 
 将 [LeagueLobby.py](https://github.com/XHXIAIEIN/LeagueCustomLobby/blob/main/LeagueLobby.py) 下载到本地任意地方，运行脚本即可。
 
+  
+<br>   
+
 
 # 核心代码
 
-## 导入模块
+### 导入模块
 ```python
 from lcu_driver import Connector
 connector = Connector()
@@ -52,7 +55,7 @@ connector.start()
   
 <br>  
   
-## 获取召唤师数据
+### 获取召唤师数据
 ```python
 async def getSummonerInfo(connection):
 	summoner = await connection.request('get', '/lol-summoner/v1/current-summoner')
@@ -61,7 +64,7 @@ async def getSummonerInfo(connection):
   
 <br>  
   
-## 自定义训练模式
+### 自定义训练模式
 
 参数解释：
 - **gameMode**: 游戏模式。训练模式为"PRACTICETOOL"，自定义模式为 "CLASSIC"
@@ -95,7 +98,7 @@ async def creatLabby(connection):
   
 <br>  
   
-## 批量添加机器人
+### 批量添加机器人
 
 参数解释：
 - **championId**: 英雄ID，可以在下方表格查询。
@@ -199,7 +202,7 @@ print(champions)
 <br>  
   
   
-## mapID
+### mapID
 
 mapID 必须是开放状态才能创建。即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
 完整的 mapID 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/maps.json)查询。
@@ -215,7 +218,7 @@ mapID 必须是开放状态才能创建。即目前客户端可以玩极限闪�
 <br>  
 
 
-## gameModes
+### gameModes
 
 必须是开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
 完整的 gameMode 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/gameModes.json)查询。
