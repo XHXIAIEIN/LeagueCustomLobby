@@ -257,88 +257,87 @@ print( [{
 
 <br>  
   
-输出结果：
+输出结果（2021.01.21）：
 这里使用了由 @kdelmonte 开发的 [JSON to Markdown Table](https://kdelmonte.github.io/json-to-markdown-table/) 工具，将数据转换为 Markdown 表格。
 
-你看到前面一些空白的数据，可能是已经废弃的地图，后面有新的地图进行替换。
+你看到前面一些空白的数据，估计是已经被官方废弃的地图，而后面推出了新的地图进行替换。
 
-
-|  id  |        type       |         name         |      shortName       |    description    | category |      gameMode     | mapId | gameTypeId |            gameTypeName           |
-| ---- | ----------------- | -------------------- | -------------------- | ----------------- | -------- | ----------------- | ----- | ---------- | --------------------------------- |
-|    2 | NORMAL            | 匹配模式             | 匹配模式             | 自选模式          | PvP      | CLASSIC           |    11 |          1 | GAME_CFG_PICK_BLIND               |
-|    8 | NORMAL_3x3        | 匹配模式             | 匹配模式             | 自选模式          | PvP      | CLASSIC           |    10 |          1 | GAME_CFG_PICK_BLIND               |
-|    9 | RANKED_FLEX_TT    | 排位赛 灵活排位      | 排位赛 灵活排位      | 排位赛 灵活排位   | PvP      | CLASSIC           |    10 |          2 | GAME_CFG_DRAFT_STD                |
-|   31 | BOT               | 入门                 | 入门                 | 入门              | VersusAi | CLASSIC           |    11 |          1 | GAME_CFG_PICK_BLIND               |
-|   32 | BOT               | 新手                 | 新手                 | 新手              | VersusAi | CLASSIC           |    11 |          1 | GAME_CFG_PICK_BLIND               |
-|   33 | BOT               | 一般                 | 一般                 | 一般              | VersusAi | CLASSIC           |    11 |          1 | GAME_CFG_PICK_BLIND               |
-|   52 | BOT_3x3           | 新手                 | 新手                 | 新手              | VersusAi | CLASSIC           |    10 |          1 | GAME_CFG_PICK_BLIND               |
-|   65 | ARAM_UNRANKED_5x5 | 极地大乱斗           | 极地大乱斗           | 极地大乱斗        | PvP      | ARAM              |    12 |          4 | GAME_CFG_PICK_RANDOM              |
-|   70 | ONEFORALL_5x5     |                      |                      |                   | PvP      | CLASSIC           |    11 |         14 | GAME_CFG_BLIND_DUPE               |
-|   72 | FIRSTBLOOD_1x1    |                      |                      |                   | PvP      | FIRSTBLOOD        |    12 |          7 | GAME_CFG_PICK_SIMUL_TD            |
-|   73 | FIRSTBLOOD_2x2    |                      |                      |                   | PvP      | FIRSTBLOOD        |    12 |          7 | GAME_CFG_PICK_SIMUL_TD            |
-|   75 | SR_6x6            |                      |                      |                   | PvP      | CLASSIC           |    11 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
-|   76 | URF               |                      |                      |                   | PvP      | URF               |    11 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
-|   78 | ONEFORALL_5x5     |                      |                      |                   | PvP      | ARAM              |    12 |         15 | GAME_CFG_CROSS_DUPE               |
-|   91 | NIGHTMARE_BOT     | 大提魔节             | 大提魔节             | 大提魔节          | PvP      | DOOMBOTSTEEMO     |    11 |          1 | GAME_CFG_PICK_BLIND               |
-|   92 | NIGHTMARE_BOT     | 100级铁手挑战        | 100级铁手挑战        | 100级铁手挑战     | PvP      | DOOMBOTSTEEMO     |    11 |          1 | GAME_CFG_PICK_BLIND               |
-|   93 | NIGHTMARE_BOT     |                      |                      |                   | PvP      | DOOMBOTSTEEMO     |    11 |          1 | GAME_CFG_PICK_BLIND               |
-|   96 | ASCENSION         | 飞升争夺战           | 飞升争夺战           | 飞升争夺战        | PvP      | ASCENSION         |     8 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
-|   98 | HEXAKILL          |                      |                      |                   | PvP      | CLASSIC           |    10 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
-|  100 | ARAM_UNRANKED_5x5 | 匹配模式             | 匹配模式             | 自选模式          | PvP      | ARAM              |    14 |          4 | GAME_CFG_PICK_RANDOM              |
-|  300 | KING_PORO         | 魄罗大乱斗           | 魄罗大乱斗           | 魄罗大乱斗        | PvP      | KINGPORO          |    12 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
-|  310 | COUNTER_PICK      |                      |                      |                   | PvP      | CLASSIC           |    11 |         17 | GAME_CFG_COUNTER_PICK             |
-|  313 | BILGEWATER        |                      |                      |                   | PvP      | CLASSIC           |    11 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
-|  315 | SIEGE             | 枢纽攻防战           | 枢纽攻防战           | 枢纽攻防战        | PvP      | SIEGE             |    11 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
-|  318 | URF               | 无限乱斗             | 无限乱斗             | 无限乱斗          | PvP      | URF               |    11 |          4 | GAME_CFG_PICK_RANDOM              |
-|  325 | ARSR              | 峡谷大乱斗           | 峡谷大乱斗           | 峡谷大乱斗        | PvP      | ARSR              |    11 |          4 | GAME_CFG_PICK_RANDOM              |
-|  400 | NORMAL            | 匹配模式             | 匹配模式             | 征召模式          | PvP      | CLASSIC           |    11 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-|  420 | RANKED_SOLO_5x5   | 排位赛 单排/双排     | 排位赛 单排/双排     | 排位赛 单排/双排  | PvP      | CLASSIC           |    11 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-|  430 | NORMAL            | 匹配模式             | 匹配模式             | 自选模式          | PvP      | CLASSIC           |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  440 | RANKED_FLEX_SR    | 排位赛 灵活排位      | 排位赛 灵活排位      | 排位赛 灵活排位   | PvP      | CLASSIC           |    11 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-|  450 | ARAM_UNRANKED_5x5 | 极地大乱斗           | 极地大乱斗           | 极地大乱斗        | PvP      | ARAM              |    12 |         21 | GAME_CFG_TEAM_BUILDER_RANDOM      |
-|  460 | NORMAL_3x3        | 匹配模式             | 匹配模式             | 自选模式          | PvP      | CLASSIC           |    10 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  470 | RANKED_FLEX_TT    | 排位赛 灵活排位      | 排位赛 灵活排位      | 排位赛 灵活排位   | PvP      | CLASSIC           |    10 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-|  600 | ASSASSINATE       | 红月决               | 红月决               | 红月决            | PvP      | ASSASSINATE       |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  610 | DARKSTAR          | 暗星：奇点           | 暗星                 | 暗星：奇点        | PvP      | DARKSTAR          |    16 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  700 | CLASH             | 冠军杯赛             | 冠军杯赛             | 冠军杯赛          | PvP      | CLASSIC           |    11 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-|  800 | BOT_3x3           | 一般                 | 一般                 | 一般              | VersusAi | CLASSIC           |    10 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  810 | BOT_3x3           | 入门                 | 入门                 | 入门              | VersusAi | CLASSIC           |    10 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  820 | BOT_3x3           | 新手                 | 新手                 | 新手              | VersusAi | CLASSIC           |    10 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  830 | BOT               | 入门                 | 入门                 | 入门              | VersusAi | CLASSIC           |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  840 | BOT               | 新手                 | 新手                 | 新手              | VersusAi | CLASSIC           |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  850 | BOT               | 一般                 | 一般                 | 一般              | VersusAi | CLASSIC           |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  860 | ARAM_BOT          |                      |                      |                   | VersusAi | ARAM              |    12 |         21 | GAME_CFG_TEAM_BUILDER_RANDOM      |
-|  900 | URF               | 无限火力             | 无限火力             | 无限火力          | PvP      | URF               |    11 |         20 | GAME_CFG_TEAM_BUILDER_BLIND_DRAFT |
-|  910 | ASCENSION         | 飞升争夺战           | 飞升争夺战           | 飞升争夺战        | PvP      | ASCENSION         |     8 |         20 | GAME_CFG_TEAM_BUILDER_BLIND_DRAFT |
-|  920 | KING_PORO         | 魄罗大乱斗           | 魄罗大乱斗           | 魄罗大乱斗        | PvP      | KINGPORO          |    12 |         21 | GAME_CFG_TEAM_BUILDER_RANDOM      |
-|  930 | BILGEWATER        | 极地大乱斗           | 极地大乱斗           | 极地大乱斗        | PvP      | CLASSIC           |    11 |         20 | GAME_CFG_TEAM_BUILDER_BLIND_DRAFT |
-|  940 | SIEGE             | 枢纽攻防战           | 枢纽攻防战           | 枢纽攻防战        | PvP      | SIEGE             |    11 |         20 | GAME_CFG_TEAM_BUILDER_BLIND_DRAFT |
-|  950 | NIGHTMARE_BOT     | 100级铁手挑战        | 100级铁手挑战        | 100级铁手挑战     | PvP      | DOOMBOTSTEEMO     |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  960 | NIGHTMARE_BOT     | 大提魔节             | 大提魔节             | 大提魔节          | PvP      | DOOMBOTSTEEMO     |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  980 | STARGUARDIAN      | 怪兽入侵（普通）     | 怪兽入侵（普通）     | 普通              | PvP      | STARGUARDIAN      |    18 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|  990 | STARGUARDIAN      | 怪兽入侵（狂袭）     | 怪兽入侵（狂袭）     | 狂袭              | PvP      | STARGUARDIAN      |    18 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1000 | PROJECT           | 超频行动             | 超频行动             | 超频行动          | PvP      | PROJECT           |    19 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1010 | SNOWURF           | 冰雪无限火力         | 冰雪无限火力         | 冰雪无限火力      | PvP      | SNOWURF           |    11 |         21 | GAME_CFG_TEAM_BUILDER_RANDOM      |
-| 1020 | ONEFORALL         | 克隆大作战           | 克隆大作战           | 克隆大作战        | PvP      | ONEFORALL         |    11 |         22 | GAME_CFG_TEAM_BUILDER_BLIND_DUPE  |
-| 1030 | ODYSSEY           | 奥德赛(入门：一星)   | 奥德赛(入门：一星)   | 入门(难度：一星)  | PvP      | ODYSSEY           |    20 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1040 | ODYSSEY           | 奥德赛(学员：二星)   | 奥德赛(学员：二星)   | 学员(难度：二星)  | PvP      | ODYSSEY           |    20 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1050 | ODYSSEY           | 奥德赛(组员：三星)   | 奥德赛(组员：三星)   | 组员(难度：三星)  | PvP      | ODYSSEY           |    20 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1060 | ODYSSEY           | 奥德赛(船长：四星)   | 奥德赛(船长：四星)   | 船长(难度：四星)  | PvP      | ODYSSEY           |    20 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1070 | ODYSSEY           | 奥德赛(狂袭：五星)   | 奥德赛(狂袭：五星)   | 狂袭(难度：五星)  | PvP      | ODYSSEY           |    20 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1090 | NORMAL_TFT        | 云顶之弈（匹配模式） | 云顶之弈（匹配模式） | 匹配模式          | PvP      | TFT               |    22 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1091 | NORMAL_TFT        | 1v0                  | 1v0                  | 1v0               | PvP      | TFT               |    22 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1092 | NORMAL_TFT        | 2v0                  | 2v0                  | 2v0               | PvP      | TFT               |    22 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1100 | RANKED_TFT        | 云顶之弈 (排位赛)    | 云顶之弈 (排位赛)    | 排位              | PvP      | TFT               |    22 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1110 | TUTORIAL_TFT      | 云顶之弈 (新手教程)  | 云顶之弈 (新手教程)  | 新手教程          | PvP      | TFT               |    22 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1111 | NORMAL_TFT        | 云顶之弈模拟战       | 云顶之弈模拟战       | 模拟战            | PvP      | TFT               |    22 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 1200 | GAMEMODEX         | 极限闪击             | 极限闪击             | 自选模式          | PvP      | GAMEMODEX         |    21 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-| 1300 | NEXUSBLITZ        | 极限闪击             | 极限闪击             | 自选模式          | PvP      | NEXUSBLITZ        |    21 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-| 2000 | TUTORIAL_MODULE_1 | 新手教程 第一部分    | 新手教程 第一部分    | 新手教程 第一部分 | PvP      | TUTORIAL_MODULE_1 |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 2010 | TUTORIAL_MODULE_2 | 新手教程 第二部分    | 新手教程 第二部分    | 新手教程 第二部分 | PvP      | TUTORIAL_MODULE_2 |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-| 2020 | TUTORIAL_MODULE_3 | 新手教程 第三部分    | 新手教程 第三部分    | 新手教程 第三部分 | PvP      | TUTORIAL_MODULE_3 |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-
+|  id  |         name         |    description    |        type       | category |      gameMode     | mapId | gameTypeId |            gameTypeName           |
+| ---- | -------------------- | ----------------- | ----------------- | -------- | ----------------- | ----- | ---------- | --------------------------------- |
+|    2 | 匹配模式             | 自选模式          | NORMAL            | PvP      | CLASSIC           |    11 |          1 | GAME_CFG_PICK_BLIND               |
+|    8 | 匹配模式             | 自选模式          | NORMAL_3x3        | PvP      | CLASSIC           |    10 |          1 | GAME_CFG_PICK_BLIND               |
+|    9 | 排位赛 灵活排位      | 排位赛 灵活排位   | RANKED_FLEX_TT    | PvP      | CLASSIC           |    10 |          2 | GAME_CFG_DRAFT_STD                |
+|   31 | 入门                 | 入门              | BOT               | VersusAi | CLASSIC           |    11 |          1 | GAME_CFG_PICK_BLIND               |
+|   32 | 新手                 | 新手              | BOT               | VersusAi | CLASSIC           |    11 |          1 | GAME_CFG_PICK_BLIND               |
+|   33 | 一般                 | 一般              | BOT               | VersusAi | CLASSIC           |    11 |          1 | GAME_CFG_PICK_BLIND               |
+|   52 | 新手                 | 新手              | BOT_3x3           | VersusAi | CLASSIC           |    10 |          1 | GAME_CFG_PICK_BLIND               |
+|   65 | 极地大乱斗           | 极地大乱斗        | ARAM_UNRANKED_5x5 | PvP      | ARAM              |    12 |          4 | GAME_CFG_PICK_RANDOM              |
+|   70 |                      |                   | ONEFORALL_5x5     | PvP      | CLASSIC           |    11 |         14 | GAME_CFG_BLIND_DUPE               |
+|   72 |                      |                   | FIRSTBLOOD_1x1    | PvP      | FIRSTBLOOD        |    12 |          7 | GAME_CFG_PICK_SIMUL_TD            |
+|   73 |                      |                   | FIRSTBLOOD_2x2    | PvP      | FIRSTBLOOD        |    12 |          7 | GAME_CFG_PICK_SIMUL_TD            |
+|   75 |                      |                   | SR_6x6            | PvP      | CLASSIC           |    11 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
+|   76 |                      |                   | URF               | PvP      | URF               |    11 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
+|   78 |                      |                   | ONEFORALL_5x5     | PvP      | ARAM              |    12 |         15 | GAME_CFG_CROSS_DUPE               |
+|   91 | 大提魔节             | 大提魔节          | NIGHTMARE_BOT     | PvP      | DOOMBOTSTEEMO     |    11 |          1 | GAME_CFG_PICK_BLIND               |
+|   92 | 100级铁手挑战        | 100级铁手挑战     | NIGHTMARE_BOT     | PvP      | DOOMBOTSTEEMO     |    11 |          1 | GAME_CFG_PICK_BLIND               |
+|   93 |                      |                   | NIGHTMARE_BOT     | PvP      | DOOMBOTSTEEMO     |    11 |          1 | GAME_CFG_PICK_BLIND               |
+|   96 | 飞升争夺战           | 飞升争夺战        | ASCENSION         | PvP      | ASCENSION         |     8 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
+|   98 |                      |                   | HEXAKILL          | PvP      | CLASSIC           |    10 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
+|  100 | 匹配模式             | 自选模式          | ARAM_UNRANKED_5x5 | PvP      | ARAM              |    14 |          4 | GAME_CFG_PICK_RANDOM              |
+|  300 | 魄罗大乱斗           | 魄罗大乱斗        | KING_PORO         | PvP      | KINGPORO          |    12 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
+|  310 |                      |                   | COUNTER_PICK      | PvP      | CLASSIC           |    11 |         17 | GAME_CFG_COUNTER_PICK             |
+|  313 |                      |                   | BILGEWATER        | PvP      | CLASSIC           |    11 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
+|  315 | 枢纽攻防战           | 枢纽攻防战        | SIEGE             | PvP      | SIEGE             |    11 |         16 | GAME_CFG_BLIND_DRAFT_ST           |
+|  318 | 无限乱斗             | 无限乱斗          | URF               | PvP      | URF               |    11 |          4 | GAME_CFG_PICK_RANDOM              |
+|  325 | 峡谷大乱斗           | 峡谷大乱斗        | ARSR              | PvP      | ARSR              |    11 |          4 | GAME_CFG_PICK_RANDOM              |
+|  400 | 匹配模式             | 征召模式          | NORMAL            | PvP      | CLASSIC           |    11 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
+|  420 | 排位赛 单排/双排     | 排位赛 单排/双排  | RANKED_SOLO_5x5   | PvP      | CLASSIC           |    11 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
+|  430 | 匹配模式             | 自选模式          | NORMAL            | PvP      | CLASSIC           |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  440 | 排位赛 灵活排位      | 排位赛 灵活排位   | RANKED_FLEX_SR    | PvP      | CLASSIC           |    11 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
+|  450 | 极地大乱斗           | 极地大乱斗        | ARAM_UNRANKED_5x5 | PvP      | ARAM              |    12 |         21 | GAME_CFG_TEAM_BUILDER_RANDOM      |
+|  460 | 匹配模式             | 自选模式          | NORMAL_3x3        | PvP      | CLASSIC           |    10 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  470 | 排位赛 灵活排位      | 排位赛 灵活排位   | RANKED_FLEX_TT    | PvP      | CLASSIC           |    10 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
+|  600 | 红月决               | 红月决            | ASSASSINATE       | PvP      | ASSASSINATE       |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  610 | 暗星：奇点           | 暗星：奇点        | DARKSTAR          | PvP      | DARKSTAR          |    16 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  700 | 冠军杯赛             | 冠军杯赛          | CLASH             | PvP      | CLASSIC           |    11 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
+|  800 | 一般                 | 一般              | BOT_3x3           | VersusAi | CLASSIC           |    10 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  810 | 入门                 | 入门              | BOT_3x3           | VersusAi | CLASSIC           |    10 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  820 | 新手                 | 新手              | BOT_3x3           | VersusAi | CLASSIC           |    10 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  830 | 入门                 | 入门              | BOT               | VersusAi | CLASSIC           |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  840 | 新手                 | 新手              | BOT               | VersusAi | CLASSIC           |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  850 | 一般                 | 一般              | BOT               | VersusAi | CLASSIC           |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  860 |                      |                   | ARAM_BOT          | VersusAi | ARAM              |    12 |         21 | GAME_CFG_TEAM_BUILDER_RANDOM      |
+|  900 | 无限火力             | 无限火力          | URF               | PvP      | URF               |    11 |         20 | GAME_CFG_TEAM_BUILDER_BLIND_DRAFT |
+|  910 | 飞升争夺战           | 飞升争夺战        | ASCENSION         | PvP      | ASCENSION         |     8 |         20 | GAME_CFG_TEAM_BUILDER_BLIND_DRAFT |
+|  920 | 魄罗大乱斗           | 魄罗大乱斗        | KING_PORO         | PvP      | KINGPORO          |    12 |         21 | GAME_CFG_TEAM_BUILDER_RANDOM      |
+|  930 | 极地大乱斗           | 极地大乱斗        | BILGEWATER        | PvP      | CLASSIC           |    11 |         20 | GAME_CFG_TEAM_BUILDER_BLIND_DRAFT |
+|  940 | 枢纽攻防战           | 枢纽攻防战        | SIEGE             | PvP      | SIEGE             |    11 |         20 | GAME_CFG_TEAM_BUILDER_BLIND_DRAFT |
+|  950 | 100级铁手挑战        | 100级铁手挑战     | NIGHTMARE_BOT     | PvP      | DOOMBOTSTEEMO     |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  960 | 大提魔节             | 大提魔节          | NIGHTMARE_BOT     | PvP      | DOOMBOTSTEEMO     |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  980 | 怪兽入侵（普通）     | 普通              | STARGUARDIAN      | PvP      | STARGUARDIAN      |    18 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+|  990 | 怪兽入侵（狂袭）     | 狂袭              | STARGUARDIAN      | PvP      | STARGUARDIAN      |    18 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1000 | 超频行动             | 超频行动          | PROJECT           | PvP      | PROJECT           |    19 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1010 | 冰雪无限火力         | 冰雪无限火力      | SNOWURF           | PvP      | SNOWURF           |    11 |         21 | GAME_CFG_TEAM_BUILDER_RANDOM      |
+| 1020 | 克隆大作战           | 克隆大作战        | ONEFORALL         | PvP      | ONEFORALL         |    11 |         22 | GAME_CFG_TEAM_BUILDER_BLIND_DUPE  |
+| 1030 | 奥德赛(入门：一星)   | 入门(难度：一星)  | ODYSSEY           | PvP      | ODYSSEY           |    20 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1040 | 奥德赛(学员：二星)   | 学员(难度：二星)  | ODYSSEY           | PvP      | ODYSSEY           |    20 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1050 | 奥德赛(组员：三星)   | 组员(难度：三星)  | ODYSSEY           | PvP      | ODYSSEY           |    20 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1060 | 奥德赛(船长：四星)   | 船长(难度：四星)  | ODYSSEY           | PvP      | ODYSSEY           |    20 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1070 | 奥德赛(狂袭：五星)   | 狂袭(难度：五星)  | ODYSSEY           | PvP      | ODYSSEY           |    20 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1090 | 云顶之弈（匹配模式） | 匹配模式          | NORMAL_TFT        | PvP      | TFT               |    22 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1091 | 1v0                  | 1v0               | NORMAL_TFT        | PvP      | TFT               |    22 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1092 | 2v0                  | 2v0               | NORMAL_TFT        | PvP      | TFT               |    22 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1100 | 云顶之弈 (排位赛)    | 排位              | RANKED_TFT        | PvP      | TFT               |    22 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1110 | 云顶之弈 (新手教程)  | 新手教程          | TUTORIAL_TFT      | PvP      | TFT               |    22 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1111 | 云顶之弈模拟战       | 模拟战            | NORMAL_TFT        | PvP      | TFT               |    22 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 1200 | 极限闪击             | 自选模式          | GAMEMODEX         | PvP      | GAMEMODEX         |    21 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
+| 1300 | 极限闪击             | 自选模式          | NEXUSBLITZ        | PvP      | NEXUSBLITZ        |    21 |         18 | GAME_CFG_TEAM_BUILDER_DRAFT       |
+| 2000 | 新手教程 第一部分    | 新手教程 第一部分 | TUTORIAL_MODULE_1 | PvP      | TUTORIAL_MODULE_1 |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 2010 | 新手教程 第二部分    | 新手教程 第二部分 | TUTORIAL_MODULE_2 | PvP      | TUTORIAL_MODULE_2 |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
+| 2020 | 新手教程 第三部分    | 新手教程 第三部分 | TUTORIAL_MODULE_3 | PvP      | TUTORIAL_MODULE_3 |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
 
   
+<br>  
   
 # TODO
 1. 做个简单的UI，并脱离python环境?
