@@ -368,7 +368,21 @@ print(await data.json())
 
 <br>  
 
-  
+
+# 获取服务器地区数据
+```
+data = await connection.request('GET', '/riotclient/get_region_locale')
+print(await data.json())
+```
+
+参数解释：
+- **locale**: 'zh_CN'
+- **region**: 'TENCENT'
+- **webLanguage**: 'zh'
+- **'webRegion'**: 'staging.na'
+
+<br>  
+
 # TODO
 1. 做个简单的UI，并脱离python环境?
 
