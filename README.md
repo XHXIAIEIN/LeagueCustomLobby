@@ -223,14 +223,50 @@ mapID 必须是开放状态才能创建。即目前客户端可以玩极限闪�
 必须是开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
 完整的 gameMode 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/gameModes.json)查询。
 
-|gameMode	| CN		   | 	
+| gameMode	| CN		   | 	
 |---------------| ---------------- | 
 | PRACTICETOOL	| 训练模式		| 
 | CLASSIC	| 召唤师峡谷		|
 | ARAM		| 嚎哭深渊		|
-| TUTORIAL	| 新手教程		|
-| NEXUSBLITZ	| 极限闪击		|
+| GAMEMODEX	| 极限闪击		|
+| URF		| 无限火力		|
+| TFT		| 云顶之弈		|
+| NORMAL	| 匹配模式		|
+| TUTORIAL_MODULE_1	| 新手教程 第一部分	|
+| TUTORIAL_MODULE_2	| 新手教程 第二部分	|
+| TUTORIAL_MODULE_3	| 新手教程 第三部分	|
+| ARSR		| 峡谷大乱斗		|
+| KINGPORO	| 魄罗大乱斗		|
+| ONEFORALL	| 克隆大作战		|
+| SIEGE		| 枢纽攻防战 	|
+| ASCENSION	| 飞升争夺战		|
+| SNOWURF	| 冰雪无限火力 	|
+| DARKSTAR	| 暗星		|
+| ASSASSINATE	| 红月决		|
+| ODYSSEY	| 奥德赛		|
+| DOOMBOTSTEEMO	| 大提魔节 		|
+| STARGUARDIAN	| 怪兽入侵		|
+| PROJECT 	| 超频行动 		|
+| FIRSTBLOOD	|  |
 
+### queue
+
+**get queue**
+```python
+async def getQueuesInfo(connection):
+	data = await connection.request('get', '/lol-game-queues/v1/queues')
+	print(await data.json())
+```
+  
+**get queue by id**
+```python
+async def getQueuesInfo(connection):
+	id = 900
+	data = await connection.request('get', f'/lol-game-queues/v1/queues/{id}')
+	print(await data.json())
+```
+
+  
   
 # TODO
 1. 做个简单的UI，并脱离python环境?
