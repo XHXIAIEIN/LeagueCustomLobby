@@ -381,8 +381,8 @@ print(await data.json())
 - **allowedKickOthers**: 是否允许踢人
 - **allowedInviteOthers**: 是否允许邀请
 - **ready**: 准备状态
-- **firstPositionPreference**: 首选位置： UNSELECTED 未选择 / FILL 补位 / UTILITY 辅助
-- **firstPositionPreference**: 次选位置： TOP 上路 / TOP 上路 / JUNGLE 打野 / MIDDLE 中路 / BOTTOM 下路 
+- **firstPositionPreference**: 首选位置 UNSELECTED 未选择 / FILL 补位 / UTILITY 辅助 / ↓
+- **firstPositionPreference**: 次选位置 TOP 上路 / JUNGLE 打野 / MIDDLE 中路 / BOTTOM 下路 
 
 <br>  
 
@@ -408,6 +408,25 @@ print(await data.json())
 data = await connection.request('get', '/lol-maps/v1/maps')
 print(await data.json())
 ```
+
+<br>  
+
+
+# **lockfile** 
+
+文件路径
+```
+\英雄联盟\LeagueClient\lockfile
+```
+
+使用文本编辑器打开：  
+```
+LeagueClient:12192:{端口}:{密码}:https
+```
+
+然后就可以通过浏览器访问 **https://127.0.0.1:{端口}** ，提示需要输入账号密码：
+- 账号：**riot**
+- 密码：{上面的密码}
 
 
 <br>  
