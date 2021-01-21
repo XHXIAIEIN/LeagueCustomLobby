@@ -412,21 +412,67 @@ print(await data.json())
 <br>  
 
 
-# **lockfile** 
+# 利用 **lockfile** 文件访问客户端
 
-文件路径
-```
-\英雄联盟\LeagueClient\lockfile
-```
 
-使用文本编辑器打开：  
+**获取游戏安装路径**
 ```
-LeagueClient:12192:{端口}:{密码}:https
+@connector.ready
+async def connect(connection):
+	connection.installation_path
 ```
 
-然后就可以通过浏览器访问 **https://127.0.0.1:{端口}** ，提示需要输入账号密码：
+**获取 lockfile 文件路径**
+
+由于国服路径会因为编码问题，额外生成 gbk 编码的 '鑻遍泟鑱旂洘'，需要将它转换为 utf-8 编码的 '英雄联盟'
+```python
+path = path.encode('gbk').decode('utf-8')
+lockfile_path = os.path.join(path, 'lockfile')
+print(lockfile_path)
+```
+
+def get_lockfile(path):
+	# 读取数据
+	if os.path.isfile(lockfile_path):
+		file = open(lockfile_path, 'r')
+		text = file.readline().split(':')
+		file.close()
+		return text
+	else:
+		print(f'{lockfile_path} \n lockfile 文件不存在' )
+	return None
+```
+
+lockfile 文件的内容
+```
+LeagueClient:{进程PID}:{端口}:{密码}:https
+```
+
+然后就可以通过浏览器访问 ` https://127.0.0.1:{端口}/process-control/v1/process `  打开提示需要输入账号密码
 - 账号：**riot**
 - 密码：{上面的密码}
+
+<br>  
+
+### 请求方法
+
+然后在控制台中执行这个代码：  
+该方案来源：[nomi-san](https://github.com/Pupix/rift-explorer/issues/111#issuecomment-593249708)
+
+```javascript
+
+```
+
+### 获取房间数据
+
+然后先创建一个房间。  
+创建完成后，继续在浏览器控制台发送请求  
+
+```javascript
+await request('GET', '/lol-lobby/v2/lobby');
+```
+
+这样就能获取到房间数据了。
 
 
 <br>  
