@@ -37,7 +37,7 @@
 
 # 核心代码
 
-### 导入模块
+### 客户端事件
 ```python
 from lcu_driver import Connector
 connector = Connector()
@@ -61,18 +61,31 @@ async def getSummonerInfo(connection):
 	summoner = await connection.request('get', '/lol-summoner/v1/current-summoner')
 	print(await summoner.json())
 ```
+
   
 <br>  
   
-### 自定义训练模式
+### 直接创建房间
+
+快速根据 **queueId** 创建房间：
+
+```python
+async def createLobby(connection):
+	queueId = 430
+	await connection.request('post', '/lol-lobby/v2/lobby', data=queueId)
+```
+  
+<br>  
+  
+### 5V5自定义训练模式
 
 参数解释：
-- **gameMode**: 游戏模式。训练模式为"PRACTICETOOL"，自定义模式为 "CLASSIC"
+- **gameMode**: 游戏模式。训练模式为 "PRACTICETOOL"， 自定义模式为 "CLASSIC"
 - **mapId**:  地图ID。召唤师峡谷：11。
 - **lobbyName**: 房间名称
 
 ```json
-async def creatLabby(connection):
+async def creatCustomLabby(connection):
 	# 房间数据
 	LobbyConfig = {
 	  "customGameLobby": {
@@ -261,11 +274,16 @@ print( [{
 输出结果（2021.01.21）  
 这里使用了由 @kdelmonte 开发的 [JSON to Markdown Table](https://kdelmonte.github.io/json-to-markdown-table/) 工具，将数据转换为 Markdown 表格。
 
+
+| queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
+|----------|----------------------|-------------------|-------------------|-------|----------|
+|        9 | 排位赛 灵活排位      | RANKED_FLEX_TT    | CLASSIC           |    10 | PvP      |
+
+
 | queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
 |----------|----------------------|-------------------|-------------------|-------|----------|
 |        2 | 匹配模式             | NORMAL            | CLASSIC           |    11 | PvP      |
 |        8 | 匹配模式             | NORMAL_3x3        | CLASSIC           |    10 | PvP      |
-|        9 | 排位赛 灵活排位      | RANKED_FLEX_TT    | CLASSIC           |    10 | PvP      |
 |       31 | 入门                 | BOT               | CLASSIC           |    11 | VersusAi |
 |       32 | 新手                 | BOT               | CLASSIC           |    11 | VersusAi |
 |       33 | 一般                 | BOT               | CLASSIC           |    11 | VersusAi |
@@ -368,7 +386,6 @@ print(await data.json())
 
 <br>  
 
-
 # 获取服务器地区数据
 ```
 data = await connection.request('GET', '/riotclient/get_region_locale')
@@ -383,11 +400,25 @@ print(await data.json())
 
 <br>  
 
+# 获取地图数据
+
+可以得到地图的介绍、资源图标等信息
+
+```
+data = await connection.request('get', '/lol-maps/v1/maps')
+print(await data.json())
+```
+
+
+<br>  
+
+
 # TODO
 1. 做个简单的UI，并脱离python环境?
 
   
-<br>  
+<br> 
+
   
 ---
   
