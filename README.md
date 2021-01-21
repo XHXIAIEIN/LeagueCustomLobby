@@ -446,6 +446,7 @@ def get_lockfile(path):
 ```
 
 **分析 lockfile**
+该方案来源：[nomi-san](https://github.com/Pupix/rift-explorer/issues/111#issuecomment-593249708)
 ```
 LeagueClient:{进程PID}:{端口}:{密码}:https
 ```
@@ -458,7 +459,7 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 ### 请求方法
 
 然后在控制台中执行这个代码：  
-该方案来源：[nomi-san](https://github.com/Pupix/rift-explorer/issues/111#issuecomment-593249708)
+该方案来源：[! xXKiller_BOSSXx](https://discord.com/channels/187652476080488449/516802588805431296/793654937795559474)
 
 ```javascript
 def getResources(connection, url):
