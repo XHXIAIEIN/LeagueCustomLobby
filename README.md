@@ -262,7 +262,7 @@ print( [{
 
 你看到前面一些空白的数据，可能是已经废弃的地图，后面有新的地图进行替换。
 
-```markdown
+
 |  id  |        type       |         name         |      shortName       |    description    | category |      gameMode     | mapId | gameTypeId |            gameTypeName           |
 | ---- | ----------------- | -------------------- | -------------------- | ----------------- | -------- | ----------------- | ----- | ---------- | --------------------------------- |
 |    2 | NORMAL            | 匹配模式             | 匹配模式             | 自选模式          | PvP      | CLASSIC           |    11 |          1 | GAME_CFG_PICK_BLIND               |
@@ -336,7 +336,6 @@ print( [{
 | 2000 | TUTORIAL_MODULE_1 | 新手教程 第一部分    | 新手教程 第一部分    | 新手教程 第一部分 | PvP      | TUTORIAL_MODULE_1 |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
 | 2010 | TUTORIAL_MODULE_2 | 新手教程 第二部分    | 新手教程 第二部分    | 新手教程 第二部分 | PvP      | TUTORIAL_MODULE_2 |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
 | 2020 | TUTORIAL_MODULE_3 | 新手教程 第三部分    | 新手教程 第三部分    | 新手教程 第三部分 | PvP      | TUTORIAL_MODULE_3 |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-```
 
 
   
