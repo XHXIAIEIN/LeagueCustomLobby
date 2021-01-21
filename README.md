@@ -431,6 +431,8 @@ lockfile_path = os.path.join(path, 'lockfile')
 print(lockfile_path)
 ```
 
+**读取 lockfile 文件内容**
+```python
 def get_lockfile(path):
 	# 读取数据
 	if os.path.isfile(lockfile_path):
@@ -443,11 +445,10 @@ def get_lockfile(path):
 	return None
 ```
 
-lockfile 文件的内容
+**分析 lockfile**
 ```
 LeagueClient:{进程PID}:{端口}:{密码}:https
 ```
-
 然后就可以通过浏览器访问 ` https://127.0.0.1:{端口}/process-control/v1/process `  打开提示需要输入账号密码
 - 账号：**riot**
 - 密码：{上面的密码}
@@ -460,7 +461,13 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 该方案来源：[nomi-san](https://github.com/Pupix/rift-explorer/issues/111#issuecomment-593249708)
 
 ```javascript
-
+def getResources(connection, url):
+	lockfile = get_lockfile(connection.installation_path)
+	request = requests.post(f'{lockfile[4]}://127.0.0.1:{lockfile[2]}/{url}',
+		  headers={'Authorization': f'Basic {base64.b64encode(f"riot:{lockfile[3]}".encode("utf-8")).decode("utf-8")}' },
+		  verify='riotgames.pem',
+		  json={"queueId" : 450})
+	print(f'{lockfile[4]}://127.0.0.1:{lockfile[2]}/{url}')
 ```
 
 ### 获取房间数据
