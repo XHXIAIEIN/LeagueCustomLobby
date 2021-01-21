@@ -105,11 +105,11 @@ async def creatLabby(connection):
 - **botDifficulty**:  机器人难度。可惜国服只有 "EASY"
 - **teamId**: 左边蓝队：100 / 右边红队：200
 
-**根据ID创建**
+**根据ID添加**
 ```python
 async def addBots(connection):
-	champions = [122, 86, 1, 51, 25]
-	for id in champions:
+	team2 = [122, 86, 1, 51, 25]
+	for id in team2:
 		bots = {
 			"championId": id,
 			"botDifficulty": "MEDIUM",
@@ -120,7 +120,7 @@ async def addBots(connection):
   
 <br>  
   
-**根据名称创建**
+**根据名称添加**
 ```python
 async def addBots(connection):
 	# 获取可用的机器人列表
@@ -143,7 +143,10 @@ async def addBots(connection):
 <br>  
   
 ## 自定义模式机器人列表
- 
+
+自定义模式中的电脑机器人是有限的，只能选择列表中这些英雄。   
+请求此方法的时候，需要先创建房间。  
+
 ```python
 data = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
 champions = {bots['name']: bots['id'] for bots in await data.json()}
@@ -201,14 +204,12 @@ print(champions)
 
 <br>  
   
-
 ### gameModes
 
 必须是开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
 完整的 gameMode 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/gameModes.json)查询。
 
 如何获取：
-
 **get queue**
 ```python
 async def getQueuesInfo(connection):
@@ -257,7 +258,7 @@ print( [{
 
 <br>  
   
-输出结果（2021.01.21）：
+输出结果（2021.01.21）  
 这里使用了由 @kdelmonte 开发的 [JSON to Markdown Table](https://kdelmonte.github.io/json-to-markdown-table/) 工具，将数据转换为 Markdown 表格。
 
 | queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
