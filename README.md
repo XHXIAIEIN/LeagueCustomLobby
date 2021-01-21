@@ -362,8 +362,9 @@ print(await data.json())
 - **isLeader**: 是否为房主
 - **allowedKickOthers**: 是否允许踢人
 - **allowedInviteOthers**: 是否允许邀请
-- **firstPositionPreference**: 首选位置： UNSELECTED 未选择 / FILL 补位 / TOP 上路 / TOP 上路 / JUNGLE 打野 / MIDDLE 中路 / BOTTOM 下路 / UTILITY 辅助
-- **firstPositionPreference**: 次选位置 
+- **ready**: 准备状态
+- **firstPositionPreference**: 首选位置： UNSELECTED 未选择 / FILL 补位 / UTILITY 辅助
+- **firstPositionPreference**: 次选位置： TOP 上路 / TOP 上路 / JUNGLE 打野 / MIDDLE 中路 / BOTTOM 下路 
 
 <br>  
 
