@@ -344,6 +344,17 @@ print( [{
 
 
 <br>  
+
+# 获取房间玩家数据
+
+```
+data = await connection.request('GET', '/lol-lobby/v2/lobby/members')
+print(await data.json())
+```
+
+
+<br>  
+
   
 # TODO
 1. 做个简单的UI，并脱离python环境?
