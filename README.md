@@ -13,27 +13,50 @@
   
 <br>  
 
-# 如何使用
-
+# 如何安装
 1. [Python 3](https://www.python.org)   
 2. [lcu-driver](https://github.com/sousa-andre/lcu-driver)  
     按下 Windows + R 打开运行窗口，输入 cmd ，在控制台输入指令：  
     ```
     pip install lcu-driver
     ```
-3. 将 [LeagueLobby.py](https://github.com/XHXIAIEIN/LeagueCustomLobby/blob/main/LeagueLobby.py) 下载到本地任意地方，运行脚本即可。
-  
+3. 部分用户可能会遇到 **psutil.AccessDenied** 错误提示，需要额外执行安装：
+    ```
+    pip install -U psutil==5.6.5
+    ```
   
 <br>  
 
+# 如何使用
+
+
+
+
 # 核心代码
+
+## 导入模块
+```python
+from lcu_driver import Connector
+connector = Connector()
+
+@connector.ready
+async def connect(connection):
+    print('LCU API is ready to be used.')
+
+@connector.close
+async def disconnect(connection):
+    print('Finished task')
+
+connector.start()
+```
   
 <br>  
   
 ## 获取召唤师数据
 ```python
-summoner = await connection.request('get', '/lol-summoner/v1/current-summoner')
-print(await summoner.json())
+async def getSummonerInfo(connection):
+	summoner = await connection.request('get', '/lol-summoner/v1/current-summoner')
+	print(await summoner.json())
 ```
   
 <br>  
@@ -46,26 +69,27 @@ print(await summoner.json())
 - **lobbyName**: 房间名称
 
 ```json
-# 房间数据
-custom = {
-  "customGameLobby": {
-    "configuration": {
-      "gameMode": "PRACTICETOOL", 
-      "gameMutator": "", 
-      "gameServerRegion": "", 
-      "mapId": 11, 
-      "mutators": {"id": 1}, 
-      "spectatorPolicy": "AllAllowed", 
-      "teamSize": 5
-    },
-    "lobbyName": "Name",
-    "lobbyPassword": ""
-  },
-  "isCustom": true
-}
+async def creatLabby(connection):
+	# 房间数据
+	LobbyConfig = {
+	  "customGameLobby": {
+	    "configuration": {
+	      "gameMode": "PRACTICETOOL", 
+	      "gameMutator": "", 
+	      "gameServerRegion": "", 
+	      "mapId": 11, 
+	      "mutators": {"id": 1}, 
+	      "spectatorPolicy": "AllAllowed", 
+	      "teamSize": 5
+	    },
+	    "lobbyName": "Name",
+	    "lobbyPassword": ""
+	  },
+	  "isCustom": true
+	}
 
-# 创建房间
-await connection.request('post', '/lol-lobby/v2/lobby', data=custom)
+	# 发送[创建房间]请求
+	await connection.request('post', '/lol-lobby/v2/lobby', data=LobbyConfig)
 ```
   
   
@@ -78,35 +102,38 @@ await connection.request('post', '/lol-lobby/v2/lobby', data=custom)
 - **botDifficulty**:  机器人难度。可惜国服只有 "EASY"
 - **teamId**: 左边蓝队：100 / 右边红队：200
 
-**根据ID**
+**根据ID创建**
 ```python
-champions = [122, 86, 1, 51, 25]
-for id in champions:
-	bots = {
-		"championId": id,
-		"botDifficulty": "MEDIUM",
-		"teamId": "200"
-	}
-	await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
+async def addBots(connection):
+	champions = [122, 86, 1, 51, 25]
+	for id in champions:
+		bots = {
+			"championId": id,
+			"botDifficulty": "MEDIUM",
+			"teamId": "200"
+		}
+		await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
 ```
   
 <br>  
   
-**根据名称**
+**根据名称创建**
 ```python
-# 获取自定义模式机器人列表
-activedata = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
-champions = { bot['name']: bot['id'] for bot in await activedata.json() }
-
-team2 = ["诺克萨斯之手", "德玛西亚之力", "曙光女神", "皮城女警", "众星之子"]
-
-for name in team2:
-	bots = {
-		"championId": champions[name],
-		"botDifficulty": "MEDIUM",
-		"teamId": "200"
-	}
-	await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
+async def addBots(connection):
+	# 获取可用的机器人列表
+	activedata = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
+	champions = { bot['name']: bot['id'] for bot in await activedata.json() }
+	
+	# 队伍2的机器人
+	team2 = ["诺克萨斯之手", "德玛西亚之力", "曙光女神", "皮城女警", "众星之子"]
+	
+	for name in team2:
+		bots = {
+			"championId": champions[name],
+			"botDifficulty": "MEDIUM",
+			"teamId": "200"
+		}
+		await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
 ```
   
 
@@ -120,7 +147,7 @@ champions = {bots['name']: bots['id'] for bots in await data.json()}
 print(champions)
 ```
 
-| championId	| CN		   | EN			   |	
+| championId  | CN         | EN			   |	
 | ----- | ---------------- | --------------------- |	
 | 1	| 黑暗之女		| Annie			|	
 | 3	| 正义巨像		| Galio			|	
@@ -174,7 +201,7 @@ print(champions)
   
 ## mapID
 
-mapID 必须是开放状态才能创建。当前客户端可以玩极限闪击，才能创建极限闪击的房间。  
+mapID 必须是开放状态才能创建。即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
 完整的 mapID 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/maps.json)查询。
 
 | mapId	| CN		    | mapName		   |   notes		  |
@@ -190,7 +217,7 @@ mapID 必须是开放状态才能创建。当前客户端可以玩极限闪击�
 
 ## gameModes
 
-必须是开放状态才能创建，当前客户端可以玩极限闪击，才能创建极限闪击的房间。  
+必须是开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
 完整的 gameMode 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/gameModes.json)查询。
 
 |gameMode	| CN		   | 	
