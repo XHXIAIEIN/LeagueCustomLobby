@@ -207,6 +207,52 @@ print(champions)
 必须是开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
 完整的 gameMode 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/gameModes.json)查询。
 
+
+### queue
+
+**get queue**
+```python
+async def getQueuesInfo(connection):
+	data = await connection.request('get', '/lol-game-queues/v1/queues')
+	print(await data.json())
+```
+  
+**get queue by id**
+```python
+async def getQueuesInfo(connection):
+	id = 900
+	data = await connection.request('get', f'/lol-game-queues/v1/queues/{id}')
+	print(await data.json())
+```
+  
+**get queue by type**
+```python
+async def getQueuesInfo(connection):
+	queueType = 'URF'
+	data = await connection.request('get', f'/lol-game-queues/v1/queues/type/{queueType}')
+	print(await data.json())
+```
+
+但是这样数据太多了，不方便看。
+为了方便，输出一些适合预览的数据：
+```
+data = await connection.request('get', '/lol-game-queues/v1/queues')
+print( [{
+	"id":queue['id'], "type":queue['type'], 
+	"name":queue['name'], 
+	"shortName":queue['shortName'], 
+	"description":queue['description'], 
+	"category": queue['category'], 
+	"gameMode": queue['gameMode'], 
+	"mapId": queue['mapId'],  
+	"gameTypeId": queue['gameTypeConfig']['id'], 
+	"gameTypeName": queue['gameTypeConfig']['name']
+	} for queue in await data.json()])
+```
+
+输出结果：
+这里使用了由 @kdelmonte 开发的 [JSON to Markdown Table](https://kdelmonte.github.io/json-to-markdown-table/) 工具，将数据转换为 Markdown 表格
+```
 |  id  |        type       |         name         |      shortName       |    description    | category |      gameMode     | mapId | gameTypeId |            gameTypeName           |
 | ---- | ----------------- | -------------------- | -------------------- | ----------------- | -------- | ----------------- | ----- | ---------- | --------------------------------- |
 |    2 | NORMAL            | 匹配模式             | 匹配模式             | 自选模式          | PvP      | CLASSIC           |    11 |          1 | GAME_CFG_PICK_BLIND               |
@@ -280,30 +326,6 @@ print(champions)
 | 2000 | TUTORIAL_MODULE_1 | 新手教程 第一部分    | 新手教程 第一部分    | 新手教程 第一部分 | PvP      | TUTORIAL_MODULE_1 |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
 | 2010 | TUTORIAL_MODULE_2 | 新手教程 第二部分    | 新手教程 第二部分    | 新手教程 第二部分 | PvP      | TUTORIAL_MODULE_2 |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
 | 2020 | TUTORIAL_MODULE_3 | 新手教程 第三部分    | 新手教程 第三部分    | 新手教程 第三部分 | PvP      | TUTORIAL_MODULE_3 |    11 |         19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-
-### queue
-
-**get queue**
-```python
-async def getQueuesInfo(connection):
-	data = await connection.request('get', '/lol-game-queues/v1/queues')
-	print(await data.json())
-```
-  
-**get queue by id**
-```python
-async def getQueuesInfo(connection):
-	id = 900
-	data = await connection.request('get', f'/lol-game-queues/v1/queues/{id}')
-	print(await data.json())
-```
-  
-**get queue by type**
-```python
-async def getQueuesInfo(connection):
-	queueType = 'URF'
-	data = await connection.request('get', f'/lol-game-queues/v1/queues/type/{queueType}')
-	print(await data.json())
 ```
 
 
