@@ -347,11 +347,23 @@ print( [{
 
 # 获取房间玩家数据
 
+获取的是队伍真实玩家数据，观众、机器人不在列表中。
 ```
 data = await connection.request('GET', '/lol-lobby/v2/lobby/members')
 print(await data.json())
 ```
 
+部分参数解释：
+- **summonerId**: ID
+- **summonerIconId**: 头像
+- **summonerName**: 名称
+- **summonerLevel**:  等级
+- **teamId**: 左边蓝队：100 / 右边红队：200
+- **isLeader**: 是否为房主
+- **allowedKickOthers**: 是否允许踢人
+- **allowedInviteOthers**: 是否允许邀请
+- **firstPositionPreference**: 首选位置： UNSELECTED 未选择 / FILL 补位 / TOP 上路 / TOP 上路 / JUNGLE 打野 / MIDDLE 中路 / BOTTOM 下路 / UTILITY 辅助
+- **firstPositionPreference**: 次选位置 
 
 <br>  
 
