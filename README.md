@@ -91,7 +91,7 @@ async def creatLabby(connection):
 	  "isCustom": true
 	}
 
-	# 发送[创建房间]请求
+	# 发送创建房间请求
 	await connection.request('post', '/lol-lobby/v2/lobby', data=LobbyConfig)
 ```
   
