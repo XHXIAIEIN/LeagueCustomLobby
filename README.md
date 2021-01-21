@@ -207,8 +207,7 @@ print(champions)
 必须是开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
 完整的 gameMode 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/gameModes.json)查询。
 
-
-### queue
+如何获取：
 
 **get queue**
 ```python
@@ -216,6 +215,8 @@ async def getQueuesInfo(connection):
 	data = await connection.request('get', '/lol-game-queues/v1/queues')
 	print(await data.json())
 ```
+
+<br>  
   
 **get queue by id**
 ```python
@@ -224,6 +225,8 @@ async def getQueuesInfo(connection):
 	data = await connection.request('get', f'/lol-game-queues/v1/queues/{id}')
 	print(await data.json())
 ```
+
+<br>  
   
 **get queue by type**
 ```python
@@ -233,6 +236,8 @@ async def getQueuesInfo(connection):
 	print(await data.json())
 ```
 
+<br>  
+  
 但是这样数据太多了，不方便看。
 为了方便，输出一些适合预览的数据：
 ```
@@ -250,9 +255,14 @@ print( [{
 	} for queue in await data.json()])
 ```
 
+<br>  
+  
 输出结果：
-这里使用了由 @kdelmonte 开发的 [JSON to Markdown Table](https://kdelmonte.github.io/json-to-markdown-table/) 工具，将数据转换为 Markdown 表格
-```
+这里使用了由 @kdelmonte 开发的 [JSON to Markdown Table](https://kdelmonte.github.io/json-to-markdown-table/) 工具，将数据转换为 Markdown 表格。
+
+你看到前面一些空白的数据，可能是已经废弃的地图，后面有新的地图进行替换。
+
+```markdown
 |  id  |        type       |         name         |      shortName       |    description    | category |      gameMode     | mapId | gameTypeId |            gameTypeName           |
 | ---- | ----------------- | -------------------- | -------------------- | ----------------- | -------- | ----------------- | ----- | ---------- | --------------------------------- |
 |    2 | NORMAL            | 匹配模式             | 匹配模式             | 自选模式          | PvP      | CLASSIC           |    11 |          1 | GAME_CFG_PICK_BLIND               |
