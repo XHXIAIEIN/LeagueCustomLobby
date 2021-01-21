@@ -260,81 +260,86 @@ print( [{
 输出结果（2021.01.21）：
 这里使用了由 @kdelmonte 开发的 [JSON to Markdown Table](https://kdelmonte.github.io/json-to-markdown-table/) 工具，将数据转换为 Markdown 表格。
 
-你看到前面一些空白的数据，估计是已经被官方废弃的地图，而后面推出了新的地图进行替换。
+| queuesId |      queuesName      |     queueType     |      gameMode     | mapId |
+|----------|----------------------|-------------------|-------------------|-------|
+|        2 | 匹配模式             | NORMAL            | CLASSIC           |    11 |
+|        8 | 匹配模式             | NORMAL_3x3        | CLASSIC           |    10 |
+|        9 | 排位赛 灵活排位      | RANKED_FLEX_TT    | CLASSIC           |    10 |
+|       31 | 入门                 | BOT               | CLASSIC           |    11 |
+|       32 | 新手                 | BOT               | CLASSIC           |    11 |
+|       33 | 一般                 | BOT               | CLASSIC           |    11 |
+|       52 | 新手                 | BOT_3x3           | CLASSIC           |    10 |
+|       65 | 极地大乱斗           | ARAM_UNRANKED_5x5 | ARAM              |    12 |
+|       91 | 大提魔节             | NIGHTMARE_BOT     | DOOMBOTSTEEMO     |    11 |
+|       92 | 100级铁手挑战        | NIGHTMARE_BOT     | DOOMBOTSTEEMO     |    11 |
+|       96 | 飞升争夺战           | ASCENSION         | ASCENSION         |     8 |
+|      100 | 匹配模式             | ARAM_UNRANKED_5x5 | ARAM              |    14 |
+|      300 | 魄罗大乱斗           | KING_PORO         | KINGPORO          |    12 |
+|      315 | 枢纽攻防战           | SIEGE             | SIEGE             |    11 |
+|      318 | 无限乱斗             | URF               | URF               |    11 |
+|      325 | 峡谷大乱斗           | ARSR              | ARSR              |    11 |
+|      400 | 匹配模式             | NORMAL            | CLASSIC           |    11 |
+|      420 | 排位赛 单排/双排     | RANKED_SOLO_5x5   | CLASSIC           |    11 |
+|      430 | 匹配模式             | NORMAL            | CLASSIC           |    11 |
+|      440 | 排位赛 灵活排位      | RANKED_FLEX_SR    | CLASSIC           |    11 |
+|      450 | 极地大乱斗           | ARAM_UNRANKED_5x5 | ARAM              |    12 |
+|      460 | 匹配模式             | NORMAL_3x3        | CLASSIC           |    10 |
+|      470 | 排位赛 灵活排位      | RANKED_FLEX_TT    | CLASSIC           |    10 |
+|      600 | 红月决               | ASSASSINATE       | ASSASSINATE       |    11 |
+|      610 | 暗星：奇点           | DARKSTAR          | DARKSTAR          |    16 |
+|      700 | 冠军杯赛             | CLASH             | CLASSIC           |    11 |
+|      800 | 一般                 | BOT_3x3           | CLASSIC           |    10 |
+|      810 | 入门                 | BOT_3x3           | CLASSIC           |    10 |
+|      820 | 新手                 | BOT_3x3           | CLASSIC           |    10 |
+|      830 | 入门                 | BOT               | CLASSIC           |    11 |
+|      840 | 新手                 | BOT               | CLASSIC           |    11 |
+|      850 | 一般                 | BOT               | CLASSIC           |    11 |
+|      900 | 无限火力             | URF               | URF               |    11 |
+|      910 | 飞升争夺战           | ASCENSION         | ASCENSION         |     8 |
+|      920 | 魄罗大乱斗           | KING_PORO         | KINGPORO          |    12 |
+|      930 | 极地大乱斗           | BILGEWATER        | CLASSIC           |    11 |
+|      940 | 枢纽攻防战           | SIEGE             | SIEGE             |    11 |
+|      950 | 100级铁手挑战        | NIGHTMARE_BOT     | DOOMBOTSTEEMO     |    11 |
+|      960 | 大提魔节             | NIGHTMARE_BOT     | DOOMBOTSTEEMO     |    11 |
+|      980 | 怪兽入侵（普通）     | STARGUARDIAN      | STARGUARDIAN      |    18 |
+|      990 | 怪兽入侵（狂袭）     | STARGUARDIAN      | STARGUARDIAN      |    18 |
+|     1000 | 超频行动             | PROJECT           | PROJECT           |    19 |
+|     1010 | 冰雪无限火力         | SNOWURF           | SNOWURF           |    11 |
+|     1020 | 克隆大作战           | ONEFORALL         | ONEFORALL         |    11 |
+|     1030 | 奥德赛(入门：一星)   | ODYSSEY           | ODYSSEY           |    20 |
+|     1040 | 奥德赛(学员：二星)   | ODYSSEY           | ODYSSEY           |    20 |
+|     1050 | 奥德赛(组员：三星)   | ODYSSEY           | ODYSSEY           |    20 |
+|     1060 | 奥德赛(船长：四星)   | ODYSSEY           | ODYSSEY           |    20 |
+|     1070 | 奥德赛(狂袭：五星)   | ODYSSEY           | ODYSSEY           |    20 |
+|     1090 | 云顶之弈（匹配模式） | NORMAL_TFT        | TFT               |    22 |
+|     1091 | 1v0                  | NORMAL_TFT        | TFT               |    22 |
+|     1092 | 2v0                  | NORMAL_TFT        | TFT               |    22 |
+|     1100 | 云顶之弈 (排位赛)    | RANKED_TFT        | TFT               |    22 |
+|     1110 | 云顶之弈 (新手教程)  | TUTORIAL_TFT      | TFT               |    22 |
+|     1111 | 云顶之弈模拟战       | NORMAL_TFT        | TFT               |    22 |
+|     1200 | 极限闪击             | GAMEMODEX         | GAMEMODEX         |    21 |
+|     1300 | 极限闪击             | NEXUSBLITZ        | NEXUSBLITZ        |    21 |
+|     2000 | 新手教程 第一部分    | TUTORIAL_MODULE_1 | TUTORIAL_MODULE_1 |    11 |
+|     2010 | 新手教程 第二部分    | TUTORIAL_MODULE_2 | TUTORIAL_MODULE_2 |    11 |
+|     2020 | 新手教程 第三部分    | TUTORIAL_MODULE_3 | TUTORIAL_MODULE_3 |    11 |
 
-| queuesId |      queuesName 地图名称      |     queueType     |      gameMode     | mapId |            gameTypeName           |
-|----------|----------------------|-------------------|-------------------|-------|-----------------------------------|
-|        2 | 匹配模式             | NORMAL            | CLASSIC           |    11 | GAME_CFG_PICK_BLIND               |
-|        8 | 匹配模式             | NORMAL_3x3        | CLASSIC           |    10 | GAME_CFG_PICK_BLIND               |
-|        9 | 排位赛 灵活排位      | RANKED_FLEX_TT    | CLASSIC           |    10 | GAME_CFG_DRAFT_STD                |
-|       31 | 入门                 | BOT               | CLASSIC           |    11 | GAME_CFG_PICK_BLIND               |
-|       32 | 新手                 | BOT               | CLASSIC           |    11 | GAME_CFG_PICK_BLIND               |
-|       33 | 一般                 | BOT               | CLASSIC           |    11 | GAME_CFG_PICK_BLIND               |
-|       52 | 新手                 | BOT_3x3           | CLASSIC           |    10 | GAME_CFG_PICK_BLIND               |
-|       65 | 极地大乱斗           | ARAM_UNRANKED_5x5 | ARAM              |    12 | GAME_CFG_PICK_RANDOM              |
-|       70 |                      | ONEFORALL_5x5     | CLASSIC           |    11 | GAME_CFG_BLIND_DUPE               |
-|       72 |                      | FIRSTBLOOD_1x1    | FIRSTBLOOD        |    12 | GAME_CFG_PICK_SIMUL_TD            |
-|       73 |                      | FIRSTBLOOD_2x2    | FIRSTBLOOD        |    12 | GAME_CFG_PICK_SIMUL_TD            |
-|       75 |                      | SR_6x6            | CLASSIC           |    11 | GAME_CFG_BLIND_DRAFT_ST           |
-|       76 |                      | URF               | URF               |    11 | GAME_CFG_BLIND_DRAFT_ST           |
-|       78 |                      | ONEFORALL_5x5     | ARAM              |    12 | GAME_CFG_CROSS_DUPE               |
-|       91 | 大提魔节             | NIGHTMARE_BOT     | DOOMBOTSTEEMO     |    11 | GAME_CFG_PICK_BLIND               |
-|       92 | 100级铁手挑战        | NIGHTMARE_BOT     | DOOMBOTSTEEMO     |    11 | GAME_CFG_PICK_BLIND               |
-|       93 |                      | NIGHTMARE_BOT     | DOOMBOTSTEEMO     |    11 | GAME_CFG_PICK_BLIND               |
-|       96 | 飞升争夺战           | ASCENSION         | ASCENSION         |     8 | GAME_CFG_BLIND_DRAFT_ST           |
-|       98 |                      | HEXAKILL          | CLASSIC           |    10 | GAME_CFG_BLIND_DRAFT_ST           |
-|      100 | 匹配模式             | ARAM_UNRANKED_5x5 | ARAM              |    14 | GAME_CFG_PICK_RANDOM              |
-|      300 | 魄罗大乱斗           | KING_PORO         | KINGPORO          |    12 | GAME_CFG_BLIND_DRAFT_ST           |
-|      310 |                      | COUNTER_PICK      | CLASSIC           |    11 | GAME_CFG_COUNTER_PICK             |
-|      313 |                      | BILGEWATER        | CLASSIC           |    11 | GAME_CFG_BLIND_DRAFT_ST           |
-|      315 | 枢纽攻防战           | SIEGE             | SIEGE             |    11 | GAME_CFG_BLIND_DRAFT_ST           |
-|      318 | 无限乱斗             | URF               | URF               |    11 | GAME_CFG_PICK_RANDOM              |
-|      325 | 峡谷大乱斗           | ARSR              | ARSR              |    11 | GAME_CFG_PICK_RANDOM              |
-|      400 | 匹配模式             | NORMAL            | CLASSIC           |    11 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-|      420 | 排位赛 单排/双排     | RANKED_SOLO_5x5   | CLASSIC           |    11 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-|      430 | 匹配模式             | NORMAL            | CLASSIC           |    11 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      440 | 排位赛 灵活排位      | RANKED_FLEX_SR    | CLASSIC           |    11 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-|      450 | 极地大乱斗           | ARAM_UNRANKED_5x5 | ARAM              |    12 | GAME_CFG_TEAM_BUILDER_RANDOM      |
-|      460 | 匹配模式             | NORMAL_3x3        | CLASSIC           |    10 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      470 | 排位赛 灵活排位      | RANKED_FLEX_TT    | CLASSIC           |    10 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-|      600 | 红月决               | ASSASSINATE       | ASSASSINATE       |    11 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      610 | 暗星：奇点           | DARKSTAR          | DARKSTAR          |    16 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      700 | 冠军杯赛             | CLASH             | CLASSIC           |    11 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-|      800 | 一般                 | BOT_3x3           | CLASSIC           |    10 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      810 | 入门                 | BOT_3x3           | CLASSIC           |    10 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      820 | 新手                 | BOT_3x3           | CLASSIC           |    10 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      830 | 入门                 | BOT               | CLASSIC           |    11 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      840 | 新手                 | BOT               | CLASSIC           |    11 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      850 | 一般                 | BOT               | CLASSIC           |    11 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      860 |                      | ARAM_BOT          | ARAM              |    12 | GAME_CFG_TEAM_BUILDER_RANDOM      |
-|      900 | 无限火力             | URF               | URF               |    11 | GAME_CFG_TEAM_BUILDER_BLIND_DRAFT |
-|      910 | 飞升争夺战           | ASCENSION         | ASCENSION         |     8 | GAME_CFG_TEAM_BUILDER_BLIND_DRAFT |
-|      920 | 魄罗大乱斗           | KING_PORO         | KINGPORO          |    12 | GAME_CFG_TEAM_BUILDER_RANDOM      |
-|      930 | 极地大乱斗           | BILGEWATER        | CLASSIC           |    11 | GAME_CFG_TEAM_BUILDER_BLIND_DRAFT |
-|      940 | 枢纽攻防战           | SIEGE             | SIEGE             |    11 | GAME_CFG_TEAM_BUILDER_BLIND_DRAFT |
-|      950 | 100级铁手挑战        | NIGHTMARE_BOT     | DOOMBOTSTEEMO     |    11 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      960 | 大提魔节             | NIGHTMARE_BOT     | DOOMBOTSTEEMO     |    11 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      980 | 怪兽入侵（普通）     | STARGUARDIAN      | STARGUARDIAN      |    18 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|      990 | 怪兽入侵（狂袭）     | STARGUARDIAN      | STARGUARDIAN      |    18 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1000 | 超频行动             | PROJECT           | PROJECT           |    19 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1010 | 冰雪无限火力         | SNOWURF           | SNOWURF           |    11 | GAME_CFG_TEAM_BUILDER_RANDOM      |
-|     1020 | 克隆大作战           | ONEFORALL         | ONEFORALL         |    11 | GAME_CFG_TEAM_BUILDER_BLIND_DUPE  |
-|     1030 | 奥德赛(入门：一星)   | ODYSSEY           | ODYSSEY           |    20 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1040 | 奥德赛(学员：二星)   | ODYSSEY           | ODYSSEY           |    20 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1050 | 奥德赛(组员：三星)   | ODYSSEY           | ODYSSEY           |    20 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1060 | 奥德赛(船长：四星)   | ODYSSEY           | ODYSSEY           |    20 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1070 | 奥德赛(狂袭：五星)   | ODYSSEY           | ODYSSEY           |    20 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1090 | 云顶之弈（匹配模式） | NORMAL_TFT        | TFT               |    22 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1091 | 1v0                  | NORMAL_TFT        | TFT               |    22 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1092 | 2v0                  | NORMAL_TFT        | TFT               |    22 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1100 | 云顶之弈 (排位赛)    | RANKED_TFT        | TFT               |    22 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1110 | 云顶之弈 (新手教程)  | TUTORIAL_TFT      | TFT               |    22 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1111 | 云顶之弈模拟战       | NORMAL_TFT        | TFT               |    22 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     1200 | 极限闪击             | GAMEMODEX         | GAMEMODEX         |    21 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-|     1300 | 极限闪击             | NEXUSBLITZ        | NEXUSBLITZ        |    21 | GAME_CFG_TEAM_BUILDER_DRAFT       |
-|     2000 | 新手教程 第一部分    | TUTORIAL_MODULE_1 | TUTORIAL_MODULE_1 |    11 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     2010 | 新手教程 第二部分    | TUTORIAL_MODULE_2 | TUTORIAL_MODULE_2 |    11 | GAME_CFG_TEAM_BUILDER_BLIND       |
-|     2020 | 新手教程 第三部分    | TUTORIAL_MODULE_3 | TUTORIAL_MODULE_3 |    11 | GAME_CFG_TEAM_BUILDER_BLIND       |
+
+对了，这其中还有一些空白的数据，估计是已经被官方废弃的地图，而后面推出了新的地图进行替换。
+
+| queuesId |      queuesName      |     queueType     |      gameMode     | mapId |
+|----------|----------------------|-------------------|-------------------|-------|
+|       70 |                      | ONEFORALL_5x5     | CLASSIC           |    11 |
+|       72 |                      | FIRSTBLOOD_1x1    | FIRSTBLOOD        |    12 |
+|       73 |                      | FIRSTBLOOD_2x2    | FIRSTBLOOD        |    12 |
+|       75 |                      | SR_6x6            | CLASSIC           |    11 |
+|       76 |                      | URF               | URF               |    11 |
+|       78 |                      | ONEFORALL_5x5     | ARAM              |    12 |
+|       93 |                      | NIGHTMARE_BOT     | DOOMBOTSTEEMO     |    11 |
+|       98 |                      | HEXAKILL          | CLASSIC           |    10 |
+|      310 |                      | COUNTER_PICK      | CLASSIC           |    11 |
+|      313 |                      | BILGEWATER        | CLASSIC           |    11 |
+|      860 |                      | ARAM_BOT          | ARAM              |    12 |
+
 
 <br>  
   
