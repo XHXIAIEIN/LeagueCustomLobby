@@ -29,7 +29,7 @@
 
 # 如何使用
 
-
+将 [LeagueLobby.py](https://github.com/XHXIAIEIN/LeagueCustomLobby/blob/main/LeagueLobby.py) 下载到本地任意地方，运行脚本即可。
 
 
 # 核心代码
