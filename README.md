@@ -224,9 +224,10 @@ print(champions)
 - [mapsId](http://static.developer.riotgames.com/docs/lol/maps.json) 
 - [gameMode](http://static.developer.riotgames.com/docs/lol/gameModes.json) 
 - [gameTypes](http://static.developer.riotgames.com/docs/lol/gameTypes.json) 
-- [versions 版本信息](https://ddragon.leagueoflegends.com/api/versions.json)
-- [tencent 客户端信息](https://ddragon.leagueoflegends.com/realms/tencent.json)
-
+- [versions](https://ddragon.leagueoflegends.com/api/versions.json)
+- [tencent 国服客户端信息](https://ddragon.leagueoflegends.com/realms/tencent.json)
+- [NA 美服客户端信息](https://ddragon.leagueoflegends.com/realms/na.json)
+- [PBE 测试服客户端信息](https://ddragon.leagueoflegends.com/realms/pbe.json)
 
 <br>  
 
@@ -240,7 +241,7 @@ print(await data.json())
 - **locale**: 'zh_CN'
 - **region**: 'TENCENT'
 - **webLanguage**: 'zh'
-- **'webRegion'**: 'staging.na'
+- **webRegion**: 'staging.na'
 
 <br>  
   
