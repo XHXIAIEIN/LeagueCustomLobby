@@ -71,8 +71,8 @@ async def getSummonerInfo(connection):
 
 ```python
 async def createLobby(connection):
-	queueId = 430
-	await connection.request('post', '/lol-lobby/v2/lobby', data=queueId)
+	queue = {'queueId': 1200}
+	await connection.request('post', '/lol-lobby/v2/lobby', data=queue)
 ```
   
 <br>  
@@ -217,7 +217,7 @@ print(champions)
 
 <br>  
   
-### gameModes
+### queue
 
 必须是开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
 完整的 gameMode 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/gameModes.json)查询。
@@ -274,16 +274,17 @@ print( [{
 输出结果（2021.01.21）  
 这里使用了由 @kdelmonte 开发的 [JSON to Markdown Table](https://kdelmonte.github.io/json-to-markdown-table/) 工具，将数据转换为 Markdown 表格。
 
-
+**常规模式**
 | queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
 |----------|----------------------|-------------------|-------------------|-------|----------|
-|        9 | 排位赛 灵活排位      | RANKED_FLEX_TT    | CLASSIC           |    10 | PvP      |
+
 
 
 | queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
 |----------|----------------------|-------------------|-------------------|-------|----------|
 |        2 | 匹配模式             | NORMAL            | CLASSIC           |    11 | PvP      |
 |        8 | 匹配模式             | NORMAL_3x3        | CLASSIC           |    10 | PvP      |
+|        9 | 排位赛 灵活排位      | RANKED_FLEX_TT    | CLASSIC           |    10 | PvP      |
 |       31 | 入门                 | BOT               | CLASSIC           |    11 | VersusAi |
 |       32 | 新手                 | BOT               | CLASSIC           |    11 | VersusAi |
 |       33 | 一般                 | BOT               | CLASSIC           |    11 | VersusAi |
@@ -422,9 +423,15 @@ async def connect(connection):
 	connection.installation_path
 ```
 
+**获取客户端通讯地址**
+```
+@connector.ready
+async def connect(connection):
+	print(connection.address)
+```
+  
 **获取 lockfile 文件路径**
-
-由于国服路径会因为编码问题，额外生成 gbk 编码的 '鑻遍泟鑱旂洘'，需要将它转换为 utf-8 编码的 '英雄联盟'
+由于国服游戏路径会因为编码问题，额外生成 gbk 编码的 '鑻遍泟鑱旂洘' 文件夹，需要将它转换为 utf-8 编码的 '英雄联盟'
 ```python
 path = path.encode('gbk').decode('utf-8')
 lockfile_path = os.path.join(path, 'lockfile')
