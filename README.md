@@ -276,7 +276,7 @@ print( [{
 **常规模式**
 | queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
 |----------|----------------------|-------------------|-------------------|-------|----------|
-|          |                      |                   |                   |       |           |
+|  - |  - |  - |  - |  - |  - 
 
 
 **完整列表**
@@ -396,6 +396,16 @@ print(await data.json())
 
 <br>  
 
+
+<br>  
+
+# 获取召唤师图标
+
+```python
+profileIconId = 4804
+await connection.request('get', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
+```
+
 # 获取服务器地区
 ```python
 data = await connection.request('GET', '/riotclient/get_region_locale')
@@ -426,6 +436,32 @@ print(await data.json())
 
 <br>  
 
+  
+### 获取游戏安装路径
+
+**通过 lcu_driver 内置属性**
+```python
+@connector.ready
+async def connect(connection):
+	path = connection.installation_path
+	print(path)
+```
+
+**通过 LCU API 请求**
+```python
+@connector.ready
+async def connect(connection):
+	path = await connection.request('get', '/data-store/v1/install-dir')
+	print(path)
+```
+
+注意，由于国服游戏路径会因为编码问题额外生成 gbk 编码的 '鑻遍泟鑱旂洘' 文件夹，需要将它转换为 utf-8 编码的 '英雄联盟'。
+
+```python
+path.encode('gbk').decode('utf-8')
+```
+
+<br>  
 
 # 利用 **lockfile** 文件调用API
 
@@ -435,19 +471,9 @@ print(await data.json())
 async def connect(connection):
 	print(connection.address)
 ```
-  
-  
-**获取游戏安装路径**
-```python
-@connector.ready
-async def connect(connection):
-	connection.installation_path
-```
-  
+
   
 **获取 lockfile 文件路径**  
-由于国服游戏路径会因为编码问题，额外生成 gbk 编码的 '鑻遍泟鑱旂洘' 文件夹，需要将它转换为 utf-8 编码的 '英雄联盟'
-
 ```python
 @connector.ready
 async def connect(connection):
