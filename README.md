@@ -444,6 +444,7 @@ async def connect(connection):
 	connection.installation_path
 ```
   
+  
 **获取 lockfile 文件路径**  
 由于国服游戏路径会因为编码问题，额外生成 gbk 编码的 '鑻遍泟鑱旂洘' 文件夹，需要将它转换为 utf-8 编码的 '英雄联盟'
 
@@ -455,7 +456,9 @@ async def connect(connection):
 	print(lockfile_path)
 ```
 
+
 **读取 lockfile 文件内容**
+
 ```python
 def get_lockfile(path):
 	# 读取数据
@@ -477,8 +480,8 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 ```
 
 然后就可以通过浏览器访问 ` https://127.0.0.1:{端口} `   
-打开提示需要输入账号密码  
-- 账号：**riot**  
+打开后可能会出现安全提示，选择继续访问，然后提示需要登陆，输入用户名和密码即可~  
+- 用户名：**riot**  
 - 密码：{密码}
   
   
