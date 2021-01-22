@@ -382,12 +382,21 @@ print(await data.json())
 - **allowedKickOthers**: 是否允许踢人
 - **allowedInviteOthers**: 是否允许邀请
 - **ready**: 准备状态
-- **firstPositionPreference**: 首选位置 UNSELECTED 未选择 / FILL 补位 / UTILITY 辅助 / ↓
-- **firstPositionPreference**: 次选位置 TOP 上路 / JUNGLE 打野 / MIDDLE 中路 / BOTTOM 下路 
+- **firstPositionPreference**: 首选位置 
+- **firstPositionPreference**: 次选位置 
+
+位置信息：
+- **lUNSELECTED** 未选择
+- **lFILL** 补位 
+- **lUTILITY** 辅助 
+- **lTOP** 上路
+- **lJUNGLE** 打野
+- **lMIDDLE** 中路 
+- **lBOTTOM** 下路 
 
 <br>  
 
-# 获取服务器地区数据
+# 获取服务器地区
 ```python
 data = await connection.request('GET', '/riotclient/get_region_locale')
 print(await data.json())
@@ -401,7 +410,7 @@ print(await data.json())
 
 <br>  
 
-# 获取地图数据
+# 获取地图模式数据
 
 可以得到地图的介绍、资源图标等信息
 
@@ -412,9 +421,13 @@ print(await data.json())
 
 <br>  
 
+---
+
+
+<br>  
+
 
 # 利用 **lockfile** 文件调用API
-
 
 **获取游戏安装路径**
 ```python
@@ -492,6 +505,11 @@ await request('GET', '/lol-lobby/v2/lobby');
 <br>  
 
 
+---
+
+<br>  
+
+
 # TODO
 1. 做个简单的UI，并脱离python环境?
 
@@ -505,6 +523,5 @@ await request('GET', '/lol-lobby/v2/lobby');
   
 # 其他工具
 - [LeaueLobby](https://github.com/MarioCrane/LeaueLobby) @MarioCrane
-
 
 
