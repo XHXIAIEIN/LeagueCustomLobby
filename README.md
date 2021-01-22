@@ -429,13 +429,6 @@ print(await data.json())
 
 # 利用 **lockfile** 文件调用API
 
-**获取游戏安装路径**
-```python
-@connector.ready
-async def connect(connection):
-	connection.installation_path
-```
-
 **获取客户端通讯地址**
 ```python
 @connector.ready
@@ -443,42 +436,59 @@ async def connect(connection):
 	print(connection.address)
 ```
   
+  
+**获取游戏安装路径**
+```python
+@connector.ready
+async def connect(connection):
+	connection.installation_path
+```
+  
 **获取 lockfile 文件路径**
 由于国服游戏路径会因为编码问题，额外生成 gbk 编码的 '鑻遍泟鑱旂洘' 文件夹，需要将它转换为 utf-8 编码的 '英雄联盟'
+
 ```python
-path = path.encode('gbk').decode('utf-8')
-lockfile_path = os.path.join(path, 'lockfile')
-print(lockfile_path)
+@connector.ready
+async def connect(connection):
+	client_path = connection.installation_path.encode('gbk').decode('utf-8')
+	lockfile_path = os.path.join(client_path, 'lockfile')
+	print(lockfile_path)
 ```
 
 **读取 lockfile 文件内容**
 ```python
 def get_lockfile(path):
 	# 读取数据
-	if os.path.isfile(lockfile_path):
-		file = open(lockfile_path, 'r')
+	if os.path.isfile(path):
+		file = open(path, 'r')
 		text = file.readline().split(':')
 		file.close()
+		print(f'{text[4]}://127.0.0.1:{text[2]}/lol-summoner/v1/current-summoner')
+		print(f'riot    {text[3]}')
 		return text
 	else:
-		print(f'{lockfile_path} \n lockfile 文件不存在' )
+		print(f'{path} \n lockfile 文件不存在' )
 	return None
 ```
 
-**分析 lockfile 内容**
-该方案来源：[nomi-san](https://github.com/Pupix/rift-explorer/issues/111#issuecomment-593249708)
+**分析 lockfile 文件内容**
 ```
 LeagueClient:{进程PID}:{端口}:{密码}:https
 ```
-然后就可以通过浏览器访问 ` https://127.0.0.1:{端口}/process-control/v1/process `  打开提示需要输入账号密码
-- 账号：**riot**
-- 密码：{上面的密码}
 
+然后就可以通过浏览器访问 ` https://127.0.0.1:{端口} `   
+打开提示需要输入账号密码  
+- 账号：**riot**  
+- 密码：{密码}
+  
+  
+这样也能通过浏览器控制台调用API了。
+  
 <br>  
-
+  
 ### 请求方法
-
-然后在控制台中执行这个代码：  
+  
+然后在控制台中执行这个代码：    
 该方案来源：[! xXKiller_BOSSXx](https://discord.com/channels/187652476080488449/516802588805431296/793654937795559474)
 
 ```javascript
@@ -494,16 +504,12 @@ def getResources(connection, url):
 <br>  
 
 ### 获取房间数据
-先创建一个房间，然后通过浏览器控制台调用API发送请求  
+先创建一个房间，然后通过浏览器控制台调用API发送请求    
 ```javascript
 await request('GET', '/lol-lobby/v2/lobby');
 ```
 
-这样也能通过浏览器控制台调用API了。
-
-
 <br>  
-
 
 ---
 
@@ -512,7 +518,6 @@ await request('GET', '/lol-lobby/v2/lobby');
 
 # TODO
 1. 做个简单的UI，并脱离python环境?
-
   
 <br> 
 
