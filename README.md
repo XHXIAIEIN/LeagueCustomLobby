@@ -217,12 +217,39 @@ print(champions)
 
 <br>  
   
-### queue
+  
+## 客户端资源信息
+完整的列表可在[开发者文档](https://developer.riotgames.com/docs/lol)查询： 
+- [queues](http://static.developer.riotgames.com/docs/lol/queues.json) 
+- [mapsId](http://static.developer.riotgames.com/docs/lol/maps.json) 
+- [gameMode](http://static.developer.riotgames.com/docs/lol/gameModes.json) 
+- [gameTypes](http://static.developer.riotgames.com/docs/lol/gameTypes.json) 
+- [versions 版本信息](https://ddragon.leagueoflegends.com/api/versions.json)
+- [tencent 客户端信息](https://ddragon.leagueoflegends.com/realms/tencent.json)
 
-必须是开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
-完整的 gameMode 列表可以在[官方文档](http://static.developer.riotgames.com/docs/lol/gameModes.json)查询。
 
-如何获取：
+<br>  
+
+## 获取服务器地区
+```python
+data = await connection.request('GET', '/riotclient/get_region_locale')
+print(await data.json())
+```
+
+参数解释：
+- **locale**: 'zh_CN'
+- **region**: 'TENCENT'
+- **webLanguage**: 'zh'
+- **'webRegion'**: 'staging.na'
+
+<br>  
+  
+## Queue, Maps, Game Modes, Game Types
+
+游戏模式必须是当前开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
+
+#### 通过API获取：
+
 **get queue**
 ```python
 async def getQueuesInfo(connection):
@@ -251,33 +278,20 @@ async def getQueuesInfo(connection):
 ```
 
 <br>  
-  
-但是这样数据太多了，不方便看。为了方便，只输出一些方便预览的数据：
+
+## 获取地图模式数据
+
+可以得到地图的介绍、资源图标等信息
+
 ```python
-data = await connection.request('get', '/lol-game-queues/v1/queues')
-print( [{
-	"id":queue['id'], "type":queue['type'], 
-	"name":queue['name'], 
-	"shortName":queue['shortName'], 
-	"description":queue['description'], 
-	"category": queue['category'], 
-	"gameMode": queue['gameMode'], 
-	"mapId": queue['mapId'],  
-	"gameTypeId": queue['gameTypeConfig']['id'], 
-	"gameTypeName": queue['gameTypeConfig']['name']
-	} for queue in await data.json()])
+data = await connection.request('get', '/lol-maps/v1/maps')
+print(await data.json())
 ```
 
 <br>  
   
 输出结果（2021.01.21）  
 这里使用了由 @kdelmonte 开发的 [JSON to Markdown Table](https://kdelmonte.github.io/json-to-markdown-table/) 工具，将数据转换为 Markdown 表格。
-
-**常规模式**
-| queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
-|----------|----------------------|-------------------|-------------------|-------|----------|
-|  - |  - |  - |  - |  - |  - 
-
 
 **完整列表**
 | queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
@@ -361,10 +375,9 @@ print( [{
 |      313 |                      | BILGEWATER        | CLASSIC           |    11 | PvP      |
 |      860 |                      | ARAM_BOT          | ARAM              |    12 | VersusAi |
 
-
 <br>  
 
-# 获取房间玩家数据
+## 获取房间玩家数据
 
 获取的是队伍真实玩家数据，观众、机器人不在列表中。
 ```python
@@ -394,50 +407,29 @@ print(await data.json())
 - **lMIDDLE** 中路 
 - **lBOTTOM** 下路 
 
-<br>  
-
 
 <br>  
 
-# 获取召唤师图标
+## 获取召唤师图标
 
 ```python
 profileIconId = 4804
 await connection.request('get', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
 ```
 
-# 获取服务器地区
+<br>  
+
+## 获取本地客户端通讯地址
 ```python
-data = await connection.request('GET', '/riotclient/get_region_locale')
-print(await data.json())
+@connector.ready
+async def connect(connection):
+	print(connection.address)
 ```
-
-参数解释：
-- **locale**: 'zh_CN'
-- **region**: 'TENCENT'
-- **webLanguage**: 'zh'
-- **'webRegion'**: 'staging.na'
-
-<br>  
-
-# 获取地图模式数据
-
-可以得到地图的介绍、资源图标等信息
-
-```python
-data = await connection.request('get', '/lol-maps/v1/maps')
-print(await data.json())
-```
-
-<br>  
-
----
-
-
-<br>  
-
   
-### 获取游戏安装路径
+<br>  
+
+
+## 获取游戏安装路径
 
 **通过 lcu_driver 内置属性**
 ```python
@@ -463,15 +455,7 @@ path.encode('gbk').decode('utf-8')
 
 <br>  
 
-# 利用 **lockfile** 文件调用API
-
-**获取客户端通讯地址**
-```python
-@connector.ready
-async def connect(connection):
-	print(connection.address)
-```
-
+## lockfile
   
 **获取 lockfile 文件路径**  
 ```python
@@ -481,7 +465,6 @@ async def connect(connection):
 	lockfile_path = os.path.join(client_path, 'lockfile')
 	print(lockfile_path)
 ```
-
 
 **读取 lockfile 文件内容**
 
@@ -515,11 +498,10 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
   
 <br>  
   
-### 请求方法
+## 在浏览器中调用 request 请求
+该方案来源：[! xXKiller_BOSSXx](https://discord.com/channels/187652476080488449/516802588805431296/793654937795559474)  
   
-然后在控制台中执行这个代码：    
-该方案来源：[! xXKiller_BOSSXx](https://discord.com/channels/187652476080488449/516802588805431296/793654937795559474)
-
+在控制台中执行这个代码：   
 ```javascript
 def getResources(connection, url):
 	lockfile = get_lockfile(connection.installation_path)
@@ -530,13 +512,17 @@ def getResources(connection, url):
 	print(f'{lockfile[4]}://127.0.0.1:{lockfile[2]}/{url}')
 ```
 
-<br>  
+## 通过浏览器控制台调用 API
 
-### 获取房间数据
+例如，要获取房间数据  
 先创建一个房间，然后通过浏览器控制台调用API发送请求    
+
 ```javascript
 await request('GET', '/lol-lobby/v2/lobby');
 ```
+
+就能在页面中看到返回的数据了。
+
 
 <br>  
 
