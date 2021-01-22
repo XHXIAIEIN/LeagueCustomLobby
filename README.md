@@ -8,7 +8,7 @@
 # 参考资料
 - [Riot 开发者文档](https://developer.riotgames.com/docs/lol)
 - [LCU API 速查手册](https://lcu.vivide.re/#operation--lol-lobby-v2-lobby-get)
-- [游戏数据资源列表](https://github.com/CommunityDragon/Docs/blob/master/assets.mdt)
+- [游戏数据资源列表](https://github.com/CommunityDragon/Docs/blob/master/assets.md)
 - [创建自定义训练模式房间数据](https://riot-api-libraries.readthedocs.io/en/latest/lcu.html)
   
 <br>  
