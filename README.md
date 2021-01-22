@@ -84,7 +84,7 @@ async def createLobby(connection):
 - **mapId**:  地图ID。召唤师峡谷：11。
 - **lobbyName**: 房间名称
 
-```json
+```python
 async def creatCustomLabby(connection):
 	# 房间数据
 	LobbyConfig = {
@@ -252,9 +252,8 @@ async def getQueuesInfo(connection):
 
 <br>  
   
-但是这样数据太多了，不方便看。
-为了方便，输出一些适合预览的数据：
-```
+但是这样数据太多了，不方便看。为了方便，只输出一些方便预览的数据：
+```python
 data = await connection.request('get', '/lol-game-queues/v1/queues')
 print( [{
 	"id":queue['id'], "type":queue['type'], 
@@ -277,9 +276,10 @@ print( [{
 **常规模式**
 | queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
 |----------|----------------------|-------------------|-------------------|-------|----------|
+|          |                      |                   |                   |       |           |
 
 
-
+**完整列表**
 | queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
 |----------|----------------------|-------------------|-------------------|-------|----------|
 |        2 | 匹配模式             | NORMAL            | CLASSIC           |    11 | PvP      |
@@ -345,7 +345,7 @@ print( [{
 
 <br>  
   
-对了，这其中还有一些空白的数据，估计是已经被官方废弃的地图，而后面推出了新的地图进行替换。不确定是否还能使用
+对了，这其中还有一些空白的数据，估计是已经被官方废弃的地图，而后面推出了新的地图进行替换。
 
 | queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
 |----------|----------------------|-------------------|-------------------|-------|----------|
@@ -367,7 +367,7 @@ print( [{
 # 获取房间玩家数据
 
 获取的是队伍真实玩家数据，观众、机器人不在列表中。
-```
+```python
 data = await connection.request('GET', '/lol-lobby/v2/lobby/members')
 print(await data.json())
 ```
@@ -388,7 +388,7 @@ print(await data.json())
 <br>  
 
 # 获取服务器地区数据
-```
+```python
 data = await connection.request('GET', '/riotclient/get_region_locale')
 print(await data.json())
 ```
@@ -405,7 +405,7 @@ print(await data.json())
 
 可以得到地图的介绍、资源图标等信息
 
-```
+```python
 data = await connection.request('get', '/lol-maps/v1/maps')
 print(await data.json())
 ```
@@ -413,18 +413,18 @@ print(await data.json())
 <br>  
 
 
-# 利用 **lockfile** 文件访问客户端
+# 利用 **lockfile** 文件调用API
 
 
 **获取游戏安装路径**
-```
+```python
 @connector.ready
 async def connect(connection):
 	connection.installation_path
 ```
 
 **获取客户端通讯地址**
-```
+```python
 @connector.ready
 async def connect(connection):
 	print(connection.address)
@@ -452,7 +452,7 @@ def get_lockfile(path):
 	return None
 ```
 
-**分析 lockfile**
+**分析 lockfile 内容**
 该方案来源：[nomi-san](https://github.com/Pupix/rift-explorer/issues/111#issuecomment-593249708)
 ```
 LeagueClient:{进程PID}:{端口}:{密码}:https
@@ -478,16 +478,15 @@ def getResources(connection, url):
 	print(f'{lockfile[4]}://127.0.0.1:{lockfile[2]}/{url}')
 ```
 
+<br>  
+
 ### 获取房间数据
-
-然后先创建一个房间。  
-创建完成后，继续在浏览器控制台发送请求  
-
+先创建一个房间，然后通过浏览器控制台调用API发送请求  
 ```javascript
 await request('GET', '/lol-lobby/v2/lobby');
 ```
 
-这样就能获取到房间数据了。
+这样也能通过浏览器控制台调用API了。
 
 
 <br>  
