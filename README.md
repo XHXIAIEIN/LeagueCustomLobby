@@ -217,19 +217,6 @@ print(champions)
 
 <br>  
   
-  
-## 客户端资源信息
-完整的列表可在[开发者文档](https://developer.riotgames.com/docs/lol)查询： 
-- [queues](http://static.developer.riotgames.com/docs/lol/queues.json) 
-- [mapsId](http://static.developer.riotgames.com/docs/lol/maps.json) 
-- [gameMode](http://static.developer.riotgames.com/docs/lol/gameModes.json) 
-- [gameTypes](http://static.developer.riotgames.com/docs/lol/gameTypes.json) 
-- [versions](https://ddragon.leagueoflegends.com/api/versions.json)
-- [tencent 国服客户端信息](https://ddragon.leagueoflegends.com/realms/tencent.json)
-- [NA 美服客户端信息](https://ddragon.leagueoflegends.com/realms/na.json)
-- [PBE 测试服客户端信息](https://ddragon.leagueoflegends.com/realms/pbe.json)
-
-<br>  
 
 ## 获取服务器地区
 ```python
@@ -244,7 +231,23 @@ print(await data.json())
 - **webRegion**: 'staging.na'
 
 <br>  
-  
+
+## 客户端资源信息
+完整的列表可在[开发者文档](https://developer.riotgames.com/docs/lol)查询： 
+- [queues](http://static.developer.riotgames.com/docs/lol/queues.json) 
+- [mapsId](http://static.developer.riotgames.com/docs/lol/maps.json) 
+- [gameMode](http://static.developer.riotgames.com/docs/lol/gameModes.json) 
+- [gameTypes](http://static.developer.riotgames.com/docs/lol/gameTypes.json) 
+- [versions](https://ddragon.leagueoflegends.com/api/versions.json)
+- [tencent 国服客户端信息](https://ddragon.leagueoflegends.com/realms/tencent.json)
+- [NA 美服客户端信息](https://ddragon.leagueoflegends.com/realms/na.json)
+- [PBE 测试服客户端信息](https://ddragon.leagueoflegends.com/realms/pbe.json)
+
+看到的都是英文，感觉头很大？  
+没关系，下面可以通过 API 请求客户端的数据，就可以看到国服具体的信息了。
+
+<br>  
+
 ## Queue, Maps, Game Modes, Game Types
 
 游戏模式必须是当前开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
@@ -428,7 +431,6 @@ async def connect(connection):
 ```
   
 <br>  
-
 
 ## 获取游戏安装路径
 
