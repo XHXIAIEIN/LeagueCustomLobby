@@ -294,10 +294,9 @@ print(await data.json())
 
 <br>  
   
-输出结果（2021.01.21）  
+部分输出结果（2021.01.21）  
 这里使用了由 @kdelmonte 开发的 [JSON to Markdown Table](https://kdelmonte.github.io/json-to-markdown-table/) 工具，将数据转换为 Markdown 表格。
 
-**完整列表**
 | queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
 |----------|----------------------|-------------------|-------------------|-------|----------|
 |        2 | 匹配模式             | NORMAL            | CLASSIC           |    11 | PvP      |
@@ -403,13 +402,13 @@ print(await data.json())
 - **firstPositionPreference**: 次选位置 
 
 位置信息：
-- **lUNSELECTED** 未选择
-- **lFILL** 补位 
-- **lUTILITY** 辅助 
-- **lTOP** 上路
-- **lJUNGLE** 打野
-- **lMIDDLE** 中路 
-- **lBOTTOM** 下路 
+- **UNSELECTED** 未选择
+- **FILL** 补位 
+- **UTILITY** 辅助 
+- **TOP** 上路
+- **JUNGLE** 打野
+- **MIDDLE** 中路 
+- **BOTTOM** 下路 
 
 
 <br>  
