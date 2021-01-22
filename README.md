@@ -444,7 +444,7 @@ async def connect(connection):
 	connection.installation_path
 ```
   
-**获取 lockfile 文件路径**
+**获取 lockfile 文件路径**  
 由于国服游戏路径会因为编码问题，额外生成 gbk 编码的 '鑻遍泟鑱旂洘' 文件夹，需要将它转换为 utf-8 编码的 '英雄联盟'
 
 ```python
