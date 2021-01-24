@@ -528,6 +528,8 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 /lol-game-data/assets/content/src/leagueclient/gamemodeassets/classic_sru/img/game-select-icon-active.png
 /lol-game-data/assets/content/src/leagueclient/gamemodeassets/aram/img/game-select-icon-active.png
 /lol-game-data/assets/content/src/leagueclient/gamemodeassets/tft/img/game-select-icon-active.png
+```
+```
 无限乱斗 \ 极限闪击
 /lol-game-data/assets/content/src/leagueclient/gamemodeassets/shared/img/icon-rgm-active.png
 /lol-game-data/assets/content/src/leagueclient/gamemodeassets/gamemodex/img/social-icon-victory.png
