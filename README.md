@@ -640,6 +640,23 @@ await request('GET', '/lol-lobby/v2/lobby');
 <br>  
 
 
+## 启动脚本前，检查游戏是否已运行
+
+需要用到 psutil 库
+
+```python
+def CheckProcess():
+    process = psutil.pids()
+    for pid in process:
+        if psutil.Process(pid).name() == 'LeagueClient.exe':
+            return pid
+    else:
+        return None
+```
+
+<br>  
+
+
 # TODO
 1. 做个简单的UI，并脱离python环境?
   
