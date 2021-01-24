@@ -515,9 +515,20 @@ https://127.0.0.1:{port}/lol-game-data/assets/v1/champion-splashes/876/876000.jp
 https://127.0.0.1:{port}/lol-game-data/assets/v1/champion-chroma-images/53/53000.png
 ```
 
-**[地图模式图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/)**
+**[召唤师峡谷背景](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/)** 
 ```
+https://127.0.0.1:{port}/lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Classic_SRU/img/map-south.png
+```
+
+**[地图模式图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/)**
+```
+召唤师峡谷 \ 嚎哭深渊 \ 云顶之弈
 https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/gamemodeassets/classic_sru/img/game-select-icon-active.png
+https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/gamemodeassets/aram/img/game-select-icon-active.png
+https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/gamemodeassets/tft/img/game-select-icon-active.png
+无限乱斗 \ 极限闪击
+https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/gamemodeassets/shared/img/icon-rgm-active.png
+https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/gamemodeassets/gamemodex/img/social-icon-victory.png
 ```
 
 **[守卫图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/)**
