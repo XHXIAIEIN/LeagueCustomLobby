@@ -654,6 +654,13 @@ def CheckProcess():
         return None
 ```
 
+```python
+if CheckProcess() == None:
+	QMessageBox.warning(Window(),"LeagueCustomLobby", "无法读取游戏数据\n需要先启动游戏，再运行此程序。")
+	return
+```
+
+
 <br>  
 
 
