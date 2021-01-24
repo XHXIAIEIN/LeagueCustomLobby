@@ -551,14 +551,34 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 /lol-game-data/assets/v1/perk-images/styles/runesicon.png
 ```
 
-**[属性图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/)** 
+**[装备图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/)** 
 ```
-/lol-game-data/assets/v1/perk-images/statmods/statmodsattackspeedicon.png
+/lol-game-data/assets/ASSETS/items/icons2d/6672_marksman_t4_behemothslayer.png
 ```
 
 **[选位图标](https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/)** 
 ```
 /lol-game-data/assets/v1/perk-images/statmods/statmodsattackspeedicon.png
+```
+
+**[属性图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/)** 
+```
+/lol-game-data/assets/v1/perk-images/statmods/statmodsattackspeedicon.png
+```
+
+**[表情图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/)** 
+```
+/lol-game-data/assets/ASSETS/loadouts/summoneremotes/flairs/thumb_happy_up_inventory.png
+```
+
+**[战利品](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/)** 
+```
+/lol-game-data/assets/ASSETS/loot/hextech_mystery_shard_490x490.png
+```
+
+**[小小英雄](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/companions/)** 
+```
+/lol-game-data/assets/ASSETS/Loot/Companions/gemtiger/loot_gemtiger_shadowgem_tier1.png
 ```
   
 <br>  
