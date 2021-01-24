@@ -489,8 +489,38 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 - 密码：{密码}
  
 <br>  
+
+
+---
+
+## 本地资源与 dragon 对应关系
+1. 将前面 plugins/rcp-be-lol-game-data 替换为 lol-game-data  
+2. 将中间 global/default 或 global/<region>/<lang> 替换为 assets  
+3. 部分资源地址是 lol-game-data/assets/assets/...
   
-部分资源列表：
+**小技巧**：  
+你可以通过访问部分 .json 数据，读取里面的资源地址，快速找到对应的资源文件。
+
+举例1：  
+读取[召唤师技能数据表](http://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells.json)，找到icon 资源的路径  
+- plugins/rcp-be-**lol-game-data**/global/default/**v1/summoner-spells.json**
+- /lol-game-data/**assets**/v1/summoner-spells.json
+
+举例2：
+读取对应[英雄数据](http://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/champions/21.json)，找到此英雄对应的图片资源。
+- plugins/rcp-be-**lol-game-data**/global/default/**v1/champions/21.json**
+- /lol-game-data/**assets**/v1/champions/21.json
+
+
+举例3：
+读取对应[符文列表](http://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/perkstyles.json)，找到对应的图片资源。
+- plugins/rcp-be-**lol-game-data**/global/default/**v1/perkstyles.json**
+- /lol-game-data/**assets**/v1/perkstyles.json
+
+---
+
+部分资源列表（持续更新中）：
+
 
 **[召唤师头像](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/)** 
 ```
@@ -569,6 +599,12 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 **[表情图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summoneremotes/)** 
 ```
 /lol-game-data/assets/ASSETS/loadouts/summoneremotes/flairs/thumb_happy_up_inventory.png
+```
+
+
+**[成就表情](https://raw.communitydragon.org/latest/game/assets/ux/mastery/)** 
+```
+/lol-game-data/assets/ASSETS/ux/mastery/mastery_icon_7.png
 ```
 
 **[战利品](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/loot/)** 
