@@ -492,32 +492,32 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 
 **[召唤师头像](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/)** 
 ```
-https://127.0.0.1:{端口}/lol-game-data/assets/v1/profile-icons/4804.jpg
+https://127.0.0.1:{port}/lol-game-data/assets/v1/profile-icons/4804.jpg
 ```
 
 **[英雄图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/)** 
 ```
-https://127.0.0.1:{端口}/lol-game-data/assets/v1/champion-icons/1.png
+https://127.0.0.1:{port}/lol-game-data/assets/v1/champion-icons/1.png
 ```
 
 **[英雄原画](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/)** 
 ```
-https://127.0.0.1:{端口}/lol-game-data/assets/v1/champion-splashes/876/876000.jpg
+https://127.0.0.1:{port}/lol-game-data/assets/v1/champion-splashes/876/876000.jpg
 ```
 
 **[英雄模型图](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-chroma-images/)** 
 ```
-https://127.0.0.1:{端口}/lol-game-data/assets/v1/champion-chroma-images/53/53000.png
+https://127.0.0.1:{port}/lol-game-data/assets/v1/champion-chroma-images/53/53000.png
 ```
 
 **[地图模式图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/)**
 ```
-https://127.0.0.1:{端口}/lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Shared/img/icon-rgm-empty.png
+https://127.0.0.1:{port}/lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Shared/img/icon-rgm-empty.png
 ```
 
 **[守卫图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/)**
 ```
-https://127.0.0.1:{端口}/lol-game-data/assets/content/src/leagueclient/wardskinimages/wardhero_0.png
+https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/wardskinimages/wardhero_0.png
 ```
 
   
