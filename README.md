@@ -515,9 +515,9 @@ https://127.0.0.1:{port}/lol-game-data/assets/v1/champion-splashes/876/876000.jp
 https://127.0.0.1:{port}/lol-game-data/assets/v1/champion-chroma-images/53/53000.png
 ```
 
-**[地图模式图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/)**
+**[地图模式图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/)**
 ```
-https://127.0.0.1:{port}/lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Shared/img/icon-rgm-empty.png
+https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/gamemodeassets/classic_sru/img/game-select-icon-active.png
 ```
 
 **[守卫图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/)**
