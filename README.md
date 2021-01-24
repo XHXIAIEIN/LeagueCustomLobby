@@ -411,28 +411,6 @@ print(await data.json())
 - **BOTTOM** 下路 
 
 
-<br>  
-
-## 获取召唤师图标
-
-```python
-profileIconId = 4804
-await connection.request('GET', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
-```
-
-## 获取图标资源数据
-
-```python
-image = await connection.request('GET', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
-base64.b64encode(await image.read())
-```
-
-
-## 获取所有英雄皮肤资源数据
-
-```python
-await connection.request('GET', f"/lol-champions/v1/inventories/{summonerData['summonerId']}/champions")
-```
 
 <br>  
 
@@ -491,7 +469,6 @@ def get_lockfile(path):
 		file = open(path, 'r')
 		text = file.readline().split(':')
 		file.close()
-		print(f'{text[4]}://127.0.0.1:{text[2]}/lol-summoner/v1/current-summoner')
 		print(f'riot    {text[3]}')
 		return text
 	else:
@@ -499,18 +476,70 @@ def get_lockfile(path):
 	return None
 ```
 
-**分析 lockfile 文件内容**
+**lockfile 内容解释**
 ```
 LeagueClient:{进程PID}:{端口}:{密码}:https
 ```
 
-然后就可以通过浏览器访问 ` https://127.0.0.1:{端口} `   
+然后就可以通过浏览器访问本地资源了。 ` https://127.0.0.1:{端口}/{资源路径} `  
 打开后可能会出现安全提示，选择继续前往即可~ 然后提示需要登陆，输入用户名和密码：  
 - 用户名：**riot**  
 - 密码：{密码}
+ 
+<br>  
   
+例如：
 
-这样也能通过浏览器控制台调用API了。
+**[召唤师头像](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/)** 
+```python
+https://127.0.0.1:{端口}/lol-game-data/assets/v1/profile-icons/4804.jpg'
+```
+
+**[英雄图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/)** 
+```python
+https://127.0.0.1:{端口}/lol-game-data/assets/v1/champion-icons/1.png'
+```
+
+**[英雄原画](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/)** 
+```python
+https://127.0.0.1:{端口}/lol-game-data/assets/v1/champion-splashes/876/876000.jpg
+```
+
+**[英雄模型图](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-chroma-images/)** 
+```python
+https://127.0.0.1:{端口}/lol-game-data/assets/v1/champion-chroma-images/53/53000.png
+```
+
+**[地图模式图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/map-assets/map-assets.json)**
+```python
+https://127.0.0.1:{端口}/lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Shared/img/icon-rgm-empty.png
+```
+
+  
+<br>  
+  
+## 获取召唤师图标
+
+```python
+profileIconId = 4804
+await connection.request('GET', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
+```
+
+## 获取图标资源数据
+
+```python
+image = await connection.request('GET', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
+base64.b64encode(await image.read())
+```
+
+## 获取所有英雄皮肤资源数据
+
+```python
+await connection.request('GET', f"/lol-champions/v1/inventories/{summonerData['summonerId']}/champions")
+```
+  
+  
+---
   
 <br>  
   
