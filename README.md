@@ -500,6 +500,11 @@ https://127.0.0.1:{port}/lol-game-data/assets/v1/profile-icons/4804.jpg
 https://127.0.0.1:{port}/lol-game-data/assets/v1/champion-icons/1.png
 ```
 
+**[英雄加载页面](https://raw.communitydragon.org/latest/game/assets/characters/)** 
+```
+https://127.0.0.1:57780/lol-game-data/assets/ASSETS/Characters/Sona/Skins/Base/SonaLoadScreen.jpg
+```
+
 **[英雄原画](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/)** 
 ```
 https://127.0.0.1:{port}/lol-game-data/assets/v1/champion-splashes/876/876000.jpg
@@ -520,6 +525,13 @@ https://127.0.0.1:{port}/lol-game-data/assets/content/src/LeagueClient/GameModeA
 https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/wardskinimages/wardhero_0.png
 ```
 
+**[符文图标](https://raw.communitydragon.org/latest/game/assets/perks/styles/)** 
+```
+```
+
+**[属性图标](https://raw.communitydragon.org/latest/game/assets/perks/statmods/)** 
+```
+```
   
 <br>  
   
