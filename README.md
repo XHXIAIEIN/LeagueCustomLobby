@@ -496,9 +496,8 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 ## 本地资源与 dragon 对应关系
 1. 将前面 plugins/rcp-be-lol-game-data 替换为 lol-game-data  
 2. 将中间 global/default 或 global/{region}/{lang} 替换为 assets  
-3. 部分资源地址是 lol-game-data/assets/assets/...
   
-**小技巧**：  
+**小技巧 1**：  
 你可以通过访问部分 .json 数据，读取里面的资源地址，快速找到对应的资源文件。
 
 举例1：  
@@ -517,7 +516,38 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 - plugins/rcp-be-**lol-game-data**/global/default/**v1/perkstyles.json**
 - /lol-game-data/**assets**/v1/perkstyles.json
 
+
+<br>  
+
+数据列表，配合 [dragon 搜索页面](https://raw.communitydragon.org/search.html) 使用更加
+```
+/lol-game-data/assets/v1/rarity-gem-icons
+/lol-game-data/assets/v1/settingstopersist.json
+/lol-game-data/assets/v1/summoner-backdrops/1429.jpg
+/lol-game-data/assets/v1/summoner-banners.json
+/lol-game-data/assets/v1/summoner-icon-sets.json
+/lol-game-data/assets/v1/summoner-spells.json
+/lol-game-data/assets/v1/summoner-trophies.json
+/lol-game-data/assets/v1/tftgamevariations.json
+/lol-game-data/assets/v1/tftpromodata.json
+/lol-game-data/assets/v1/ward-skin-sets.json
+/lol-game-data/assets/v1/ward-skins.json
+```
+ 
+<br>  
+  
+**小技巧 2**：  
+你可以通过访问 [cdragon](https://raw.communitydragon.org/latest/cdragon/) files.txt 查看所有的资源列表。  
+然后存到本地，使用查找替换功能，快速替换关键词：
+```
+plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
+/global/default/                 ->      assets
+```
+
 ---
+
+ 
+<br>  
 
 部分资源列表（持续更新中）：
 
