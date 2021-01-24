@@ -535,6 +535,12 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 /lol-game-data/assets/content/src/leagueclient/gamemodeassets/gamemodex/img/social-icon-victory.png
 ```
 
+
+**[召唤师技能](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/)** 
+```
+/lol-game-data/assets/DATA/Spells/Icons2D/Summoner_teleport.png
+```
+
 **[守卫图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/)**
 ```
 /lol-game-data/assets/content/src/leagueclient/wardskinimages/wardhero_0.png
@@ -549,24 +555,33 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 ```
 /lol-game-data/assets/v1/perk-images/statmods/statmodsattackspeedicon.png
 ```
+
+**[选位图标](https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/)** 
+```
+/lol-game-data/assets/v1/perk-images/statmods/statmodsattackspeedicon.png
+```
+  
+<br>  
+
+## [获取游戏数据](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/)
   
 <br>  
   
-## 获取召唤师图标
+**召唤师图标**
 
 ```python
 profileIconId = 4804
 await connection.request('GET', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
 ```
 
-## 获取图标资源数据
+**图标资源数据**
 
 ```python
 image = await connection.request('GET', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
 base64.b64encode(await image.read())
 ```
 
-## 获取所有英雄皮肤资源数据
+**所有英雄皮肤资源数据**
 
 ```python
 await connection.request('GET', f"/lol-champions/v1/inventories/{summonerData['summonerId']}/champions")
