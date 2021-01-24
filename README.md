@@ -417,7 +417,21 @@ print(await data.json())
 
 ```python
 profileIconId = 4804
-await connection.request('get', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
+await connection.request('GET', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
+```
+
+## 获取图标资源数据
+
+```python
+image = await connection.request('GET', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
+base64.b64encode(await image.read())
+```
+
+
+## 获取所有英雄皮肤资源数据
+
+```python
+await connection.request('GET', f"/lol-champions/v1/inventories/{summonerData['summonerId']}/champions")
 ```
 
 <br>  
