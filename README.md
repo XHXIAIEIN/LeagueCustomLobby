@@ -563,28 +563,23 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
   
 <br>  
 
+
 ## [获取游戏数据](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/)
   
 <br>  
-  
-**召唤师图标**
 
+**召唤师图标：Base64**
 ```python
 profileIconId = 4804
-await connection.request('GET', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
-```
-
-**图标资源数据**
-
-```python
 image = await connection.request('GET', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
-base64.b64encode(await image.read())
+raw = base64.b64encode(await image.read())
+print(raw)
 ```
 
 **所有英雄皮肤资源数据**
-
 ```python
-await connection.request('GET', f"/lol-champions/v1/inventories/{summonerData['summonerId']}/champions")
+data = await connection.request('GET', f"/lol-champions/v1/inventories/{summonerData['summonerId']}/champions")
+# print(data)
 ```
   
   
