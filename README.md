@@ -495,7 +495,7 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
 
 ## 本地资源与 dragon 对应关系
 1. 将前面 plugins/rcp-be-lol-game-data 替换为 lol-game-data  
-2. 将中间 global/default 或 global/<region>/<lang> 替换为 assets  
+2. 将中间 global/default 或 global/{region}/{lang} 替换为 assets  
 3. 部分资源地址是 lol-game-data/assets/assets/...
   
 **小技巧**：  
