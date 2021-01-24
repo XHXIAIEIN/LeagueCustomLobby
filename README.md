@@ -525,12 +525,14 @@ https://127.0.0.1:{port}/lol-game-data/assets/content/src/LeagueClient/GameModeA
 https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/wardskinimages/wardhero_0.png
 ```
 
-**[符文图标](https://raw.communitydragon.org/latest/game/assets/perks/styles/)** 
+**[符文图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/)** 
 ```
+https://127.0.0.1:{port}/lol-game-data/assets/v1/perk-images/styles/runesicon.png
 ```
 
-**[属性图标](https://raw.communitydragon.org/latest/game/assets/perks/statmods/)** 
+**[属性图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/)** 
 ```
+https://127.0.0.1:57780/lol-game-data/assets/v1/perk-images/statmods/statmodsattackspeedicon.png
 ```
   
 <br>  
