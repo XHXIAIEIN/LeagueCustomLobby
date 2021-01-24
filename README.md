@@ -481,69 +481,71 @@ def get_lockfile(path):
 LeagueClient:{进程PID}:{端口}:{密码}:https
 ```
 
-然后就可以通过浏览器访问本地资源了。 ` https://127.0.0.1:{端口}/{资源路径} `  
-打开后可能会出现安全提示，选择继续前往即可~ 然后提示需要登陆，输入用户名和密码：  
+然后就可以通过浏览器访问本地资源了。   
+` https://127.0.0.1:{端口}/{资源路径} `  
+
+打开后提示需要登陆，输入用户名和密码：  
 - 用户名：**riot**  
 - 密码：{密码}
  
 <br>  
   
-例如：
+部分资源列表：
 
 **[召唤师头像](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/)** 
 ```
-https://127.0.0.1:{port}/lol-game-data/assets/v1/profile-icons/4804.jpg
+/lol-game-data/assets/v1/profile-icons/4804.jpg
 ```
 
 **[英雄图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/)** 
 ```
-https://127.0.0.1:{port}/lol-game-data/assets/v1/champion-icons/1.png
+/lol-game-data/assets/v1/champion-icons/1.png
 ```
 
 **[英雄加载页面](https://raw.communitydragon.org/latest/game/assets/characters/)** 
 ```
-https://127.0.0.1:57780/lol-game-data/assets/ASSETS/Characters/Sona/Skins/Base/SonaLoadScreen.jpg
+/lol-game-data/assets/ASSETS/Characters/Sona/Skins/Base/SonaLoadScreen.jpg
 ```
 
 **[英雄原画](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/)** 
 ```
-https://127.0.0.1:{port}/lol-game-data/assets/v1/champion-splashes/876/876000.jpg
+/lol-game-data/assets/v1/champion-splashes/876/876000.jpg
 ```
 
 **[英雄模型图](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-chroma-images/)** 
 ```
-https://127.0.0.1:{port}/lol-game-data/assets/v1/champion-chroma-images/53/53000.png
+/lol-game-data/assets/v1/champion-chroma-images/53/53000.png
 ```
 
 **[召唤师峡谷背景](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/)** 
 ```
-https://127.0.0.1:{port}/lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Classic_SRU/img/map-south.png
+/lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Classic_SRU/img/map-south.png
 ```
 
 **[地图模式图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/)**
 ```
 召唤师峡谷 \ 嚎哭深渊 \ 云顶之弈
-https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/gamemodeassets/classic_sru/img/game-select-icon-active.png
-https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/gamemodeassets/aram/img/game-select-icon-active.png
-https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/gamemodeassets/tft/img/game-select-icon-active.png
+/lol-game-data/assets/content/src/leagueclient/gamemodeassets/classic_sru/img/game-select-icon-active.png
+/lol-game-data/assets/content/src/leagueclient/gamemodeassets/aram/img/game-select-icon-active.png
+/lol-game-data/assets/content/src/leagueclient/gamemodeassets/tft/img/game-select-icon-active.png
 无限乱斗 \ 极限闪击
-https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/gamemodeassets/shared/img/icon-rgm-active.png
-https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/gamemodeassets/gamemodex/img/social-icon-victory.png
+/lol-game-data/assets/content/src/leagueclient/gamemodeassets/shared/img/icon-rgm-active.png
+/lol-game-data/assets/content/src/leagueclient/gamemodeassets/gamemodex/img/social-icon-victory.png
 ```
 
 **[守卫图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/)**
 ```
-https://127.0.0.1:{port}/lol-game-data/assets/content/src/leagueclient/wardskinimages/wardhero_0.png
+/lol-game-data/assets/content/src/leagueclient/wardskinimages/wardhero_0.png
 ```
 
 **[符文图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/styles/)** 
 ```
-https://127.0.0.1:{port}/lol-game-data/assets/v1/perk-images/styles/runesicon.png
+/lol-game-data/assets/v1/perk-images/styles/runesicon.png
 ```
 
 **[属性图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods/)** 
 ```
-https://127.0.0.1:57780/lol-game-data/assets/v1/perk-images/statmods/statmodsattackspeedicon.png
+/lol-game-data/assets/v1/perk-images/statmods/statmodsattackspeedicon.png
 ```
   
 <br>  
