@@ -544,6 +544,9 @@ plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
 /global/default/                 ->      assets
 ```
 
+但是暂时我还不知道怎么获取非 /lol-game-data/assets 路径的文件。  
+有空再继续试，或者如果有人知道可以跟我说说...
+
 ---
 
  
