@@ -784,7 +784,7 @@ async def lobby_created(connection, event):
 
 匹配模式，点击**寻找对局**时，有这些属性会发生变化
 
-|                                               | 进入房间 | 寻找对局 |
+|                                               | 在房间内 | 寻找对局 |
 | --------------------------------------------  | ------- | ------- |
 | canStartActivity                              |  True   |  False  |
 | localMember["allowedStartActivity"]           |  True   |  False  |
@@ -792,8 +792,8 @@ async def lobby_created(connection, event):
 | members["allowedStartActivity"]               |  True   |  False  |
 | members['ready']                              |  True   |  False  |
 
-找到对局后，会增加一个 `partyId` 属性
-|                                               | 进入房间 | 开始游戏 |
+找到对局后，会得到一个 `partyId` 属性
+|                                               | 在房间内 | 开始游戏(选人页面) |
 | --------------------------------------------  | ------- | -------- |
 | partyId                                       |  ''     |  string  |
   
