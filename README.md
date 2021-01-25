@@ -759,13 +759,6 @@ data = await connection.request('GET', f"/lol-champions/v1/inventories/{summoner
   
 ## 监听客户端事件
 
-**创建房间事件**
-```javascript
-@connector.ws.register('/lol-lobby/v2/lobby', event_types=('CREATE',))
-async def lobby_created(connection, event):
-    print(event.data)
-```
-
 **资料发生变化**
 例如： 更改了头像、名字、等级、状态...
 ```javascript
@@ -774,7 +767,37 @@ async def icon_changed(connection, event):
     print(event.data')
 ```
 
+**创建房间事件**
+```javascript
+@connector.ws.register('/lol-lobby/v2/lobby', event_types=('CREATE',))
+async def lobby_created(connection, event):
+    print(event.data)
+```
+
+
+**房间状态更新**
+```javascript
+@connector.ws.register('/lol-lobby/v2/lobby', event_types=('UPDATE',))
+async def lobby_created(connection, event):
+    print(event.data)
+```
+
+匹配模式，点击**寻找对局**时，有这些属性会发生变化
+
+|                                               | 进入房间 | 寻找对局 |
+| --------------------------------------------  | ------- | ------- |
+| canStartActivity                              |  True   |  False  |
+| localMember["allowedStartActivity"]           |  True   |  False  |
+| localMember['ready']                          |  True   |  False  |
+| members["allowedStartActivity"]               |  True   |  False  |
+| members['ready']                              |  True   |  False  |
+
+找到对局后，会增加一个 `partyId` 属性
+|                                               | 进入房间 | 开始游戏 |
+| --------------------------------------------  | ------- | -------- |
+| partyId                                       |  ''     |  string  |
   
+
 <br>  
 
 ---
