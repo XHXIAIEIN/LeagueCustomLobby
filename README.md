@@ -562,7 +562,7 @@ print(await data.json())
   
 <br>  
   
-当然，如果要实际使用，我们不会直接去引用 dragon 的地址，因为国内访问它太慢了。也许可以直接从本地客户端读取资源？那么，就需要将 dragon 的资源路径转换为本地客户端的路径：
+当然，如果要实际使用，通常不会直接去引用 dragon 的地址，因为从国内访问它太慢了。也许可以直接从本地客户端读取资源？那么，就需要将 dragon 资源路径转换为本地客户端路径：
 1. 将前面 `plugins/rcp-be-lol-game-data` 替换为 `lol-game-data`
 2. 将中间 `global/default` 替换为 `assets`
 
