@@ -215,8 +215,16 @@ print(champions)
 | 143	| 荆棘之兴		| Zyra			|	
 | 236	| 圣枪游侠		| Lucian		|		
 
+
+<br><br>  
+
+---
+
 <br>  
+
+# API 探索笔记
   
+<br>  
 
 ## 获取服务器地区
 ```python
@@ -232,22 +240,6 @@ print(await data.json())
 
 <br>  
 
-## 客户端资源信息
-完整的列表可在[开发者文档](https://developer.riotgames.com/docs/lol)查询： 
-- [queues](http://static.developer.riotgames.com/docs/lol/queues.json) 
-- [mapsId](http://static.developer.riotgames.com/docs/lol/maps.json) 
-- [gameMode](http://static.developer.riotgames.com/docs/lol/gameModes.json) 
-- [gameTypes](http://static.developer.riotgames.com/docs/lol/gameTypes.json) 
-- [versions](https://ddragon.leagueoflegends.com/api/versions.json)
-- [tencent 国服客户端信息](https://ddragon.leagueoflegends.com/realms/tencent.json)
-- [NA 美服客户端信息](https://ddragon.leagueoflegends.com/realms/na.json)
-- [PBE 测试服客户端信息](https://ddragon.leagueoflegends.com/realms/pbe.json)
-
-看到的都是英文，感觉头很大？  
-没关系，下面可以通过 API 请求客户端的数据，就可以看到国服具体的信息了。
-
-<br>  
-
 ## Queue, Maps, Game Modes, Game Types
 
 游戏模式必须是当前开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
@@ -256,29 +248,26 @@ print(await data.json())
 
 **get queue**
 ```python
-async def getQueuesInfo(connection):
-	data = await connection.request('get', '/lol-game-queues/v1/queues')
-	print(await data.json())
+data = await connection.request('GET', '/lol-game-queues/v1/queues')
+print(await data.json())
 ```
 
 <br>  
   
 **get queue by id**
 ```python
-async def getQueuesInfo(connection):
-	id = 900
-	data = await connection.request('get', f'/lol-game-queues/v1/queues/{id}')
-	print(await data.json())
+id = 900
+data = await connection.request('GET', f'/lol-game-queues/v1/queues/{id}')
+print(await data.json())
 ```
 
 <br>  
   
 **get queue by type**
 ```python
-async def getQueuesInfo(connection):
-	queueType = 'URF'
-	data = await connection.request('get', f'/lol-game-queues/v1/queues/type/{queueType}')
-	print(await data.json())
+queueType = 'URF'
+data = await connection.request('GET', f'/lol-game-queues/v1/queues/type/{queueType}')
+print(await data.json())
 ```
 
 <br>  
@@ -288,13 +277,13 @@ async def getQueuesInfo(connection):
 可以得到地图的介绍、资源图标等信息
 
 ```python
-data = await connection.request('get', '/lol-maps/v1/maps')
+data = await connection.request('GET', '/lol-maps/v1/maps')
 print(await data.json())
 ```
 
 <br>  
   
-部分输出结果（2021.01.21）  
+部分输出结果（2021.01.21）    
 这里使用了由 @kdelmonte 开发的 [JSON to Markdown Table](https://kdelmonte.github.io/json-to-markdown-table/) 工具，将数据转换为 Markdown 表格。
 
 | queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
@@ -362,7 +351,7 @@ print(await data.json())
 
 <br>  
   
-对了，这其中还有一些空白的数据，估计是已经被官方废弃的地图，而后面推出了新的地图进行替换。
+这其中还有一些空白的数据，估计是已经被官方废弃的地图，而后面推出了新的地图进行替换。
 
 | queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
 |----------|----------------------|-------------------|-------------------|-------|----------|
@@ -394,10 +383,10 @@ print(await data.json())
 - **summonerName**: 名称
 - **summonerLevel**:  等级
 - **teamId**: 左边蓝队：100 / 右边红队：200
+- **ready**: 准备状态
 - **isLeader**: 是否为房主
 - **allowedKickOthers**: 是否允许踢人
 - **allowedInviteOthers**: 是否允许邀请
-- **ready**: 准备状态
 - **firstPositionPreference**: 首选位置 
 - **firstPositionPreference**: 次选位置 
 
@@ -411,34 +400,24 @@ print(await data.json())
 - **BOTTOM** 下路 
 
 
-
 <br>  
 
-## 获取本地客户端通讯地址
-```python
-@connector.ready
-async def connect(connection):
-	print(connection.address)
-```
-  
+---
+
 <br>  
 
 ## 获取游戏安装路径
 
-**通过 lcu_driver 内置属性**
-```python
-@connector.ready
-async def connect(connection):
-	path = connection.installation_path
-	print(path)
-```
-
 **通过 LCU API 请求**
 ```python
-@connector.ready
-async def connect(connection):
-	path = await connection.request('get', '/data-store/v1/install-dir')
-	print(path)
+path = await connection.request('get', '/data-store/v1/install-dir')
+print(path)
+```
+
+**通过 lcu_driver 内置属性获得**
+```python
+connection.installation_path
+print(path)
 ```
 
 注意，由于国服游戏路径会因为编码问题额外生成 gbk 编码的 '鑻遍泟鑱旂洘' 文件夹，需要将它转换为 utf-8 编码的 '英雄联盟'。
@@ -446,18 +425,35 @@ async def connect(connection):
 ```python
 path.encode('gbk').decode('utf-8')
 ```
+  
+<br>  
+
+
+## 获取本地客户端通讯地址
+```python
+connection.address
+```
+https://127.0.0.1:{port}  
+调用API时，实际就是请求 https://127.0.0.1:{port}/{path}  
+因此，你也可以直接在浏览器中访问这个路径，直接查看资源。但是，你需要先获取一个密钥
+
 
 <br>  
 
 ## lockfile
+lockfile 文件夹里面储存的是本次访问游戏客户端时的密钥，通过它来读取游戏需要的资源。
+
+```
+LeagueClient:{进程PID}:{端口}:{密码}:https
+```
   
-**获取 lockfile 文件路径**  
+**获取 lockfile 文件路径**    
+(需要 import os )
+
 ```python
-@connector.ready
-async def connect(connection):
-	client_path = connection.installation_path.encode('gbk').decode('utf-8')
-	lockfile_path = os.path.join(client_path, 'lockfile')
-	print(lockfile_path)
+client_path = connection.installation_path.encode('gbk').decode('utf-8')
+lockfile_path = os.path.join(client_path, 'lockfile')
+print(lockfile_path)
 ```
 
 **读取 lockfile 文件内容**
@@ -476,11 +472,6 @@ def get_lockfile(path):
 	return None
 ```
 
-**lockfile 内容解释**
-```
-LeagueClient:{进程PID}:{端口}:{密码}:https
-```
-
 然后就可以通过浏览器访问本地资源了。   
 ` https://127.0.0.1:{端口}/{资源路径} `  
 
@@ -490,10 +481,19 @@ LeagueClient:{进程PID}:{端口}:{密码}:https
  
 <br>  
 
-
 ---
 
 ## 本地资源与 dragon 对应关系
+
+关于游戏中的资源，你可以在  [raw.communitydragon.org](https://github.com/CommunityDragon/Docs/blob/master/assets.md) 中找到游戏中的所有资源。当然，如果要实际使用，我们不会直接去引用它的地址，因为国内访问它太慢了。也许我们可以直接从本地客户端读取资源？
+
+在 LCU 中，资源路径的格式通常为： `plugins/<plugin>/<region>/<lang>/..`
+- `plugin` 代表插件的名称，如 `rcp-be-lol-game-data`
+- `<region>` 代表地区。例如国服为 `tencent`, 通用资源为 `global`
+- `<lang>` 代表语言。例如国服为 `zh_cn`, 通用资源为 `default`
+
+大部分的游戏资源都储存在 ` rcp-be-lol-game-data ` 路径下。
+
 1. 将前面 plugins/rcp-be-lol-game-data 替换为 lol-game-data  
 2. 将中间 global/default 或 global/{region}/{lang} 替换为 assets  
   
@@ -710,8 +710,7 @@ await request('GET', '/lol-lobby/v2/lobby');
 
 
 ## 启动脚本前，检查游戏是否已运行
-
-需要用到 psutil 库
+(需要 import psutil )
 
 ```python
 def CheckProcess():
