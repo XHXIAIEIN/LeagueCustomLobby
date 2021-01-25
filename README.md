@@ -191,7 +191,7 @@ print(champions)
 ```
 
 | championId  | CN         | EN			   |	
-| ----- | ---------------- | --------------------- |	
+| :----- | :---------------- | :--------------------- |	
 | 1	| 黑暗之女		| Annie			|	
 | 3	| 正义巨像		| Galio			|	
 | 8	| 猩红收割者        | Vladimir		|	
@@ -267,6 +267,123 @@ print(await data.json())
 
 <br>  
 
+
+噢 对了，这里还有个调试API的小技巧：  
+如果按上面的办法，每次测试都要运行一次脚本，非常麻烦。其实可以直接从浏览器访问客户端。
+  
+<br>  
+
+## 获取本地客户端通讯地址
+
+```python
+connection.address
+```
+
+返回结果：  
+`https://127.0.0.1:<端口>`   
+
+调用API时，实际就是请求 `https://127.0.0.1:<端口>/<资源路径>`   
+因此，你也可以直接在浏览器中访问这个路径，直接查看资源。  
+但是，你需要先获取一个密钥
+
+<br>  
+
+## 获取游戏安装路径
+
+**通过 LCU API 请求**
+```python
+path = await connection.request('get', '/data-store/v1/install-dir')
+print(path)
+```
+
+**通过 lcu_driver 内置属性获得**
+```python
+connection.installation_path
+print(path)
+```
+
+注意，由于国服游戏路径会因为编码问题额外生成 gbk 编码的 '鑻遍泟鑱旂洘' 文件夹，需要将它转换为 utf-8 编码的 '英雄联盟'。
+
+```python
+path.encode('gbk').decode('utf-8')
+```
+  
+## lockfile
+lockfile 文件会在每次客户端启动时生成，里面储存的是本次访问游戏客户端时的密钥，通过它来读取游戏需要的资源。  
+
+```
+LeagueClient:<进程PID>:<端口>:<密码>:https
+```
+  
+**获取 lockfile 文件路径**    
+(需要 import os )
+
+```python
+client_path = connection.installation_path.encode('gbk').decode('utf-8')
+lockfile_path = os.path.join(client_path, 'lockfile')
+print(lockfile_path)
+```
+
+**读取 lockfile 文件内容**
+
+```python
+def get_lockfile(path):
+	# 读取数据
+	if os.path.isfile(path):
+		file = open(path, 'r')
+		text = file.readline().split(':')
+		file.close()
+		print(f'riot    {text[3]}')
+		return text
+	else:
+		print(f'{path} \n lockfile 文件不存在' )
+	return None
+```
+
+然后就可以通过浏览器访问本地资源了。   
+`https://127.0.0.1:<端口>/<资源路径>` 
+
+打开后提示需要登陆，输入用户名和密码：  
+- 用户名：**riot**  
+- 密码：{密码}
+ 
+ 
+就能从浏览器页面看到返回的数据了。  
+另外，个人推荐用 Egde   
+我用Chrome打开在输入密码时总会卡住，不知道为啥。。
+
+
+<br>  
+  
+## 在浏览器中调用 request 请求
+该方案来源：[nomi-san](https://github.com/Pupix/rift-explorer/issues/111#issuecomment-593249708)  
+  
+在控制台中执行这个代码：   
+```javascript
+var request = async (method, url, body = undefined) => {
+    const data = await fetch(url, {
+        method: method,
+        body: body,
+        headers: {'Content-type': 'application/json; charset=UTF-8'}
+    }).then(res => res.text())
+      .then(txt => JSON.parse(txt.length ? txt : '{}'));
+    return data;
+};
+```
+
+## 通过浏览器控制台调用 API
+
+例如，要获取房间数据  
+先创建一个房间，然后通过浏览器控制台调用API发送请求    
+
+```javascript
+await request('GET', '/lol-lobby/v2/lobby');
+```
+
+<br><br>
+
+---
+
 ## Queue, Maps, Game Modes, Game Types
 
 游戏模式必须是当前开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
@@ -313,8 +430,8 @@ print(await data.json())
 部分输出结果（2021.01.21）    
 这里使用了由 @kdelmonte 开发的 [JSON to Markdown Table](https://kdelmonte.github.io/json-to-markdown-table/) 工具，将数据转换为 Markdown 表格。
 
-| queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
-|----------|----------------------|-------------------|-------------------|-------|----------|
+| queuesId | queuesName           | queueType         |  gameMode         | mapId | category |
+|:---------|:---------------------|:------------------|:------------------|:------|:---------|
 |        2 | 匹配模式             | NORMAL            | CLASSIC           |    11 | PvP      |
 |        8 | 匹配模式             | NORMAL_3x3        | CLASSIC           |    10 | PvP      |
 |        9 | 排位赛 灵活排位      | RANKED_FLEX_TT    | CLASSIC           |    10 | PvP      |
@@ -380,8 +497,8 @@ print(await data.json())
   
 这其中还有一些空白的数据，估计是已经被官方废弃的地图，而后面推出了新的地图进行替换。
 
-| queuesId |      queuesName      |     queueType     |      gameMode     | mapId | category |
-|----------|----------------------|-------------------|-------------------|-------|----------|
+| queuesId | queuesName           | queueType         |  gameMode         | mapId | category |
+|:---------|:---------------------|:------------------|:------------------|:------|:---------|
 |       70 |                      | ONEFORALL_5x5     | CLASSIC           |    11 | PvP      |
 |       72 |                      | FIRSTBLOOD_1x1    | FIRSTBLOOD        |    12 | PvP      |
 |       73 |                      | FIRSTBLOOD_2x2    | FIRSTBLOOD        |    12 | PvP      |
@@ -427,88 +544,6 @@ print(await data.json())
 - **BOTTOM** 下路 
 
 
-<br>  
-
----
-
-<br>  
-
-## 获取游戏安装路径
-
-**通过 LCU API 请求**
-```python
-path = await connection.request('get', '/data-store/v1/install-dir')
-print(path)
-```
-
-**通过 lcu_driver 内置属性获得**
-```python
-connection.installation_path
-print(path)
-```
-
-注意，由于国服游戏路径会因为编码问题额外生成 gbk 编码的 '鑻遍泟鑱旂洘' 文件夹，需要将它转换为 utf-8 编码的 '英雄联盟'。
-
-```python
-path.encode('gbk').decode('utf-8')
-```
-  
-<br>  
-
-
-## 获取本地客户端通讯地址
-```python
-connection.address
-```
-
-返回结果：  
-`https://127.0.0.1:<端口>`   
-
-调用API时，实际就是请求 `https://127.0.0.1:<端口>/<资源路径>`   
-因此，你也可以直接在浏览器中访问这个路径，直接查看资源。  
-但是，你需要先获取一个密钥
-
-<br>  
-  
-## lockfile
-lockfile 文件夹里面储存的是本次访问游戏客户端时的密钥，通过它来读取游戏需要的资源。  
-
-```
-LeagueClient:<进程PID>:<端口>:<密码>:https
-```
-  
-**获取 lockfile 文件路径**    
-(需要 import os )
-
-```python
-client_path = connection.installation_path.encode('gbk').decode('utf-8')
-lockfile_path = os.path.join(client_path, 'lockfile')
-print(lockfile_path)
-```
-
-**读取 lockfile 文件内容**
-
-```python
-def get_lockfile(path):
-	# 读取数据
-	if os.path.isfile(path):
-		file = open(path, 'r')
-		text = file.readline().split(':')
-		file.close()
-		print(f'riot    {text[3]}')
-		return text
-	else:
-		print(f'{path} \n lockfile 文件不存在' )
-	return None
-```
-
-然后就可以通过浏览器访问本地资源了。   
-`https://127.0.0.1:<端口>/<资源路径>` 
-
-打开后提示需要登陆，输入用户名和密码：  
-- 用户名：**riot**  
-- 密码：{密码}
- 
 <br>  
 
 ---
@@ -740,34 +775,6 @@ async def icon_changed(connection, event):
 ```
 
   
-<br>  
-  
-## 在浏览器中调用 request 请求
-该方案来源：[! xXKiller_BOSSXx](https://discord.com/channels/187652476080488449/516802588805431296/793654937795559474)  
-  
-在控制台中执行这个代码：   
-```javascript
-def getResources(connection, url):
-	lockfile = get_lockfile(connection.installation_path)
-	request = requests.post(f'{lockfile[4]}://127.0.0.1:{lockfile[2]}/{url}',
-		  headers={'Authorization': f'Basic {base64.b64encode(f"riot:{lockfile[3]}".encode("utf-8")).decode("utf-8")}' },
-		  verify='riotgames.pem',
-		  json={"queueId" : 450})
-	print(f'{lockfile[4]}://127.0.0.1:{lockfile[2]}/{url}')
-```
-
-## 通过浏览器控制台调用 API
-
-例如，要获取房间数据  
-先创建一个房间，然后通过浏览器控制台调用API发送请求    
-
-```javascript
-await request('GET', '/lol-lobby/v2/lobby');
-```
-
-就能在页面中看到返回的数据了。
-
-
 <br>  
 
 ---
