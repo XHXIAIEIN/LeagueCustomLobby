@@ -562,12 +562,12 @@ print(await data.json())
   
 <br>  
   
-当然，如果要实际使用，我们不会直接去引用它的地址，因为国内访问它太慢了。也许我们可以直接从本地客户端读取资源？那么，就需要将 dragon 的资源路径转换为本地客户端的路径：
+当然，如果要实际使用，我们不会直接去引用 dragon 的地址，因为国内访问它太慢了。也许可以直接从本地客户端读取资源？那么，就需要将 dragon 的资源路径转换为本地客户端的路径：
 1. 将前面 `plugins/rcp-be-lol-game-data` 替换为 `lol-game-data`
 2. 将中间 `global/default` 替换为 `assets`
 
 
-##### 小技巧 1：  
+### 小技巧1
 需要获取某个资源时，如果找不到对应的路径。可以先找到它的数据，通常里面会有对应的资源地址。  
 
 **举例1**  
@@ -617,7 +617,7 @@ print(await data.json())
  
 <br>  
   
-**小技巧 2**：  
+### 小技巧2
 你可以通过访问 [cdragon](https://raw.communitydragon.org/latest/cdragon/) files.txt 查看所有的资源列表。  
 然后存到本地，使用查找替换功能，快速替换关键词：
 ```
