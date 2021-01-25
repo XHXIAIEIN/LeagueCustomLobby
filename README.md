@@ -707,8 +707,28 @@ data = await connection.request('GET', f"/lol-champions/v1/inventories/{summoner
 # print(data)
 ```
   
-  
 ---
+
+  
+<br>  
+  
+## 监听客户端事件
+
+**创建房间事件**
+```javascript
+@connector.ws.register('/lol-lobby/v2/lobby', event_types=('CREATE',))
+async def lobby_created(connection, event):
+    print(event.data)
+```
+
+**资料发生变化**
+例如： 更改了头像、名字、等级、状态...
+```javascript
+@connector.ws.register('/lol-summoner/v1/current-summoner', event_types=('UPDATE',))
+async def icon_changed(connection, event):
+    print(event.data')
+```
+
   
 <br>  
   
