@@ -67,7 +67,7 @@ async def getSummonerInfo(connection):
   
 ### 直接创建房间
 
-快速根据 **queueId** 创建房间：
+根据 **queueId** 创建常规房间：
 
 ```python
 async def createLobby(connection):
@@ -80,9 +80,11 @@ async def createLobby(connection):
 ### 5V5自定义训练模式
 
 参数解释：
-- **gameMode**: 游戏模式。训练模式为 "PRACTICETOOL"， 自定义模式为 "CLASSIC"
-- **mapId**:  地图ID。召唤师峡谷：11。
+- **mapId**:  地图ID。召唤师峡谷：11, 嚎哭深渊：12
+- **gameMode**: 游戏模式。自定义模式为 "CLASSIC"，训练模式为 "PRACTICETOOL" (仅召唤师峡谷)
 - **lobbyName**: 房间名称
+- **lobbyPassword**: 房间密码
+- **teamSize**: 队伍人数
 
 ```python
 async def creatCustomLabby(connection):
@@ -108,15 +110,27 @@ async def creatCustomLabby(connection):
 	await connection.request('post', '/lol-lobby/v2/lobby', data=LobbyConfig)
 ```
   
-  
 <br>  
-  
-### 批量添加机器人
+
+### 添加单个机器人
 
 参数解释：
 - **championId**: 英雄ID，可以在下方表格查询。
-- **botDifficulty**:  机器人难度。可惜国服只有 "EASY"
-- **teamId**: 左边蓝队：100 / 右边红队：200
+- **botDifficulty**:  机器人难度。国服只有 "EASY"
+- **teamId**: 左边蓝队：100, 右边红队：200
+
+```python
+bots = {
+	"championId": 25,
+	"botDifficulty": "MEDIUM",
+	"teamId": "200"
+}
+await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
+```
+
+<br> 
+  
+### 批量添加机器人
 
 **根据ID添加**
 ```python
@@ -155,7 +169,7 @@ async def addBots(connection):
 
 <br>  
   
-## 自定义模式机器人列表
+## 自定义模式可用机器人列表
 
 自定义模式中的电脑机器人是有限的，只能选择列表中这些英雄。   
 请求此方法的时候，需要先创建房间。  
@@ -216,21 +230,20 @@ print(champions)
 | 236	| 圣枪游侠		| Lucian		|		
 
 
-<br><br><br><br> 
+
+<br><br> 
 
 ---
 
-(以下内容暂时还没更新到脚本中，只是个备忘录)
-
-
-<br>  
+<br><br>
 
 # API 探索笔记
 
+(以下内容暂时还没更新到脚本中，只是个备忘录)
 
 <br>  
 
-## 获取服务器地区
+## 获取游戏服务器地区
 ```python
 data = await connection.request('GET', '/riotclient/get_region_locale')
 print(await data.json())
@@ -244,14 +257,13 @@ print(await data.json())
 
 <br>  
 
-
 ## Queue, Maps, Game Modes, Game Types
 
 游戏模式必须是当前开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
 
 #### 通过API获取：
 
-**get queue**
+**GET queue**
 ```python
 data = await connection.request('GET', '/lol-game-queues/v1/queues')
 print(await data.json())
@@ -259,7 +271,7 @@ print(await data.json())
 
 <br>  
   
-**get queue by id**
+**GET queue by id**
 ```python
 id = 900
 data = await connection.request('GET', f'/lol-game-queues/v1/queues/{id}')
@@ -268,7 +280,7 @@ print(await data.json())
 
 <br>  
   
-**get queue by type**
+**GET queue by type**
 ```python
 queueType = 'URF'
 data = await connection.request('GET', f'/lol-game-queues/v1/queues/type/{queueType}')
