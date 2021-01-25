@@ -513,6 +513,15 @@ print(await data.json())
 
 <br>  
 
+
+## 获取房间数据
+获取的是整个房间的数据，包含了观众、机器人。
+```
+data = await connection.request('GET', '/lol-lobby/v2/lobby')
+print(await data.json())
+```
+
+
 ## 获取房间玩家数据
 
 获取的是队伍真实玩家数据，观众、机器人不在列表中。
