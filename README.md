@@ -32,23 +32,33 @@
 将 [LeagueLobby.py](https://github.com/XHXIAIEIN/LeagueCustomLobby/blob/main/LeagueLobby.py) 下载到本地任意地方，运行脚本即可。
 
   
-<br>   
-
+<br><br>   
+ 
+---
 
 # 核心代码
 
-### 客户端事件
+如果你和我一样，突然对英雄联盟 API 感兴趣，可以继续阅读下方的内容。  
+这里，我使用了 lcu-driver 来对客户端进行访问，关于它的资料可以阅读 [lcu-driver 开发文档](https://lcu-driver.readthedocs.io/en/latest/index.html) 了解。
+
+### 快速上手
 ```python
 from lcu_driver import Connector
 connector = Connector()
 
 @connector.ready
 async def connect(connection):
+    print(connection.address)
     print('LCU API is ready to be used.')
 
 @connector.close
 async def disconnect(connection):
-    print('Finished task')
+    print('The client was closed')
+    await connector.stop()
+
+@connector.ws.register('/lol-lobby/v2/lobby', event_types=('CREATE',))
+async def icon_changed(connection, event):
+    print(f'The summoner {event.data["localMember"]["summonerName"]} created a lobby.')
 
 connector.start()
 ```
@@ -81,10 +91,10 @@ async def createLobby(connection):
 
 参数解释：
 - **mapId**:  地图ID。召唤师峡谷：11, 嚎哭深渊：12
-- **gameMode**: 游戏模式。自定义模式为 "CLASSIC"，训练模式为 "PRACTICETOOL" (仅召唤师峡谷)
+- **gameMode**: 游戏模式。自定义模式为 "CLASSIC"， 训练模式为 "PRACTICETOOL" (仅召唤师峡谷)
 - **lobbyName**: 房间名称
 - **lobbyPassword**: 房间密码
-- **teamSize**: 队伍人数
+- **teamSize**: 队伍规模
 
 ```python
 async def creatCustomLabby(connection):
