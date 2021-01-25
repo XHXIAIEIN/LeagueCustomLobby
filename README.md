@@ -450,10 +450,9 @@ path.encode('gbk').decode('utf-8')
 ```python
 connection.address
 ```
-https://127.0.0.1:{port}  
-调用API时，实际就是请求 https://127.0.0.1:{port}/{path}  
+`https://127.0.0.1:<端口>` 
+调用API时，实际就是请求 `https://127.0.0.1:<端口>/<资源路径>` 
 因此，你也可以直接在浏览器中访问这个路径，直接查看资源。但是，你需要先获取一个密钥
-
 
 <br>  
 
@@ -461,7 +460,7 @@ https://127.0.0.1:{port}
 lockfile 文件夹里面储存的是本次访问游戏客户端时的密钥，通过它来读取游戏需要的资源。
 
 ```
-LeagueClient:{进程PID}:{端口}:{密码}:https
+LeagueClient:<进程PID>:<端口>:<密码>:https
 ```
   
 **获取 lockfile 文件路径**    
@@ -490,7 +489,7 @@ def get_lockfile(path):
 ```
 
 然后就可以通过浏览器访问本地资源了。   
-`https://127.0.0.1:{端口}/{资源路径}`  
+`https://127.0.0.1:<端口>/<资源路径>` 
 
 打开后提示需要登陆，输入用户名和密码：  
 - 用户名：**riot**  
@@ -517,9 +516,6 @@ def get_lockfile(path):
 当然，如果要实际使用，我们不会直接去引用它的地址，因为国内访问它太慢了。也许我们可以直接从本地客户端读取资源？那么，就需要将 dragon 的资源路径转换为本地客户端的路径：
 1. 将前面 `plugins/rcp-be-lol-game-data` 替换为 `lol-game-data`
 2. 将中间 `global/default` 替换为 `assets`
-
-这样，就可以访问对应的地址获得资源了  
-`https://127.0.0.1:{端口}/{资源路径}` 
 
 
 ##### 小技巧 1：  
