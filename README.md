@@ -216,14 +216,18 @@ print(champions)
 | 236	| 圣枪游侠		| Lucian		|		
 
 
-<br><br>  
+<br><br><br><br> 
 
 ---
+
+(以下内容暂时还没更新到脚本中，只是个备忘录)
+
 
 <br>  
 
 # API 探索笔记
-  
+
+
 <br>  
 
 ## 获取服务器地区
@@ -232,13 +236,14 @@ data = await connection.request('GET', '/riotclient/get_region_locale')
 print(await data.json())
 ```
 
-参数解释：
+返回结果(部分)：
 - **locale**: 'zh_CN'
 - **region**: 'TENCENT'
 - **webLanguage**: 'zh'
 - **webRegion**: 'staging.na'
 
 <br>  
+
 
 ## Queue, Maps, Game Modes, Game Types
 
@@ -473,7 +478,7 @@ def get_lockfile(path):
 ```
 
 然后就可以通过浏览器访问本地资源了。   
-` https://127.0.0.1:{端口}/{资源路径} `  
+`https://127.0.0.1:{端口}/{资源路径}`  
 
 打开后提示需要登陆，输入用户名和密码：  
 - 用户名：**riot**  
@@ -485,36 +490,53 @@ def get_lockfile(path):
 
 ## 本地资源与 dragon 对应关系
 
-关于游戏中的资源，你可以在  [raw.communitydragon.org](https://github.com/CommunityDragon/Docs/blob/master/assets.md) 中找到游戏中的所有资源。当然，如果要实际使用，我们不会直接去引用它的地址，因为国内访问它太慢了。也许我们可以直接从本地客户端读取资源？
-
-在 LCU 中，资源路径的格式通常为： `plugins/<plugin>/<region>/<lang>/..`
+关于游戏中的资源，你可以在  [raw.communitydragon.org](https://github.com/CommunityDragon/Docs/blob/master/assets.md) 中找到游戏中的所有资源。  
+资源路径的格式通常为： `plugins/<plugin>/<region>/<lang>/..`
 - `plugin` 代表插件的名称，如 `rcp-be-lol-game-data`
 - `<region>` 代表地区。例如国服为 `tencent`, 通用资源为 `global`
 - `<lang>` 代表语言。例如国服为 `zh_cn`, 通用资源为 `default`
 
-大部分的游戏资源都储存在 ` rcp-be-lol-game-data ` 路径下。
-
-1. 将前面 plugins/rcp-be-lol-game-data 替换为 lol-game-data  
-2. 将中间 global/default 或 global/{region}/{lang} 替换为 assets  
+大部分的游戏资源都储存在 `rcp-be-lol-game-data` 路径下。  
+通常都是访问 `rcp-be-lol-game-data/global/default`
   
-**小技巧 1**：  
-你可以通过访问部分 .json 数据，读取里面的资源地址，快速找到对应的资源文件。
+  
+当然，如果要实际使用，我们不会直接去引用它的地址，因为国内访问它太慢了。也许我们可以直接从本地客户端读取资源？那么，就需要将 dragon 的资源路径转换为本地客户端的路径：
+1. 将前面 `plugins/rcp-be-lol-game-data` 替换为 `lol-game-data`
+2. 将中间 `global/default` 替换为 `assets`
 
-举例1：  
-读取[召唤师技能数据表](http://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells.json)，找到icon 资源的路径  
-- plugins/rcp-be-**lol-game-data**/global/default/**v1/summoner-spells.json**
-- /lol-game-data/**assets**/v1/summoner-spells.json
-
-举例2：
-读取对应[英雄数据](http://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/champions/21.json)，找到此英雄对应的图片资源。
-- plugins/rcp-be-**lol-game-data**/global/default/**v1/champions/21.json**
-- /lol-game-data/**assets**/v1/champions/21.json
+这样，就可以访问对应的地址获得资源了  
+`https://127.0.0.1:{端口}/{资源路径}` 
 
 
-举例3：
+##### 小技巧 1：  
+需要获取某个资源时，如果找不到对应的路径。可以先找到它的数据，通常里面会有对应的资源地址。  
+
+**举例1**  
+读取[召唤师技能数据表](http://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells.json)，找到 icon 资源的路径  
+  
+|        |      |
+| ------ | ---- |
+| dragon | /plugins/rcp-be-**lol-game-data**/global/default/**v1/summoner-spells.json** | 
+| host   | /lol-game-data/**assets**/v1/summoner-spells.json | 
+
+
+**举例2**    
+读取对应的[英雄数据](http://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/champions/21.json)，找到此英雄对应的图片资源。
+   
+
+|        |      |
+| ------ | ---- |
+| dragon | /plugins/rcp-be-**lol-game-data**/global/default/**v1/champions/21.json** | 
+| host   | /lol-game-data/**assets**/v1/champions/21.json | 
+  
+
+**举例3**  
 读取对应[符文列表](http://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/v1/perkstyles.json)，找到对应的图片资源。
-- plugins/rcp-be-**lol-game-data**/global/default/**v1/perkstyles.json**
-- /lol-game-data/**assets**/v1/perkstyles.json
+
+|        |      |
+| ------ | ---- |
+| dragon | /plugins/rcp-be-**lol-game-data**/global/default/**v1/perkstyles.json** | 
+| host   | /lol-game-data/**assets**/v1/perkstyles.json | 
 
 
 <br>  
