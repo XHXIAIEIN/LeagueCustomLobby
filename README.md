@@ -350,14 +350,16 @@ def get_lockfile(path):
  
  
 就能从浏览器页面看到返回的数据了。  
-另外，个人推荐用 Egde   
-我用Chrome打开在输入密码时总会卡住，不知道为啥。。
+另外，个人推荐用 Egde， 我用Chrome打开在输入密码时总会卡住，不知道为啥。。
+
+或者可以用 [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop) 或者 [swagger](https://inspector.swagger.io/) 之类的调试工具，会更加方便。(更重要的是，它们可以对返回的数据进行格式化！！)
 
 
 <br>  
+
+如果你想用浏览器也行，这里 [nomi-san](https://github.com/Pupix/rift-explorer/issues/111#issuecomment-593249708)  提供了一个方案：
   
 ## 在浏览器中调用 request 请求
-该方案来源：[nomi-san](https://github.com/Pupix/rift-explorer/issues/111#issuecomment-593249708)  
   
 在控制台中执行这个代码：   
 ```javascript
@@ -384,6 +386,10 @@ await request('GET', '/lol-lobby/v2/lobby');
 <br><br>
 
 ---
+
+
+继续来看看其他API
+
 
 ## Queue, Maps, Game Modes, Game Types
 
