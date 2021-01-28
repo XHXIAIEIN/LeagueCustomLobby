@@ -301,7 +301,6 @@ print(path)
 **通过 lcu_driver 内置属性获得**
 ```python
 connection.installation_path
-print(path)
 ```
 
 注意，由于国服游戏路径会因为编码问题额外生成 gbk 编码的 '鑻遍泟鑱旂洘' 文件夹，需要将它转换为 utf-8 编码的 '英雄联盟'。
