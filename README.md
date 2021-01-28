@@ -11,6 +11,7 @@
 - [LCU API 速查手册](https://lcu.vivide.re/#operation--lol-lobby-v2-lobby-get)
 - [游戏数据资源列表](https://github.com/CommunityDragon/Docs/blob/master/assets.md)
 - [创建自定义训练模式房间数据](https://riot-api-libraries.readthedocs.io/en/latest/lcu.html)
+- [HTTP headers](https://www.hextechdocs.dev/lol/lcuapi/6.getting-started-with-the-lcu-api#connecting)
   
 <br>  
 
