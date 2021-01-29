@@ -354,35 +354,6 @@ def get_lockfile(path):
 
 或者可以用 [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop) 或者 [swagger](https://inspector.swagger.io/) 之类的调试工具，会更加方便。(更重要的是，它们可以对返回的数据进行格式化！！)
 
-
-<br>  
-
-如果你想用浏览器也行，这里 [nomi-san](https://github.com/Pupix/rift-explorer/issues/111#issuecomment-593249708)  提供了一个方案：
-  
-## 在浏览器中调用 request 请求
-  
-在控制台中执行这个代码：   
-```javascript
-var request = async (method, url, body = undefined) => {
-    const data = await fetch(url, {
-        method: method,
-        body: body,
-        headers: {'Content-type': 'application/json; charset=UTF-8'}
-    }).then(res => res.text())
-      .then(txt => JSON.parse(txt.length ? txt : '{}'));
-    return data;
-};
-```
-
-## 通过浏览器控制台调用 API
-
-例如，要获取房间数据  
-先创建一个房间，然后通过浏览器控制台调用API发送请求    
-
-```javascript
-await request('GET', '/lol-lobby/v2/lobby');
-```
-
 <br><br>
 
 ---
