@@ -75,7 +75,6 @@ async def add_team2_bots(connection):
   for name in team2:
     bots = { 'championId': champions[name], 'botDifficulty': 'MEDIUM','teamId': '200' }
     await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
-                                              
 
 #-------------------------------------------------------------------------------
 # 快速添加机器人
@@ -84,20 +83,27 @@ async def add_team1_bots(connection):
   soraka = { 'championId': 16, 'botDifficulty': 'MEDIUM', 'teamId': '100' }
   await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=soraka)
 
+
 #-------------------------------------------------------------------------------
-# Main
+# Websocket
 #-------------------------------------------------------------------------------
 
 @connector.ready
 async def connect(connection):
   await get_summoner_info(connection)
   await create_lobby(connection)
-  await add_team2_bots(connection)
   await add_team1_bots(connection)
+  await add_team2_bots(connection)
+
 
 @connector.close
 async def disconnect(connection):
     print('The client was closed')
     await connector.stop()
+
+
+#-------------------------------------------------------------------------------
+# Main
+#-------------------------------------------------------------------------------
 
 connector.start()
