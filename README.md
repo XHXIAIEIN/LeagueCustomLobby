@@ -60,7 +60,7 @@ async def disconnect(connection):
 
 @connector.ws.register('/lol-lobby/v2/lobby', event_types=('CREATE',))
 async def icon_changed(connection, event):
-    print(f'The summoner {event.data["localMember"]["summonerName"]} created a lobby.')
+    print(f"The summoner {event.data['localMember']['summonerName']} created a lobby.")
 
 connector.start()
 ```
@@ -71,8 +71,8 @@ connector.start()
 ### 获取召唤师数据
 ```python
 async def getSummonerInfo(connection):
-	summoner = await connection.request('get', '/lol-summoner/v1/current-summoner')
-	print(await summoner.json())
+  summoner = await connection.request('GET', '/lol-summoner/v1/current-summoner'
+  print(await summoner.json())
 ```
 
   
@@ -84,8 +84,8 @@ async def getSummonerInfo(connection):
 
 ```python
 async def createLobby(connection):
-	queue = {'queueId': 1200}
-	await connection.request('post', '/lol-lobby/v2/lobby', data=queue)
+  queue = {'queueId': 1200}
+  await connection.request('POST', '/lol-lobby/v2/lobby', data=queue)
 ```
   
 <br>  
@@ -94,33 +94,33 @@ async def createLobby(connection):
 
 参数解释：
 - **mapId**:  地图ID。召唤师峡谷：11, 嚎哭深渊：12
-- **gameMode**: 游戏模式。自定义模式为 "CLASSIC"， 训练模式为 "PRACTICETOOL" (仅召唤师峡谷)
+- **gameMode**: 游戏模式。自定义模式为 'CLASSIC'， 训练模式为 'PRACTICETOOL' (仅召唤师峡谷)
 - **lobbyName**: 房间名称
 - **lobbyPassword**: 房间密码
 - **teamSize**: 队伍规模
 
 ```python
 async def creatCustomLabby(connection):
-	# 房间数据
-	LobbyConfig = {
-	  "customGameLobby": {
-	    "configuration": {
-	      "gameMode": "PRACTICETOOL", 
-	      "gameMutator": "", 
-	      "gameServerRegion": "", 
-	      "mapId": 11, 
-	      "mutators": {"id": 1}, 
-	      "spectatorPolicy": "AllAllowed", 
-	      "teamSize": 5
-	    },
-	    "lobbyName": "Name",
-	    "lobbyPassword": ""
-	  },
-	  "isCustom": true
-	}
+  # 房间数据
+  LobbyConfig = {
+    'customGameLobby': {
+      'configuration': {
+        'gameMode': 'PRACTICETOOL', 
+        'gameMutator': '', 
+        'gameServerRegion': '', 
+        'mapId': 11, 
+        'mutators': {'id': 1}, 
+        'spectatorPolicy': 'AllAllowed', 
+        'teamSize': 5
+      },
+      'lobbyName': 'Name',
+      'lobbyPassword': ''
+    },
+    'isCustom': True
+  }
 
-	# 发送创建房间请求
-	await connection.request('post', '/lol-lobby/v2/lobby', data=LobbyConfig)
+  # 发送创建房间请求
+  await connection.request('POST', '/lol-lobby/v2/lobby', data=LobbyConfig)
 ```
   
 <br>  
@@ -134,11 +134,11 @@ async def creatCustomLabby(connection):
 
 ```python
 bots = {
-	"championId": 25,
-	"botDifficulty": "MEDIUM",
-	"teamId": "200"
+  'championId': 25,
+  'botDifficulty': 'MEDIUM',
+  'teamId': '200'
 }
-await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
+await connection.request('POST', '/lol-lobby/v1/lobby/custom/bots', data=bots)
 ```
 
 <br> 
@@ -148,14 +148,10 @@ await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
 **根据ID添加**
 ```python
 async def addBots(connection):
-	team2 = [122, 86, 1, 51, 25]
-	for id in team2:
-		bots = {
-			"championId": id,
-			"botDifficulty": "MEDIUM",
-			"teamId": "200"
-		}
-		await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
+  team2 = [122, 86, 1, 51, 25]
+  for id in team2:
+    bots = { 'championId': id, 'botDifficulty': 'MEDIUM', 'teamId': '200' }
+    await connection.request('POST', '/lol-lobby/v1/lobby/custom/bots', data=bots)
 ```
   
 <br>  
@@ -163,20 +159,16 @@ async def addBots(connection):
 **根据名称添加**
 ```python
 async def addBots(connection):
-	# 获取可用的机器人列表
-	activedata = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
-	champions = { bot['name']: bot['id'] for bot in await activedata.json() }
-	
-	# 队伍2的机器人
-	team2 = ["诺克萨斯之手", "德玛西亚之力", "曙光女神", "皮城女警", "众星之子"]
-	
-	for name in team2:
-		bots = {
-			"championId": champions[name],
-			"botDifficulty": "MEDIUM",
-			"teamId": "200"
-		}
-		await connection.request('post', '/lol-lobby/v1/lobby/custom/bots', data=bots)
+  # 获取可用的机器人列表
+  activedata = await connection.request('GET', '/lol-lobby/v2/lobby/custom/available-bots')
+  champions = { bot['name']: bot['id'] for bot in await activedata.json() }
+  
+  # 队伍2的机器人
+  team2 = ['诺克萨斯之手', '德玛西亚之力', '曙光女神', '皮城女警', '众星之子']
+  
+  for name in team2:
+    bots = { 'championId': champions[name], 'botDifficulty': 'MEDIUM', 'teamId': '200' }
+    await connection.request('POST', '/lol-lobby/v1/lobby/custom/bots', data=bots)
 ```
   
 
@@ -193,55 +185,54 @@ champions = {bots['name']: bots['id'] for bots in await data.json()}
 print(champions)
 ```
 
-| championId  | CN         | EN			   |	
-| :----- | :---------------- | :--------------------- |	
-| 1	| 黑暗之女		| Annie			|	
-| 3	| 正义巨像		| Galio			|	
-| 8	| 猩红收割者        | Vladimir		|	
-| 10	| 正义天使		| Kayle			|	
-| 11	| 无极剑圣		| Master Yi		|	
-| 12	| 牛头酋长		| Alistar		|	
-| 13	| 符文法师		| Ryze			|	
-| 15	| 战争女神		| Sivir			|	
-| 16	| 众星之子		| Soraka		|	
-| 18	| 麦林炮手		| Tristana		|	
-| 19	| 祖安怒兽		| Warwick		|	
-| 21	| 赏金猎人		| Miss Fortune		|	
-| 22	| 寒冰射手		| Ashe			|	
-| 24	| 武器大师		| Jax			|	
-| 25	| 堕落天使		| Morgana		|	
-| 26	| 时光守护者		| Zilean		|	
-| 30	| 死亡颂唱者		| Karthus		|	
-| 31	| 虚空恐惧		| Cho'Gath		|	
-| 32	| 殇之木乃伊		| Amumu			|	
-| 33	| 披甲龙龟		| Rammus		|	
-| 36	| 祖安狂人		| Dr. Mundo		|	
-| 44	| 瓦洛兰之盾		| Taric			|	
-| 45	| 邪恶小法师		| Veigar		|	
-| 48	| 巨魔之王		| Trundle		|	
-| 51	| 皮城女警		| Caitlyn		|	
-| 53	| 蒸汽机器人		| Blitzcrank		|	
-| 54	| 熔岩巨兽		| Malphite		|	
-| 58	| 荒漠屠夫		| Renekton		|	
-| 62	| 齐天大圣		| Wukong		|	
-| 63	| 复仇焰魂		| Brand			|	
-| 69	| 魔蛇之拥		| Cassiopeia		|	
-| 75	| 沙漠死神		| Nasus			|	
-| 76	| 狂野女猎手		| Nidalee		|	
-| 77	| 兽灵行者		| Udyr			|	
-| 81	| 探险家		 | Ezreal		|	
-| 86	| 德玛西亚之力      | Garen		      |	
-| 89	| 曙光女神		| Leona			|	
-| 96	| 深渊巨口		| Kog'Maw		|	
-| 98	| 暮光之眼		| Shen			|	
-| 99	| 光辉女郎		| Lux			|	
-| 102	| 龙血武姬		| Shyvana		|	
-| 104	| 法外狂徒		| Graves		|	
-| 115	| 爆破鬼才		| Ziggs			|	
-| 122	| 诺克萨斯之手	| Darius		|	
-| 143	| 荆棘之兴		| Zyra			|	
-| 236	| 圣枪游侠		| Lucian		|		
-
+| championId  | CN           | EN                    |
+| :---------- | :---------   | :-------------------- |
+| 1           | 黑暗之女     | Annie                 |
+| 3           | 正义巨像     | Galio                 |
+| 8           | 猩红收割者   | Vladimir              |
+| 10          | 正义天使     | Kayle                 |
+| 11          | 无极剑圣     | Master Yi             |
+| 12          | 牛头酋长     | Alistar               |
+| 13          | 符文法师     | Ryze                  |
+| 15          | 战争女神     | Sivir                 |
+| 16          | 众星之子     | Soraka                |
+| 18          | 麦林炮手     | Tristana              |
+| 19          | 祖安怒兽     | Warwick               |
+| 21          | 赏金猎人     | Miss Fortune          |
+| 22          | 寒冰射手     | Ashe                  |
+| 24          | 武器大师     | Jax                   |
+| 25          | 堕落天使     | Morgana               |
+| 26          | 时光守护者   | Zilean                |
+| 30          | 死亡颂唱者   | Karthus               |
+| 31          | 虚空恐惧     | Cho'Gath              |
+| 32          | 殇之木乃伊   | Amumu                 |
+| 33          | 披甲龙龟     | Rammus                |
+| 36          | 祖安狂人     | Dr. Mundo             |
+| 44          | 瓦洛兰之盾   | Taric                 |
+| 45          | 邪恶小法师   | Veigar                |
+| 48          | 巨魔之王     | Trundle               |
+| 51          | 皮城女警     | Caitlyn               |
+| 53          | 蒸汽机器人   | Blitzcrank            |
+| 54          | 熔岩巨兽     | Malphite              |
+| 58          | 荒漠屠夫     | Renekton              |
+| 62          | 齐天大圣     | Wukong                |
+| 63          | 复仇焰魂     | Brand                 |
+| 69          | 魔蛇之拥     | Cassiopeia            |
+| 75          | 沙漠死神     | Nasus                 |
+| 76          | 狂野女猎手   | Nidalee               |
+| 77          | 兽灵行者     | Udyr                  |
+| 81          | 探险家       | Ezreal                |
+| 86          | 德玛西亚之力 | Garen                 |
+| 89          | 曙光女神     | Leona                 |
+| 96          | 深渊巨口     | Kog'Maw               |
+| 98          | 暮光之眼     | Shen                  |
+| 99          | 光辉女郎     | Lux                   |
+| 102         | 龙血武姬     | Shyvana               |
+| 104         | 法外狂徒     | Graves                |
+| 115         | 爆破鬼才     | Ziggs                 |
+| 122         | 诺克萨斯之手 | Darius                |
+| 143         | 荆棘之兴     | Zyra                  |
+| 236         | 圣枪游侠     | Lucian                |
 
 
 <br><br> 
@@ -305,7 +296,7 @@ connection.address
 
 **通过 LCU API 请求**
 ```python
-path = await connection.request('get', '/data-store/v1/install-dir')
+path = await connection.request('GET', '/data-store/v1/install-dir')
 print(path)
 ```
 
@@ -340,16 +331,16 @@ print(lockfile_path)
 
 ```python
 def get_lockfile(path):
-	# 读取数据
-	if os.path.isfile(path):
-		file = open(path, 'r')
-		text = file.readline().split(':')
-		file.close()
-		print(f'riot    {text[3]}')
-		return text
-	else:
-		print(f'{path} \n lockfile 文件不存在' )
-	return None
+  # 读取数据
+  if os.path.isfile(path):
+    file = open(path, 'r')
+    text = file.readline().split(':')
+    file.close()
+    print(f"riot    {text[3]}")
+    return text
+  else:
+    print(f"{path} \n lockfile 文件不存在")
+  return None
 ```
 
 然后就可以通过浏览器访问本地资源了。   
@@ -390,7 +381,7 @@ print(await data.json())
 **GET queue by id**
 ```python
 id = 900
-data = await connection.request('GET', f'/lol-game-queues/v1/queues/{id}')
+data = await connection.request('GET', f"/lol-game-queues/v1/queues/{id}")
 print(await data.json())
 ```
 
@@ -399,7 +390,7 @@ print(await data.json())
 **GET queue by type**
 ```python
 queueType = 'URF'
-data = await connection.request('GET', f'/lol-game-queues/v1/queues/type/{queueType}')
+data = await connection.request('GET', f"/lol-game-queues/v1/queues/type/{queueType}")
 print(await data.json())
 ```
 
@@ -739,7 +730,7 @@ plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
 **召唤师图标：Base64**
 ```python
 profileIconId = 4804
-image = await connection.request('GET', f'/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg')
+image = await connection.request('GET', f"/lol-game-data/assets/v1/profile-icons/{profileIconId}.jpg")
 raw = base64.b64encode(await image.read())
 print(raw)
 ```
@@ -762,7 +753,7 @@ data = await connection.request('GET', f"/lol-champions/v1/inventories/{summoner
 ```javascript
 @connector.ws.register('/lol-summoner/v1/current-summoner', event_types=('UPDATE',))
 async def icon_changed(connection, event):
-    print(event.data')
+    print(event.data)
 ```
 
 **创建房间事件**
@@ -818,8 +809,8 @@ def CheckProcess():
 
 ```python
 if CheckProcess() == None:
-	QMessageBox.warning(Window(),"LeagueCustomLobby", "无法读取游戏数据\n需要先启动游戏，再运行此程序。")
-	return
+  QMessageBox.warning(Window(),'LeagueCustomLobby', '无法读取游戏数据\n需要先启动游戏，再运行此程序。')
+  return
 ```
 
 
