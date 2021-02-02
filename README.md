@@ -113,7 +113,7 @@ async def creatCustomLabby(connection):
         'spectatorPolicy': 'AllAllowed', 
         'teamSize': 5
       },
-      'lobbyName': 'Name',
+      'lobbyName': 'PRACTICETOOL',
       'lobbyPassword': ''
     },
     'isCustom': True
