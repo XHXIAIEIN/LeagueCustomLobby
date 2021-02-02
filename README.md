@@ -67,16 +67,6 @@ connector.start()
   
 <br>  
   
-
-### 快速笔记
-
-- [lol-lobby](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-lobby)
-- [lol-lobby-bots](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-lobby-bots)
-- [lol-champ-select](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-champ-select)
-- [lol-ranked](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-ranked)
-- [game-client](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client)
-  
-<br>  
   
 ### 获取召唤师数据
 ```python
@@ -264,6 +254,16 @@ print(champions)
 
 (以下内容暂时还没更新到脚本中，只是个备忘录)
 
+<br>  
+
+### 快速笔记
+
+- [lol-lobby](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-lobby)
+- [lol-lobby-bots](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-lobby-bots)
+- [lol-champ-select](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-champ-select)
+- [lol-ranked](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-ranked)
+- [game-client](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client)
+  
 <br>  
 
 ## 获取游戏服务器地区
