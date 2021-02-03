@@ -760,7 +760,7 @@ https://raw.communitydragon.org/pbe/game/assets/maps/skyboxes/riots_sru_skybox_c
 /lol-game-data/assets/ASSETS/Loadouts/StatStones/Categories/LCU/SS_Icon_Style_Unique_1.png
 ```
 
-**[比赛奖杯](https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summonertrophies/trophies/)** 
+**[联赛奖杯](https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summonertrophies/trophies/)** 
 ```
 /lol-game-data/assets/ASSETS/Loadouts/SummonerTrophies/Trophies/Demacia/LeagueClient/Trophy_Demacia_4_Inventory.png
 ```
