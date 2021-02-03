@@ -724,7 +724,7 @@ https://raw.communitydragon.org/pbe/game/assets/maps/skyboxes/riots_sru_skybox_c
 /lol-game-data/assets/ASSETS/items/icons2d/6672_marksman_t4_behemothslayer.png
 ```
 
-**[选位图标](https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-clash/global/default/assets/images/position-selector/positions/)** 
+**[选位图标](https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/ranked/positions/)** 
 ```
 /lol-game-data/assets/v1/perk-images/statmods/statmodsattackspeedicon.png
 ```
@@ -738,7 +738,6 @@ https://raw.communitydragon.org/pbe/game/assets/maps/skyboxes/riots_sru_skybox_c
 ```
 /lol-game-data/assets/ASSETS/loadouts/summoneremotes/flairs/thumb_happy_up_inventory.png
 ```
-
 
 **[成就表情](https://raw.communitydragon.org/latest/game/assets/ux/mastery/)** 
 ```
