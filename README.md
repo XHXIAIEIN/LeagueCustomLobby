@@ -40,8 +40,8 @@
 
 # 核心代码
 
-如果你和我一样，突然对英雄联盟 API 感兴趣，可以继续阅读下方的内容。  
-这里，我使用了 lcu-driver 来对客户端进行访问，关于它的资料可以阅读 [lcu-driver 开发文档](https://lcu-driver.readthedocs.io/en/latest/index.html) 了解。
+如果你像我一样，突然对英雄联盟 API 感兴趣，可以继续阅读下方的内容。  
+这里我使用了 lcu-driver 来对客户端进行通信，关于它的资料可以阅读 [lcu-driver 开发文档](https://lcu-driver.readthedocs.io/en/latest/index.html) 了解。
 
 ### 快速上手
 ```python
