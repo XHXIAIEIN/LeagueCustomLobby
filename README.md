@@ -733,6 +733,11 @@ https://raw.communitydragon.org/pbe/game/assets/maps/skyboxes/riots_sru_skybox_c
 /lol-game-data/assets/DATA/Spells/Icons2D/Summoner_teleport.png
 ```
 
+**[英雄技能](http://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/characters/yasuo/hud/icons2d/)** 
+```
+https://127.0.0.1:50956/lol-game-data/assets/assets/characters/yasuo/hud/icons2d/yasuo_e.png
+```
+
 **[守卫图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/wardskinimages/)**
 ```
 /lol-game-data/assets/content/src/leagueclient/wardskinimages/wardhero_0.png
