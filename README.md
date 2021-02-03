@@ -652,8 +652,8 @@ plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
  
 <br>  
 
-部分资源列表（持续更新中）：
-
+### 部分资源列表
+（持续更新中
 
 **[召唤师头像](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/)** 
 ```
@@ -668,6 +668,11 @@ plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
 **[英雄加载页面](https://raw.communitydragon.org/latest/game/assets/characters/)** 
 ```
 /lol-game-data/assets/ASSETS/Characters/Sona/Skins/Base/SonaLoadScreen.jpg
+```
+
+**[加载页面排位边框](https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/regalia/banners/trims/)** 
+```
+/lol-game-data/assets/ASSETS/regalia/banners/trims/trim_bronze.png
 ```
 
 **[英雄原画](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/)** 
@@ -692,17 +697,21 @@ https://raw.communitydragon.org/pbe/game/assets/maps/skyboxes/riots_sru_skybox_c
 
 **[地图模式图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/)**
 ```
-召唤师峡谷 \ 嚎哭深渊 \ 云顶之弈
+召唤师峡谷
 /lol-game-data/assets/content/src/leagueclient/gamemodeassets/classic_sru/img/game-select-icon-active.png
+
+嚎哭深渊
 /lol-game-data/assets/content/src/leagueclient/gamemodeassets/aram/img/game-select-icon-active.png
+
+云顶之弈
 /lol-game-data/assets/content/src/leagueclient/gamemodeassets/tft/img/game-select-icon-active.png
-```
-```
-无限乱斗 \ 极限闪击
+
+无限乱斗 
 /lol-game-data/assets/content/src/leagueclient/gamemodeassets/shared/img/icon-rgm-active.png
+
+极限闪击
 /lol-game-data/assets/content/src/leagueclient/gamemodeassets/gamemodex/img/social-icon-victory.png
 ```
-
 
 **[召唤师技能](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/data/spells/icons2d/)** 
 ```
@@ -763,7 +772,16 @@ https://raw.communitydragon.org/pbe/game/assets/maps/skyboxes/riots_sru_skybox_c
 ```
 /lol-game-data/assets/ASSETS/Loadouts/SummonerTrophies/Trophies/Demacia/LeagueClient/Trophy_Demacia_4_Inventory.png
 ```
-  
+
+<br>  
+
+
+### 其他资源
+
+**[信号图标](https://raw.communitydragon.org/latest/game/data/images/ui/)** 
+**[屏幕失控遮罩](https://raw.communitydragon.org//latest/game/data/images/vision/)** 
+
+
 <br>  
 
 
