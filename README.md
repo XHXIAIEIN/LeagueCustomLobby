@@ -366,9 +366,7 @@ def get_lockfile(path):
 
 ## Queue, Maps, Game Modes, Game Types
 
-游戏模式必须是当前开放状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
-
-#### 通过API获取：
+你可以通过这个来获取目前所有的游戏模式，
 
 **GET queue**
 ```python
@@ -376,9 +374,41 @@ data = await connection.request('GET', '/lol-game-queues/v1/queues')
 print(await data.json())
 ```
 
-<br>  
-  
-**GET queue by id**
+从返回的结果来看，其中有个参数非常值得注意
+
+| queueAvailability |                |
+| :--------------   | :------------- |
+| PlatformDisabled  | 平台禁用        |
+| Available         | 当前可用        |
+
+这个属性决定了你是否可以创建这个模式的房间，该模式必须是 `Available` 状态才能创建，即目前客户端可以玩极限闪击，才能创建极限闪击的房间。  
+我筛选出了一份目前平台允许创建的模式：
+
+| queuesId | queuesName           | queueType         | gameMode          | mapId | queueAvailability |
+| -------- | -------------------- | ----------------- | ----------------- | ---   | ----------------- |
+| 430      | 匹配模式             | NORMAL            | CLASSIC           | 11    | Available         |
+| 420      | 排位赛 单排/双排     | RANKED_SOLO_5x5   | CLASSIC           | 11    | Available         |
+| 440      | 排位赛 灵活排位      | RANKED_FLEX_SR    | CLASSIC           | 11    | Available         |
+| 450      | 极地大乱斗           | ARAM_UNRANKED_5x5 | ARAM              | 12    | Available         |
+| 1090     | 云顶之弈（匹配模式） | NORMAL_TFT        | TFT               | 22    | Available         |
+| 1100     | 云顶之弈 (排位赛)    | RANKED_TFT        | TFT               | 22    | Available         |
+| 700      | 冠军杯赛             | CLASH             | CLASSIC           | 11    | Available         |
+| 840      | 新手                 | BOT               | CLASSIC           | 11    | Available         |
+| 830      | 入门                 | BOT               | CLASSIC           | 11    | Available         |
+| 850      | 一般                 | BOT               | CLASSIC           | 11    | Available         |
+| 2000     | 新手教程 第一部分    | TUTORIAL_MODULE_1 | TUTORIAL_MODULE_1 | 11    | Available         |
+| 2010     | 新手教程 第二部分    | TUTORIAL_MODULE_2 | TUTORIAL_MODULE_2 | 11    | Available         |
+| 2020     | 新手教程 第三部分    | TUTORIAL_MODULE_3 | TUTORIAL_MODULE_3 | 11    | Available         |
+
+也就是说，目前你在客户端看到是什么样，实际也就那样了。  
+
+看到这里，我有一个大胆的猜想，如果我去替换本地的文件，将 `PlatformDisabled` 改成 `Available` ， 能不能欺骗客户端**本地**创建特殊模式的房间呢？找机会试一下。
+
+---
+
+你可以根据 `queueId` 或者 `queueType` 去获取某个地图模式的详细信息：
+
+**GET queue by queueId**
 ```python
 id = 900
 data = await connection.request('GET', f"/lol-game-queues/v1/queues/{id}")
@@ -387,7 +417,7 @@ print(await data.json())
 
 <br>  
   
-**GET queue by type**
+**GET queue by queueType**
 ```python
 queueType = 'URF'
 data = await connection.request('GET', f"/lol-game-queues/v1/queues/type/{queueType}")
