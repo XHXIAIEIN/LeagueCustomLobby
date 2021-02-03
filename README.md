@@ -685,6 +685,11 @@ plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
 /lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Classic_SRU/img/map-south.png
 ```
 
+**[召唤师峡谷天空](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/)** 
+```
+https://raw.communitydragon.org/pbe/game/assets/maps/skyboxes/riots_sru_skybox_cubemap.png
+```
+
 **[地图模式图标](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/)**
 ```
 召唤师峡谷 \ 嚎哭深渊 \ 云顶之弈
@@ -752,7 +757,12 @@ plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
 
 **[永恒星碑](https://raw.communitydragon.org/pbe/game/assets/loadouts/statstones/categories/game/)** 
 ```
-https://127.0.0.1:50956/lol-game-data/assets/ASSETS/Loadouts/StatStones/Categories/LCU/SS_Icon_Style_Unique_1.png
+/lol-game-data/assets/ASSETS/Loadouts/StatStones/Categories/LCU/SS_Icon_Style_Unique_1.png
+```
+
+**[比赛奖杯](https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/assets/loadouts/summonertrophies/trophies/)** 
+```
+/lol-game-data/assets/ASSETS/Loadouts/SummonerTrophies/Trophies/Demacia/LeagueClient/Trophy_Demacia_4_Inventory.png
 ```
   
 <br>  
