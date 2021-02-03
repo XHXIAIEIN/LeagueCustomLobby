@@ -749,6 +749,11 @@ plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
 ```
 /lol-game-data/assets/ASSETS/Loot/Companions/gemtiger/loot_gemtiger_shadowgem_tier1.png
 ```
+
+**[永恒星碑](https://raw.communitydragon.org/pbe/game/assets/loadouts/statstones/categories/game/)** 
+```
+https://127.0.0.1:50956/lol-game-data/assets/ASSETS/Loadouts/StatStones/Categories/LCU/SS_Icon_Style_Unique_1.png
+```
   
 <br>  
 
