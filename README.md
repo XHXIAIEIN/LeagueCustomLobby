@@ -667,7 +667,7 @@ plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
 
 **[传说之证 边框](https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/prestigeborders/)** 
 ```
-https://127.0.0.1:50956/lol-game-data/assets/content/src/leagueclient/prestigeborders/theme-1-simplified-border.png
+/lol-game-data/assets/content/src/leagueclient/prestigeborders/theme-1-simplified-border.png
 ```
 
 **[英雄加载页面](https://raw.communitydragon.org/latest/game/assets/characters/)** 
