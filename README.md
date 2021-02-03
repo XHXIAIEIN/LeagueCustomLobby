@@ -778,7 +778,7 @@ https://raw.communitydragon.org/pbe/game/assets/maps/skyboxes/riots_sru_skybox_c
 
 ### 其他资源
 
-**[信号图标](https://raw.communitydragon.org/latest/game/data/images/ui/)** 
+**[信号标记（问号、请求协助、正在路上）](https://raw.communitydragon.org/latest/game/data/images/ui/)** 
 **[屏幕失控遮罩](https://raw.communitydragon.org//latest/game/data/images/vision/)** 
 
 
