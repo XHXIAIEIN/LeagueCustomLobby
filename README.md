@@ -12,7 +12,7 @@
 - [游戏数据资源列表](https://github.com/CommunityDragon/Docs/blob/master/assets.md)
 - [创建自定义训练模式房间数据](https://riot-api-libraries.readthedocs.io/en/latest/lcu.html)
 - [HTTP headers](https://www.hextechdocs.dev/lol/lcuapi/6.getting-started-with-the-lcu-api#connecting)
-- [掌盟助手的战迹地图，击杀记录地图](https://www.hextechdocs.dev/lol/misc/8.maps) ([游戏事件API](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client#%E6%B8%B8%E6%88%8F%E4%BA%8B%E4%BB%B6)   [代码示例](http://jsfiddle.net/ow4tsbne))
+- [掌盟战迹击杀记录地图](https://www.hextechdocs.dev/lol/misc/8.maps)    |    ([游戏事件API](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client#%E6%B8%B8%E6%88%8F%E4%BA%8B%E4%BB%B6) |      [代码示例](http://jsfiddle.net/ow4tsbne))
   
 <br>  
 
