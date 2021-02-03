@@ -690,6 +690,16 @@ https://127.0.0.1:50956/lol-game-data/assets/content/src/leagueclient/prestigebo
 /lol-game-data/assets/v1/champion-chroma-images/53/53000.png
 ```
 
+**[英雄选择语音](https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/zh_cn/v1/champion-choose-vo/)** 
+```
+/lol-game-data/assets/v1/champion-choose-vo/350.ogg
+```
+
+**[英雄禁用语音](https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/zh_cn/v1/champion-ban-vo/)** 
+```
+/lol-game-data/assets/v1/champion-ban-vo/350.ogg
+```
+
 **[召唤师峡谷背景](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/)** 
 ```
 /lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Classic_SRU/img/map-south.png
