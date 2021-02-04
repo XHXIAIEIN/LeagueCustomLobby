@@ -71,9 +71,35 @@ connector.start()
   
 ### 获取召唤师数据
 ```python
-async def getSummonerInfo(connection):
-  summoner = await connection.request('GET', '/lol-summoner/v1/current-summoner'
-  print(await summoner.json())
+from lcu_driver import Connector
+
+async def get_summoner_data(connection):
+  summoner = await connection.request('GET', '/lol-summoner/v1/current-summoner')
+  data = await summoner.json()
+  print(f"summonerName:    {data['displayName']}")
+  print(f"summonerLevel:   {data['summonerLevel']}")
+  print(f"profileIconId:   {data['profileIconId']}")
+  print(f"summonerId:      {data['summonerId']}")
+  print(f"puuid:           {data['puuid']}")
+  print(f"---")
+```
+
+  
+### 获取 lockfile 密钥
+```python
+import os
+
+async def get_lockfile(connection):
+    path = os.path.join(connection.installation_path.encode('gbk').decode('utf-8'), 'lockfile')
+    if os.path.isfile(path):
+        file = open(path, 'r')
+        text = file.readline().split(':')
+        file.close()
+        print(f'host   {connection.address}')
+        print(f'riot   {text[3]}')
+        print(f'---')
+        return text[3]
+    return None
 ```
 
   
