@@ -729,9 +729,15 @@ plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
 /lol-game-data/assets/v1/champion-ban-vo/350.ogg
 ```
 
-**[召唤师峡谷背景](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/)** 
+**[召唤师峡谷房间背景](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/)** 
+```
+/lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Classic_SRU/img/gameflow-background.jpg
+```
+
+**[召唤师峡谷地图背景](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/)** 
 ```
 /lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Classic_SRU/img/map-south.png
+/lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Classic_SRU/img/map-north.png
 ```
 
 **[召唤师峡谷天空](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/)** 
