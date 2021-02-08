@@ -383,7 +383,7 @@ def get_lockfile(path):
 就能从浏览器页面看到返回的数据了。  
 另外，个人推荐用 Egde， 我用Chrome打开在输入密码时总会卡住，不知道为啥。。
 
-或者可以用 [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop) 或者 [swagger](https://inspector.swagger.io/) 之类的调试工具，会更加方便。(更重要的是，它们可以对返回的数据进行格式化！！)
+或者可以用 [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop) 或者 [swagger](https://inspector.swagger.io/) 之类的调试工具，会更加方便。(更重要的是，它们可以对返回的数据进行格式化！！) 或者可以在Chrome 安装一个 [JSON-handle](https://chrome.google.com/webstore/detail/json-handle/iahnhfdhidomcpggpaimmmahffihkfnj/related?hl=zh-CN) 之类的插件，也很不错
 
 <br><br>
 
