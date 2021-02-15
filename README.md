@@ -5,8 +5,6 @@
 [lcu-driver](https://github.com/sousa-andre/lcu-driver)
 
 
-<br>  
-
 # 如何安装
 1. [Python 3](https://www.python.org)   
 2. [lcu-driver](https://github.com/sousa-andre/lcu-driver)  
@@ -19,8 +17,6 @@
     pip install -U psutil==5.6.5
     ```
   
-<br>  
-
 # 如何使用
 
 将 [create_custom_lobby.py](https://github.com/XHXIAIEIN/LeagueCustomLobby/blob/main/create_custom_lobby.py) 下载到本地任意地方，运行脚本即可。
