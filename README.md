@@ -1,10 +1,6 @@
 # LeagueCustomLobby
 英雄联盟创建5V5训练模式
 
-# 工具库
-[lcu-driver](https://github.com/sousa-andre/lcu-driver)
-
-
 # 如何安装
 1. [Python 3](https://www.python.org)   
 2. [lcu-driver](https://github.com/sousa-andre/lcu-driver)  
