@@ -7,7 +7,7 @@
 
 # 参考资料
 - [Riot 开发者文档](https://developer.riotgames.com/docs/lol)
-- [LCU API 速查手册（需全局代理，来自 @mingweisamuel）](http://www.mingweisamuel.com/lcu-schema/tool/#/)
+- [LCU API 速查手册（需使用代理，来自 @mingweisamuel）](http://www.mingweisamuel.com/lcu-schema/tool/#/)
 - [LCU API 速查手册（国内镜像源，来自 @ButterCookies）](https://api.mitay.net/lcu/docs/)
 - [LCU API 速查手册（早期版本）](https://lcu.vivide.re/#operation--lol-lobby-v2-lobby-get)
 - [游戏数据资源列表](https://github.com/CommunityDragon/Docs/blob/master/assets.md)
