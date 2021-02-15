@@ -5,17 +5,6 @@
 [lcu-driver](https://github.com/sousa-andre/lcu-driver)
 
 
-# 参考资料
-- [Riot 开发者文档](https://developer.riotgames.com/docs/lol)
-- [LCU API 速查手册（需使用代理，来自 @mingweisamuel）](http://www.mingweisamuel.com/lcu-schema/tool/#/)
-- [LCU API 速查手册（国内镜像源，来自 @ButterCookies）](https://api.mitay.net/lcu/docs/)
-- [LCU API 速查手册（早期版本）](https://lcu.vivide.re/#operation--lol-lobby-v2-lobby-get)
-- [游戏数据资源列表](https://github.com/CommunityDragon/Docs/blob/master/assets.md)
-- [创建自定义训练模式房间数据](https://riot-api-libraries.readthedocs.io/en/latest/lcu.html)
-- [掌盟战迹击杀记录地图](https://www.hextechdocs.dev/lol/misc/8.maps)    |    [游戏事件监听](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client#%E6%B8%B8%E6%88%8F%E4%BA%8B%E4%BB%B6) |      [战迹地图实现示例](http://jsfiddle.net/ow4tsbne)
-- [英雄联盟 API 探索笔记](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client)
-- [LCU websocket ](https://www.hextechdocs.dev/lol/lcuapi/5.getting-started-with-the-lcu-websocket)
-  
 <br>  
 
 # 如何安装
@@ -960,7 +949,22 @@ if CheckProcess() == None:
 ---
   
 <br>  
+
+
+# 参考资料
+- [Riot 开发者文档](https://developer.riotgames.com/docs/lol)
+- [LCU API 速查手册（需使用代理，来自 @mingweisamuel）](http://www.mingweisamuel.com/lcu-schema/tool/#/)
+- [LCU API 速查手册（国内镜像源，来自 @ButterCookies）](https://api.mitay.net/lcu/docs/)
+- [LCU API 速查手册（早期版本）](https://lcu.vivide.re/#operation--lol-lobby-v2-lobby-get)
+- [游戏数据资源列表](https://github.com/CommunityDragon/Docs/blob/master/assets.md)
+- [创建自定义训练模式房间数据](https://riot-api-libraries.readthedocs.io/en/latest/lcu.html)
+- [掌盟战迹击杀记录地图](https://www.hextechdocs.dev/lol/misc/8.maps)    |    [游戏事件监听](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client#%E6%B8%B8%E6%88%8F%E4%BA%8B%E4%BB%B6) |      [战迹地图实现示例](http://jsfiddle.net/ow4tsbne)
+- [英雄联盟 API 探索笔记](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client)
+- [LCU websocket ](https://www.hextechdocs.dev/lol/lcuapi/5.getting-started-with-the-lcu-websocket)
   
+  
+<br>  
+ 
 # 其他工具
 - [LeaueLobby](https://github.com/MarioCrane/LeaueLobby) @MarioCrane
 
