@@ -128,7 +128,7 @@ connector.start()
 
 ```python
 async def createLobby(connection):
-  queue = {'queueId': 1200}
+  queue = {'queueId': 430}
   await connection.request('POST', '/lol-lobby/v2/lobby', data=queue)
 ```
   
