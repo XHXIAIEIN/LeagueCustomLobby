@@ -744,6 +744,11 @@ plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
 /lol-game-data/assets/v1/champion-ban-vo/350.ogg
 ```
 
+**[联赛锁定提醒](https://raw.communitydragon.org/pbe/plugins/rcp-be-lol-game-data/global/zh_cn/content/src/leagueclient/clashvo/zh_cn/)** 
+```
+/game-data/assets/content/src/leagueclient/clashvo/zh_cn/vo-anncr-fem1-tournaments-lockin-10min-01.ogg
+```
+
 **[召唤师峡谷房间背景](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/content/src/leagueclient/gamemodeassets/classic_sru/img/)** 
 ```
 /lol-game-data/assets/content/src/LeagueClient/GameModeAssets/Classic_SRU/img/gameflow-background.jpg
