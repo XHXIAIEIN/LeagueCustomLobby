@@ -299,6 +299,16 @@ print(champions)
   
 <br>  
 
+## 拳头开发者文档
+
+[Riot 开发者文档](https://developer.riotgames.com/docs/lol)
+- **地区语言列表** [Languages](https://developer.riotgames.com/docs/lol#data-dragon_languages)
+- **所有英雄列表** [Champions](https://developer.riotgames.com/docs/lol#data-dragon_champions) 备注: 将 `en_US` 换成 `zh_CN` 就是国服的英雄数据
+- **英雄原画资源** [Champion Splash Assets](https://developer.riotgames.com/docs/lol#data-dragon_champion-splash-assets)
+- **游戏商城道具** [Items](https://developer.riotgames.com/docs/lol#data-dragon_items)
+
+<br>  
+
 ## 获取游戏服务器地区
 ```python
 data = await connection.request('GET', '/riotclient/get_region_locale')
