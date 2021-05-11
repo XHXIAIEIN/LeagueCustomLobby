@@ -992,7 +992,7 @@ LeagueCustomLobby isn’t endorsed by Riot Games and doesn’t reflect the views
 
 # 小伙子，你干得不错！
 
-虽然说，我只是随手记了一份笔记，相当于课代表把老师上课讲的东西写了一份小抄。但如果这份笔记对你非常有帮助，节省了你的时间，提升了你的工作效率，让生活变得更美丽....
+虽然说，我只是随手记了一份笔记，相当于课代表把老师上课讲的东西写了一份小抄。但如果这份笔记对你有帮助，节省了你的时间，提升了你的工作效率，让生活变得更美丽....
 可以请我喝杯咖啡喔！我会非常高兴的！！
 
 ![xhxiaiein_sponsors](https://user-images.githubusercontent.com/45864744/116389688-d38c4480-a84f-11eb-9dec-036bc1abf397.png)
