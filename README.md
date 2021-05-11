@@ -33,6 +33,8 @@
 - [英雄联盟 API 探索笔记](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client)
 - [LCU websocket ](https://www.hextechdocs.dev/lol/lcuapi/5.getting-started-with-the-lcu-websocket)
 
+  
+对了，别忘了看看 [Wiki](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki)，也有一部分笔记哦
 
 <br><br>  
 
@@ -963,22 +965,18 @@ if CheckProcess() == None:
 
 
 # TODO
-1. 做个简单的UI，并脱离python环境?
+1. 做个简单的UI，并脱离python环境? 
   
-<br> 
-
   
----
- 
-  
-<br>  
+<br><br>  
  
 # 其他工具
 - [LeaueLobby](https://github.com/MarioCrane/LeaueLobby) @MarioCrane
 
 
-
+<br><br>
+ 
+ 
 # 免责声明
 
 LeagueCustomLobby isn’t endorsed by Riot Games and doesn’t reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.
-
