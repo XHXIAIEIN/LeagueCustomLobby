@@ -738,6 +738,12 @@ plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
 /lol-game-data/assets/v1/champion-splashes/876/876000.jpg
 ```
 
+
+**[英雄技能预览视频](https://na.leagueoflegends.com/en-us/champions/)** 
+```
+进入英雄页面，将右侧视频右键另存为即可
+```
+
 **[英雄模型图](https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-chroma-images/)** 
 ```
 /lol-game-data/assets/v1/champion-chroma-images/53/53000.png
