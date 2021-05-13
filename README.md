@@ -648,7 +648,7 @@ print(await data.json())
 |        | path |
 | ------ | :---- |
 | dragon | /plugins/rcp-be-**lol-game-data**/global/default/**v1/summoner-spells.json** | 
-| host   | /lol-game-data/**assets**/v1/summoner-spells.json | 
+| lcu   | /lol-game-data/**assets**/v1/summoner-spells.json | 
 
 
 **举例2**    
@@ -658,7 +658,7 @@ print(await data.json())
 |        | path |
 | ------ | :---- |
 | dragon | /plugins/rcp-be-**lol-game-data**/global/default/**v1/champions/21.json** | 
-| host   | /lol-game-data/**assets**/v1/champions/21.json | 
+| lcu   | /lol-game-data/**assets**/v1/champions/21.json | 
   
 
 **举例3**  
@@ -667,7 +667,7 @@ print(await data.json())
 |        | path |
 | ------ | :---- |
 | dragon | /plugins/rcp-be-**lol-game-data**/global/default/**v1/perkstyles.json** | 
-| host   | /lol-game-data/**assets**/v1/perkstyles.json | 
+| lcu   | /lol-game-data/**assets**/v1/perkstyles.json | 
 
 
 <br>  
@@ -696,7 +696,9 @@ print(await data.json())
 plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
 /global/default/                 ->      assets
 ```
-
+ 
+<br>  
+  
 但是暂时我还不知道怎么获取非 /lol-game-data/assets 路径的文件。  
 有空再继续试，或者如果有人知道可以跟我说说...
 
