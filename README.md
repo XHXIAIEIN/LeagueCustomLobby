@@ -27,11 +27,10 @@
 # 参考资料
 - [Riot 开发者文档](https://developer.riotgames.com/docs/lol)
 - [版本英雄游戏数据](https://developer.riotgames.com/docs/lol#data-dragon_champions)
-- [LCU API 速查手册（需代理访问，来自 @mingweisamuel）](http://www.mingweisamuel.com/lcu-schema/tool/#/)
 - [游戏数据资源列表](https://github.com/CommunityDragon/Docs/blob/master/assets.md)
+- [LCU API 速查手册（需代理访问，来自 @mingweisamuel）](http://www.mingweisamuel.com/lcu-schema/tool/#/)
 - [创建自定义训练模式房间数据](https://riot-api-libraries.readthedocs.io/en/latest/lcu.html)
 - [掌盟战迹击杀记录地图](https://www.hextechdocs.dev/lol/misc/8.maps)      |      [游戏事件监听](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/client:--game-client)      |      [战迹地图实现示例](http://jsfiddle.net/ow4tsbne)
-- [英雄联盟 API 探索笔记](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client)
 - [LCU websocket ](https://www.hextechdocs.dev/lol/lcuapi/5.getting-started-with-the-lcu-websocket)
 
 对了，别忘了看 [Wiki](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki)，这里也有一部分笔记哦
