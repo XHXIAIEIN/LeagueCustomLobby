@@ -26,6 +26,7 @@
 
 # 参考资料
 - [Riot 开发者文档](https://developer.riotgames.com/docs/lol)
+- [版本英雄游戏数据](https://developer.riotgames.com/docs/lol#data-dragon_champions)
 - [LCU API 速查手册（需代理访问，来自 @mingweisamuel）](http://www.mingweisamuel.com/lcu-schema/tool/#/)
 - [游戏数据资源列表](https://github.com/CommunityDragon/Docs/blob/master/assets.md)
 - [创建自定义训练模式房间数据](https://riot-api-libraries.readthedocs.io/en/latest/lcu.html)
