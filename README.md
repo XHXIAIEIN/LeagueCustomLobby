@@ -41,6 +41,33 @@
 1. 官方已经更改了 lockfile 的方式，目前无法用以前的方法找到密钥了。推荐使用其他办法，例如读取进程数据。详情请参考这篇文章：https://hextechdocs.dev/getting-started-with-the-lcu-api/
 2. 这份笔记使用的是 lcu-driver，但我推荐你使用 [Willump](https://github.com/elliejs/Willump) 作为连接器会更方便。(因为当时 Willump 还没有出现)
 
+Willump 快速上手
+```python
+import asyncio
+import willump
+
+async def get_summoner_data():
+    summoner = await (await wllp.request("GET", "/lol-summoner/v1/current-summoner")).json()
+    print(f"summonerName:    {summoner['displayName']}")
+    print(f"summonerLevel:   {summoner['summonerLevel']}")
+    print(f"profileIconId:   {summoner['profileIconId']}")
+    print(f"summonerId:      {summoner['summonerId']}")
+    print(f"puuid:           {summoner['puuid']}")
+    print(f"---")
+
+
+async def main():
+    global wllp
+    wllp = await willump.start()
+    await get_summoner_data()
+    await wllp.close()
+
+if __name__ == '__main__':
+  loop = asyncio.get_event_loop()
+  loop.run_until_complete(main())
+  loop.close()
+```
+
 <br><br>  
 
 
