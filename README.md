@@ -37,6 +37,12 @@
 
 <br><br>  
 
+新增备注：
+1. 官方已经更改了 lockfile 的方式，目前已经无法用以前的方法找到密钥了。推荐使用其他的办法，例如读取进程数据。详情请参考这篇文章：https://hextechdocs.dev/getting-started-with-the-lcu-api/
+2. 虽然这里使用的是 lcu-driver，但我推荐你使用 Willump https://github.com/elliejs/Willump 作为连接器，会更加方便。
+
+<br><br>  
+
 
 # 核心代码
 
