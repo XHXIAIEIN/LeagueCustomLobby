@@ -355,7 +355,7 @@ connection.installation_path
 path.encode('gbk').decode('utf-8')
 ```
   
-## lockfile
+## lockfile（弃用）
 lockfile 文件会在每次客户端启动时生成，里面储存的是本次访问游戏客户端时的密钥，通过它来读取游戏需要的资源。  
 
 ```
