@@ -79,8 +79,12 @@ if __name__ == '__main__':
 
 - [lol-lobby](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-lobby)
 - [lol-lobby-bots](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-lobby-bots)
+- [lol perks](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-perks)
 - [lol-champ-select](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-champ-select)
 - [lol-ranked](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-ranked)
+- [lol collections](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-collections)
+- [champion profile](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/champion-profile)
+- [champion spells](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/champion-spells)
 - [game-client](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client)
   
 <br>  
