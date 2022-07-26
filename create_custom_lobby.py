@@ -28,22 +28,6 @@ async def get_summoner_data(connection):
     print(f"puuid:          {summoner['puuid']}")
     print("-")
 
-
-#-----------------------------------------------------------------------------
-#  lockfile
-#-----------------------------------------------------------------------------
-async def get_lockfile(connection):
-    import os
-    path = os.path.join(connection.installation_path.encode('gbk').decode('utf-8'), 'lockfile')
-    if os.path.isfile(path):
-        file = open(path, 'r')
-        text = file.readline().split(':')
-        file.close()
-        print(connection.address)
-        print(f'riot    {text[3]}')
-        return text[3]
-    return None
-
 #-----------------------------------------------------------------------------
 # 创建训练模式 5V5 自定义房间
 #-----------------------------------------------------------------------------
@@ -97,7 +81,6 @@ async def add_bots_team2(connection):
 @connector.ready
 async def connect(connection):
   await get_summoner_data(connection)
-  await get_lockfile(connection)
   await create_custom_lobby(connection)
   await add_bots_team1(connection)
   await add_bots_team2(connection)
