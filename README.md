@@ -22,23 +22,9 @@
  
 ---
 
-<br>  
-
-# 参考资料
-- [Riot 开发者文档](https://developer.riotgames.com/docs/lol)
-- [版本英雄游戏数据](https://developer.riotgames.com/docs/lol#data-dragon_champions)
-- [游戏数据资源列表](https://github.com/CommunityDragon/Docs/blob/master/assets.md)
-- [LCU API 速查手册（需代理访问，来自 @mingweisamuel）](http://www.mingweisamuel.com/lcu-schema/tool/#/)
-- [创建自定义训练模式房间数据](https://riot-api-libraries.readthedocs.io/en/latest/lcu.html)
-- [掌盟战迹击杀记录地图](https://hextechdocs.dev/map-data/)      |      [游戏事件监听](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/client:--game-client)      |      [战迹地图实现示例](http://jsfiddle.net/ow4tsbne)
-- [LCU websocket ](https://www.hextechdocs.dev/lol/lcuapi/5.getting-started-with-the-lcu-websocket)
-
-对了，别忘了看 [Wiki](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki)，这里也有一部分笔记哦
-
-<br><br>  
-
 新增备注：
 1. 官方已经更改了 lockfile 的方式，目前无法用以前的方法找到密钥了。推荐使用其他办法，例如读取进程数据。详情请参考这篇文章：https://hextechdocs.dev/getting-started-with-the-lcu-api/
+  
 2. 这份笔记使用的是 lcu-driver，但我推荐你使用 [Willump](https://github.com/elliejs/Willump) 作为连接器会更方便。(因为当时 Willump 还没有出现)
 
 Willump 快速上手
@@ -71,10 +57,33 @@ if __name__ == '__main__':
 <br><br>  
 
 
-# 核心代码
+<br>  
+
+# 参考资料
+- [Riot 开发者文档](https://developer.riotgames.com/docs/lol)
+- [版本英雄游戏数据](https://developer.riotgames.com/docs/lol#data-dragon_champions)
+- [游戏数据资源列表](https://github.com/CommunityDragon/Docs/blob/master/assets.md)
+- [LCU API 速查手册（需代理访问，来自 @mingweisamuel）](http://www.mingweisamuel.com/lcu-schema/tool/#/)
+- [创建自定义训练模式房间数据](https://riot-api-libraries.readthedocs.io/en/latest/lcu.html)
+- [掌盟战迹击杀记录地图](https://hextechdocs.dev/map-data/)      |      [游戏事件监听](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/client:--game-client)      |      [战迹地图实现示例](http://jsfiddle.net/ow4tsbne)
+- [LCU websocket ](https://www.hextechdocs.dev/lol/lcuapi/5.getting-started-with-the-lcu-websocket)
+
+对了，别忘了看 [Wiki](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki)，这里也有一部分笔记哦
+
+<br><br>  
+
+# 笔记
 
 如果你像我一样，突然对英雄联盟 API 感兴趣，可以继续阅读下方的内容。  
 这里我使用了 lcu-driver 来对客户端进行通信，关于它的资料可以阅读 [lcu-driver 开发文档](https://lcu-driver.readthedocs.io/en/latest/index.html) 了解。
+
+- [lol-lobby](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-lobby)
+- [lol-lobby-bots](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-lobby-bots)
+- [lol-champ-select](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-champ-select)
+- [lol-ranked](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-ranked)
+- [game-client](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client)
+  
+<br>  
 
 ### 快速上手
 ```python
@@ -122,39 +131,10 @@ async def connect(connection):
 
 connector.start()
 ```
-
-  
-### 获取 lockfile 密钥
-```python
-from lcu_driver import Connector
-connector = Connector()
-
-async def get_lockfile(connection):
-    import os
-    path = os.path.join(connection.installation_path.encode('gbk').decode('utf-8'), 'lockfile')
-    if os.path.isfile(path):
-        file = open(path, 'r')
-        text = file.readline().split(':')
-        file.close()
-        print(f'host   {connection.address}')
-        print(f'riot   {text[3]}')
-        print(f'---')
-        return text[3]
-    return None
-  
-
-@connector.ready
-async def connect(connection):
-    await get_lockfile(connection)
-
-
-connector.start()
-```
-
   
 <br>  
   
-### 直接创建房间
+### 创建房间
 
 根据 **queueId** 创建常规房间：
 
@@ -219,7 +199,7 @@ await connection.request('POST', '/lol-lobby/v1/lobby/custom/bots', data=bots)
 
 <br> 
   
-### 批量添加机器人
+### 添加机器人
 
 **根据ID添加**
 ```python
@@ -314,32 +294,6 @@ print(champions)
 <br><br> 
 
 ---
-
-<br><br>
-
-# API 探索笔记
-
-(以下内容暂时还没更新到脚本中，只是个备忘录)
-
-<br>  
-
-### 快速笔记
-
-- [lol-lobby](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-lobby)
-- [lol-lobby-bots](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-lobby-bots)
-- [lol-champ-select](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-champ-select)
-- [lol-ranked](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/lol-ranked)
-- [game-client](https://github.com/XHXIAIEIN/LeagueCustomLobby/wiki/game-client)
-  
-<br>  
-
-## 拳头开发者文档
-
-[Riot 开发者文档](https://developer.riotgames.com/docs/lol)
-- **地区语言列表** [Languages](https://developer.riotgames.com/docs/lol#data-dragon_languages)
-- **所有英雄列表** [Champions](https://developer.riotgames.com/docs/lol#data-dragon_champions) 备注: 将 `en_US` 换成 `zh_CN` 就是国服的英雄数据
-- **英雄原画资源** [Champion Splash Assets](https://developer.riotgames.com/docs/lol#data-dragon_champion-splash-assets)
-- **游戏商城道具** [Items](https://developer.riotgames.com/docs/lol#data-dragon_items)
 
 <br>  
 
@@ -607,7 +561,6 @@ print(await data.json())
 
 <br>  
 
-
 ## 获取房间数据
 获取的是整个房间的数据，包含了观众、机器人。
 ```
@@ -646,10 +599,18 @@ print(await data.json())
 - **MIDDLE** 中路 
 - **BOTTOM** 下路 
 
-
 <br>  
 
 ---
+
+
+# 拳头开发者文档
+
+[Riot 开发者文档](https://developer.riotgames.com/docs/lol)
+- **地区语言列表** [Languages](https://developer.riotgames.com/docs/lol#data-dragon_languages)
+- **所有英雄列表** [Champions](https://developer.riotgames.com/docs/lol#data-dragon_champions) 备注: 将 `en_US` 换成 `zh_CN` 就是国服的英雄数据
+- **英雄原画资源** [Champion Splash Assets](https://developer.riotgames.com/docs/lol#data-dragon_champion-splash-assets)
+- **游戏商城道具** [Items](https://developer.riotgames.com/docs/lol#data-dragon_items)
 
 ## 本地资源与 dragon 对应关系
 
@@ -734,7 +695,6 @@ plugins/rcp-be-lol-game-data/    ->      https://127.0.0.1:{port}/lol-game-data/
 有空再继续试，或者如果有人知道可以跟我说说...
 
 ---
-
  
 <br>  
 
