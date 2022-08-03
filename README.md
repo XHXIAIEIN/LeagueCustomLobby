@@ -42,7 +42,7 @@ C:\Users\XHXIAIEIN>wmic PROCESS WHERE name='LeagueClientUx.exe' GET commandline
 CommandLine
 
 "D:/Game/league of legends cn/英雄联盟/LeagueClient/LeagueClientUx.exe"
-"--riotclient-auth-token=PVGQBc5Opd58FhWXXe5mHg"
+"--riotclient-auth-token=PVBsuiBiaNdAdIAnDoNg7yisxg"
 "--riotclient-app-port=63381"
 "--riotclient-tencent"
 "--no-rads"
@@ -62,8 +62,8 @@ CommandLine
 "--t.league_edge_url=https://ledge-hn1.lol.qq.com:22019"
 "--ccs=https://cc-hn1.lol.qq.com:8093"
 "--dradis-endpoint=http://some.url"
-"--remoting-auth-token=lgtHX-BWKKQGjwyXw6wg8w"
-"--app-port=63405"
+"--remoting-auth-token=lgxHX-LuAnDaXbyzA08w"        <---⭐ 找到这个参数 `--remoting-auth-token`
+"--app-port=63405"                                  <---⭐ 找到这个参数 `--app-port`
 "--install-directory=d:\game\league of legends cn\鑻遍泟鑱旂洘\LeagueClient"
 "--app-name=LeagueClient"
 "--ux-name=LeagueClientUx"
