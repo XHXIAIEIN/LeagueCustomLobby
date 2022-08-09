@@ -23,8 +23,9 @@
 ---
 
 新增备注：
+
 1. 官方已经更改了 lockfile 的方式，目前无法用以前的方法找到密钥了。   
-推荐使用其他办法，例如读取进程数据。详情请参考这篇文章：https://hextechdocs.dev/getting-started-with-the-lcu-api/
+现在需要通过读取进程数据来找到。
 
 用管理员权限打开终端，并运行以下指令
 ```
@@ -32,7 +33,7 @@ wmic PROCESS WHERE name='LeagueClientUx.exe' GET commandline
 ```
 
 会得到类似这样的输出日志。当然，具体参数什么的，每次启动客户端看到的都不一样。  
-注意，一定要使用管理员权限运行，否则你什么看不到。
+注意，一定要使用管理员权限运行CMD，否则你什么看不到。
 
 ```
 Microsoft Windows [版本 10.0.19044.1865]
@@ -62,8 +63,8 @@ CommandLine
 "--t.league_edge_url=https://ledge-hn1.lol.qq.com:22019"
 "--ccs=https://cc-hn1.lol.qq.com:8093"
 "--dradis-endpoint=http://some.url"
-"--remoting-auth-token=lgxHX-LuAnDaXbyzA08w"        <---⭐ 找到这个参数 `--remoting-auth-token`
-"--app-port=63405"                                  <---⭐ 找到这个参数 `--app-port`
+"--remoting-auth-token=lgxHX-LuAnDaXbyzA08w"        <---⭐ 找到这个参数 `--remoting-auth-token=XXX`
+"--app-port=63405"                                  <---⭐ 找到这个参数 `--app-port=XXX`
 "--install-directory=d:\game\league of legends cn\鑻遍泟鑱旂洘\LeagueClient"
 "--app-name=LeagueClient"
 "--ux-name=LeagueClientUx"
