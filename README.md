@@ -83,9 +83,20 @@ C:\Users\XHXIAIEIN>
 主要需要找的信息就是  
 ```
 --remoting-auth-token=XXXXX
---app-pid=XXX
 --app-port=XXX
 ```
+
+然后，你就可以通过本地打开这个地址了
+
+```
+https://127.0.0.1:<app-port>/lol-summoner/v1/current-summoner
+```
+
+账号密码分别是
+```
+riot    <remoting-auth-token>
+```
+
   
 2. 这份笔记使用的是 lcu-driver，但我推荐你使用 [Willump](https://github.com/elliejs/Willump) 作为连接器会更方便。(因为当时 Willump 还没有出现)
 
