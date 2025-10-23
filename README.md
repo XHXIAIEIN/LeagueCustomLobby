@@ -97,6 +97,34 @@ https://127.0.0.1:<app-port>/lol-summoner/v1/current-summoner
 riot    <remoting-auth-token>
 ```
 
+如果直接在浏览器控制台发送HTTP请求，也可以这样：
+
+```js
+  // ========== 配置 ==========
+  const HOST = '127.0.0.1';
+  const PORT = XXXXX;
+  const USERNAME = 'riot';
+  const AUTH_TOKEN = 'XXXXX';
+  
+  const METHOD = 'GET';
+  const PATH = '/lol-summoner/v1/current-summoner';
+  
+  // ==========================
+
+  const url = `https://${HOST}:${PORT}${PATH}`;
+  const auth = btoa(`${USERNAME}:${AUTH_TOKEN}`);
+
+  fetch(url, {
+      method: METHOD,
+      headers: {
+          'Authorization': `Basic ${auth}`
+      }
+  })
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+```
+
   
 2. 这份笔记使用的是 lcu-driver，但我推荐你使用 [Willump](https://github.com/elliejs/Willump) 作为连接器会更方便。(因为当时 Willump 还没有出现)
 
