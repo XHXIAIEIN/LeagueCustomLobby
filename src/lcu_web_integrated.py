@@ -7,6 +7,12 @@
 - Data Dragon 数据查询接口
 - 静态资源服务
 - LCU 客户端资源代理
+
+快捷键：
+- R: 重启服务
+- C: 清除缓存
+- O: 打开浏览器
+- Q: 退出程序
 """
 
 import http.server
@@ -22,8 +28,17 @@ import sys
 import os
 import time
 import mimetypes
+import signal
 from functools import lru_cache
 from typing import Optional, Dict, Any
+
+# Windows 下的键盘输入支持
+if sys.platform == 'win32':
+    import msvcrt
+else:
+    import select
+    import termios
+    import tty
 
 # 添加项目根目录到 Python 路径
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -36,6 +51,11 @@ from src.lcu_locale_manager import LocaleManager
 PORT = 8765
 DDRAGON_BASE = "https://ddragon.leagueoflegends.com"
 TEMPLATE_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'templates')
+
+# ==================== 全局状态 ====================
+server_running = True
+server_instance = None
+need_restart = False
 
 # ==================== 全局实例 ====================
 connector = LCUConnector()
@@ -452,9 +472,146 @@ class IntegratedHandler(http.server.SimpleHTTPRequestHandler):
         self.wfile.write(json.dumps(data, ensure_ascii=False).encode('utf-8'))
 
 
+# ==================== 可重启的 TCP 服务器 ====================
+class RestartableTCPServer(socketserver.TCPServer):
+    """支持重启的 TCP 服务器"""
+    allow_reuse_address = True
+
+    def server_close(self):
+        """关闭服务器并释放端口"""
+        self.shutdown()
+        super().server_close()
+
+
+# ==================== 键盘输入处理 ====================
+def get_key_press():
+    """
+    非阻塞地获取键盘输入
+
+    Returns:
+        按下的键字符，无输入返回 None
+    """
+    if sys.platform == 'win32':
+        if msvcrt.kbhit():
+            key = msvcrt.getch()
+            # 处理特殊键
+            if key in (b'\x00', b'\xe0'):
+                msvcrt.getch()  # 跳过扩展键
+                return None
+            return key.decode('utf-8', errors='ignore').lower()
+    else:
+        # Unix/Linux/Mac
+        if select.select([sys.stdin], [], [], 0)[0]:
+            return sys.stdin.read(1).lower()
+    return None
+
+
+def clear_all_caches():
+    """清除所有缓存"""
+    # 清除 Data Dragon API 缓存
+    DataDragonAPI.fetch_json.cache_clear()
+    # 清除模板缓存
+    load_html_template.cache_clear()
+    print("✓ 缓存已清除")
+
+
+def print_help():
+    """打印帮助信息"""
+    print("""
+快捷键：
+  R - 重启服务（重新加载模板和代码）
+  C - 清除缓存（Data Dragon + 模板）
+  O - 打开浏览器
+  H - 显示此帮助信息
+  Q - 退出程序
+""")
+
+
+def keyboard_listener():
+    """键盘监听线程"""
+    global server_running, need_restart
+
+    while server_running:
+        try:
+            key = get_key_press()
+            if key:
+                if key == 'r':
+                    print("\n⟳ 正在重启服务...")
+                    need_restart = True
+                    server_running = False
+                elif key == 'c':
+                    clear_all_caches()
+                elif key == 'o':
+                    print("✓ 正在打开浏览器...")
+                    webbrowser.open(f'http://localhost:{PORT}')
+                elif key == 'h':
+                    print_help()
+                elif key == 'q':
+                    print("\n正在退出...")
+                    server_running = False
+            time.sleep(0.1)  # 避免 CPU 占用过高
+        except Exception:
+            pass
+
+
+def run_server():
+    """运行服务器"""
+    global server_running, server_instance, need_restart
+
+    server_running = True
+    need_restart = False
+
+    try:
+        server_instance = RestartableTCPServer(("", PORT), IntegratedHandler)
+        print(f"✓ 服务已启动: http://localhost:{PORT}")
+        print("✓ 按 H 查看快捷键帮助\n")
+
+        # 在独立线程中运行服务器
+        server_thread = threading.Thread(target=server_instance.serve_forever)
+        server_thread.daemon = True
+        server_thread.start()
+
+        # 主线程监听键盘输入
+        while server_running:
+            try:
+                key = get_key_press()
+                if key:
+                    if key == 'r':
+                        print("\n⟳ 正在重启服务...")
+                        need_restart = True
+                        break
+                    elif key == 'c':
+                        clear_all_caches()
+                    elif key == 'o':
+                        print("✓ 正在打开浏览器...")
+                        webbrowser.open(f'http://localhost:{PORT}')
+                    elif key == 'h':
+                        print_help()
+                    elif key == 'q':
+                        print("\n正在退出...")
+                        break
+                time.sleep(0.1)
+            except KeyboardInterrupt:
+                print("\n正在退出...")
+                break
+
+        # 关闭服务器
+        if server_instance:
+            server_instance.shutdown()
+            server_instance.server_close()
+
+    except Exception as e:
+        print(f"\n✗ 服务器错误: {e}")
+        return False
+
+    return need_restart
+
+
 # ==================== 主程序 ====================
 def main():
     """主程序入口"""
+    global need_restart
+
     print(f"""
 ================================================
     英雄联盟客户端工具集
@@ -470,20 +627,25 @@ def main():
         print(f"✗ 无法使用端口 {PORT}，程序退出")
         return
 
-    print(f"✓ 服务已启动: http://localhost:{PORT}")
-    print("✓ 按 Ctrl+C 停止服务\n")
-
     # 延迟1秒后自动打开浏览器
     threading.Timer(1.0, lambda: webbrowser.open(f'http://localhost:{PORT}')).start()
 
-    # 启动 HTTP 服务器
-    try:
-        with socketserver.TCPServer(("", PORT), IntegratedHandler) as httpd:
-            httpd.serve_forever()
-    except KeyboardInterrupt:
-        print("\n✓ 服务已停止")
-    except Exception as e:
-        print(f"\n✗ 服务器错误: {e}")
+    # 主循环 - 支持重启
+    while True:
+        # 重启时清除缓存
+        if need_restart:
+            clear_all_caches()
+            time.sleep(0.5)  # 等待端口释放
+
+        # 运行服务器
+        should_restart = run_server()
+
+        if not should_restart:
+            break
+
+        print("✓ 服务已重启\n")
+
+    print("✓ 服务已停止")
 
 
 if __name__ == "__main__":

@@ -502,9 +502,9 @@ async function loadAllDDragonData() {
 async function loadChampions() {
     const grid = document.getElementById('championsGrid');
     grid.innerHTML = `
-        <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; gap: 20px;">
-            <div style="width: 48px; height: 48px; border: 3px solid var(--gold-dark); border-top-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            <div style="color: var(--text); font-size: 14px;">正在加载英雄数据...</div>
+        <div class="loading-state">
+            <div class="loading-spinner"></div>
+            <span>正在加载英雄数据...</span>
         </div>
     `;
 
@@ -514,6 +514,13 @@ async function loadChampions() {
         displayChampions(Object.values(championsData));
         // 更新数据链接
         updateDataLink('champions');
+    } else {
+        grid.innerHTML = `
+            <div class="loading-state">
+                <span>加载失败，请检查网络连接</span>
+                <button onclick="loadChampions()" style="margin-top: 12px; padding: 8px 16px; background: var(--gold); color: var(--bg-dark); border: none; border-radius: 4px; cursor: pointer;">重试</button>
+            </div>
+        `;
     }
 }
 
@@ -879,11 +886,11 @@ async function showChampionDetail(championId) {
 
 async function loadItems() {
     const grid = document.getElementById('itemsGrid');
-    grid.className = 'shop-grid';
+    grid.className = 'items-grid-v2';
     grid.innerHTML = `
-        <div class="items-loading">
-            <div class="items-loading-spinner"></div>
-            <div class="items-loading-text">正在加载道具数据...</div>
+        <div class="loading-state">
+            <div class="loading-spinner"></div>
+            <span>正在加载道具数据...</span>
         </div>
     `;
 
@@ -902,6 +909,13 @@ async function loadItems() {
         // 默认筛选召唤师峡谷
         filterItems();
         updateDataLink('items');
+    } else {
+        grid.innerHTML = `
+            <div class="loading-state">
+                <span>加载失败，请检查网络连接</span>
+                <button onclick="loadItems()" style="margin-top: 12px; padding: 8px 16px; background: var(--gold); color: var(--bg-dark); border: none; border-radius: 4px; cursor: pointer;">重试</button>
+            </div>
+        `;
     }
 }
 
@@ -957,8 +971,8 @@ function initItemSidebarFilters() {
 // 地图筛选
 function filterItemsByMap(mapId) {
     currentMapFilter = mapId;
-    // 更新地图筛选按钮样式
-    document.querySelectorAll('.shop-map-btn').forEach(btn => {
+    // 更新地图筛选按钮样式 (支持新旧两种选择器)
+    document.querySelectorAll('.shop-map-btn, .items-mode-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.map === mapId);
     });
     filterItems();
@@ -967,8 +981,8 @@ function filterItemsByMap(mapId) {
 // 类型筛选
 function filterItemsByType(typeId) {
     currentItemType = typeId;
-    // 更新分类筛选按钮样式
-    document.querySelectorAll('.shop-cat-btn').forEach(btn => {
+    // 更新分类筛选按钮样式 (支持新旧两种选择器)
+    document.querySelectorAll('.shop-cat-btn, .filter-tag[data-type]').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.type === typeId);
     });
     filterItems();
@@ -977,8 +991,8 @@ function filterItemsByType(typeId) {
 // 属性筛选
 function filterItemsByStat(statId) {
     currentItemStat = statId;
-    // 更新属性筛选按钮样式
-    document.querySelectorAll('.shop-stat-btn').forEach(btn => {
+    // 更新属性筛选按钮样式 (支持新旧两种选择器)
+    document.querySelectorAll('.shop-stat-btn, .filter-tag[data-stat]').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.stat === statId);
     });
     filterItems();
@@ -987,8 +1001,8 @@ function filterItemsByStat(statId) {
 // 价格筛选
 function filterItemsByPrice(priceRange) {
     currentItemPrice = priceRange;
-    // 更新价格筛选按钮样式
-    document.querySelectorAll('.shop-price-btn').forEach(btn => {
+    // 更新价格筛选按钮样式 (支持新旧两种选择器)
+    document.querySelectorAll('.shop-price-btn, .filter-tag[data-price]').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.price === priceRange);
     });
     filterItems();
@@ -1000,16 +1014,16 @@ function resetItemFilters() {
     currentItemStat = 'all';
     currentItemPrice = 'all';
 
-    // 重置分类筛选
-    document.querySelectorAll('.shop-cat-btn').forEach(btn => {
+    // 重置分类筛选 (支持新旧两种选择器)
+    document.querySelectorAll('.shop-cat-btn, .filter-tag[data-type]').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.type === 'all');
     });
-    // 重置属性筛选
-    document.querySelectorAll('.shop-stat-btn').forEach(btn => {
+    // 重置属性筛选 (支持新旧两种选择器)
+    document.querySelectorAll('.shop-stat-btn, .filter-tag[data-stat]').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.stat === 'all');
     });
-    // 重置价格筛选
-    document.querySelectorAll('.shop-price-btn').forEach(btn => {
+    // 重置价格筛选 (支持新旧两种选择器)
+    document.querySelectorAll('.shop-price-btn, .filter-tag[data-price]').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.price === 'all');
     });
     // 清空搜索框
@@ -1105,14 +1119,18 @@ const tierNames = {
 function displayItems(items) {
     const grid = document.getElementById('itemsGrid');
     const countEl = document.getElementById('itemCount');
-    countEl.textContent = `${items.length} 件道具`;
+    countEl.textContent = items.length;
 
     if (items.length === 0) {
-        grid.className = 'shop-grid';
+        grid.className = 'items-grid-v2';
         grid.innerHTML = `
-            <div class="items-empty-state">
-                <span class="items-empty-icon">📦</span>
-                <span class="items-empty-text">未找到符合条件的道具</span>
+            <div class="empty-state-v2">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+                <p>未找到符合条件的道具</p>
             </div>
         `;
         return;
@@ -1122,7 +1140,7 @@ function displayItems(items) {
 
     // 按品质分组显示
     if (sortFilter === 'tier' || sortFilter === 'name') {
-        grid.className = 'shop-grid';  // 分组模式使用flex布局
+        grid.className = 'items-grid-v2';
         const grouped = { legendary: [], epic: [], basic: [] };
         items.forEach(([id, item]) => {
             const tier = getItemTier(item);
@@ -1134,14 +1152,14 @@ function displayItems(items) {
             if (grouped[tier].length > 0) {
                 const tierLabel = tierNames[tier];
                 html += `
-                    <div class="items-group">
-                        <div class="items-group-header">
-                            <span class="items-group-indicator ${tier}"></span>
-                            <span class="items-group-title ${tier}">${tierLabel}装备</span>
-                            <span class="items-group-count">${grouped[tier].length} 件</span>
+                    <div class="items-tier-section">
+                        <div class="items-tier-header">
+                            <span class="tier-indicator tier-${tier}"></span>
+                            <span class="tier-title">${tierLabel}装备</span>
+                            <span class="tier-count">${grouped[tier].length}</span>
                         </div>
-                        <div class="items-group-grid">
-                            ${grouped[tier].map(([id, item]) => renderItemCardNew(id, item)).join('')}
+                        <div class="items-tier-grid">
+                            ${grouped[tier].map(([id, item]) => renderItemCardV2(id, item)).join('')}
                         </div>
                     </div>
                 `;
@@ -1149,9 +1167,9 @@ function displayItems(items) {
         });
         grid.innerHTML = html;
     } else {
-        // 不分组，使用flat-grid类直接网格展示
-        grid.className = 'shop-grid flat-grid';
-        grid.innerHTML = items.map(([id, item]) => renderItemCardNew(id, item)).join('');
+        // 不分组，直接网格展示
+        grid.className = 'items-grid-v2 items-flat-grid';
+        grid.innerHTML = items.map(([id, item]) => renderItemCardV2(id, item)).join('');
     }
 }
 
@@ -1166,6 +1184,24 @@ function renderItemCardNew(id, item) {
         <div class="item-card-new tier-${tier}" onclick="showItemDetail('${id}')" data-name="${safeName}" data-price="${price}">
             <img class="item-image" src="https://ddragon.leagueoflegends.com/cdn/${currentVersion}/img/item/${id}.png"
                  alt="${item.name}" onerror="this.src='https://ddragon.leagueoflegends.com/cdn/${currentVersion}/img/ui/items.png'">
+        </div>
+    `;
+}
+
+// V2 道具卡片渲染函数 - 带悬浮信息
+function renderItemCardV2(id, item) {
+    const price = item.gold?.total || 0;
+    const tier = getItemTier(item);
+    const safeName = item.name.replace(/"/g, '&quot;');
+
+    return `
+        <div class="item-card-v2 tier-${tier}" onclick="showItemDetail('${id}')" title="${item.name} - ${price}金币">
+            <img class="item-icon-v2" src="https://ddragon.leagueoflegends.com/cdn/${currentVersion}/img/item/${id}.png"
+                 alt="${item.name}" loading="lazy" onerror="this.style.opacity='0.3'">
+            <div class="item-card-overlay">
+                <span class="item-name-v2">${item.name}</span>
+                <span class="item-price-v2">${price}</span>
+            </div>
         </div>
     `;
 }
@@ -1248,7 +1284,16 @@ function filterItems() {
 
         // 地图筛选
         let matchesMap = true;
-        if (currentMapFilter) {
+        if (currentMapFilter === 'other') {
+            // 其他地图：显示在其他地图可用的道具（如斗魂竞技场30等）
+            if (item.maps) {
+                // 检查是否在任何非SR(11)/ARAM(12)地图可用
+                const otherMapIds = Object.keys(item.maps).filter(id => id !== '11' && id !== '12');
+                matchesMap = otherMapIds.some(id => item.maps[id] === true);
+            } else {
+                matchesMap = false;
+            }
+        } else if (currentMapFilter) {
             matchesMap = item.maps && item.maps[currentMapFilter] === true;
         }
 
@@ -1362,6 +1407,132 @@ const statTranslations = {
     PercentSpellVampMod: '法术吸血'
 };
 
+// 道具标签翻译
+const itemTagTranslations = {
+    'Boots': '鞋子',
+    'ManaRegen': '法力回复',
+    'HealthRegen': '生命回复',
+    'Health': '生命值',
+    'CriticalStrike': '暴击',
+    'SpellDamage': '法术强度',
+    'Mana': '法力值',
+    'Armor': '护甲',
+    'SpellBlock': '魔法抗性',
+    'Damage': '攻击力',
+    'LifeSteal': '生命偷取',
+    'SpellVamp': '法术吸血',
+    'Jungle': '打野',
+    'Lane': '对线',
+    'AttackSpeed': '攻击速度',
+    'OnHit': '命中特效',
+    'Trinket': '饰品',
+    'Active': '主动',
+    'Consumable': '消耗品',
+    'CooldownReduction': '技能急速',
+    'NonbootsMovement': '移动速度',
+    'ArmorPenetration': '护甲穿透',
+    'MagicPenetration': '法术穿透',
+    'Tenacity': '韧性',
+    'Vision': '视野',
+    'Slow': '减速',
+    'Stealth': '隐身'
+};
+
+// 地图名称
+const mapNames = {
+    '11': '召唤师峡谷',
+    '12': '嚎哭深渊',
+    '21': '极限闪击',
+    '22': '训练模式',
+    '30': '斗魂竞技场'
+};
+
+/**
+ * 格式化道具描述文本
+ * 简洁处理，移除属性区块（已在顶部显示），只保留技能效果
+ */
+function formatItemDescription(desc) {
+    if (!desc) return '';
+
+    let html = desc;
+
+    // 移除包裹标签
+    html = html.replace(/<\/?mainText>/gi, '');
+
+    // 移除 stats 区块（属性已在顶部显示）
+    html = html.replace(/<stats>[\s\S]*?<\/stats>/gi, '');
+
+    // 基础 HTML 清理
+    html = html
+        .replace(/<br\s*\/?>/gi, '<br>')
+        .replace(/<li>/gi, '<br>• ')
+        .replace(/<\/li>/gi, '')
+        .replace(/<ul>|<\/ul>/gi, '');
+
+    // 技能标题标签 - 只有在换行后的才是标题（块级显示）
+    // 格式: <br><passive>技能名</passive> 或开头的 <passive>技能名</passive>
+    html = html.replace(/(?:^|<br>)<passive>([\s\S]*?)<\/passive>(\s*\([^)]*\))?(?=<br>|$)/gi,
+        '<div class="desc-ability"><span class="desc-passive">$1</span>$2：</div>');
+    html = html.replace(/(?:^|<br>)<active>([\s\S]*?)<\/active>(\s*\([^)]*\))?(?=<br>|$)/gi,
+        '<div class="desc-ability"><span class="desc-active">$1</span>$2：</div>');
+    html = html.replace(/(?:^|<br>)<aura>([\s\S]*?)<\/aura>(\s*\([^)]*\))?(?=<br>|$)/gi,
+        '<div class="desc-ability"><span class="desc-aura">$1</span>$2：</div>');
+
+    // 描述中引用的技能名称 - 保持行内显示
+    html = html.replace(/<passive>([\s\S]*?)<\/passive>/gi, '<span class="desc-passive-ref">$1</span>');
+    html = html.replace(/<active>([\s\S]*?)<\/active>/gi, '<span class="desc-active-ref">$1</span>');
+    html = html.replace(/<aura>([\s\S]*?)<\/aura>/gi, '<span class="desc-aura-ref">$1</span>');
+
+    // 稀有度标签
+    html = html.replace(/<rarityMythic>([\s\S]*?)<\/rarityMythic>/gi, '<span class="desc-mythic">$1</span>');
+    html = html.replace(/<rarityLegendary>([\s\S]*?)<\/rarityLegendary>/gi, '<span class="desc-legendary">$1</span>');
+
+    // 数值强调
+    html = html.replace(/<attention>([\s\S]*?)<\/attention>/gi, '<span class="desc-attention">$1</span>');
+
+    // 伤害类型
+    html = html.replace(/<magicDamage>([\s\S]*?)<\/magicDamage>/gi, '<span class="desc-magic">$1</span>');
+    html = html.replace(/<physicalDamage>([\s\S]*?)<\/physicalDamage>/gi, '<span class="desc-physical">$1</span>');
+    html = html.replace(/<trueDamage>([\s\S]*?)<\/trueDamage>/gi, '<span class="desc-true">$1</span>');
+
+    // 治疗/护盾
+    html = html.replace(/<healing>([\s\S]*?)<\/healing>/gi, '<span class="desc-heal">$1</span>');
+    html = html.replace(/<shield>([\s\S]*?)<\/shield>/gi, '<span class="desc-shield">$1</span>');
+
+    // 状态效果
+    html = html.replace(/<status>([\s\S]*?)<\/status>/gi, '<span class="desc-status">$1</span>');
+
+    // 关键词
+    html = html.replace(/<keyword>([\s\S]*?)<\/keyword>/gi, '<span class="desc-keyword">$1</span>');
+    html = html.replace(/<keywordMajor>([\s\S]*?)<\/keywordMajor>/gi, '<span class="desc-keyword">$1</span>');
+    html = html.replace(/<keywordStealth>([\s\S]*?)<\/keywordStealth>/gi, '<span class="desc-stealth">$1</span>');
+
+    // 缩放属性
+    html = html.replace(/<scaleAP>([\s\S]*?)<\/scaleAP>/gi, '<span class="desc-scale-ap">$1</span>');
+    html = html.replace(/<scaleAD>([\s\S]*?)<\/scaleAD>/gi, '<span class="desc-scale-ad">$1</span>');
+    html = html.replace(/<scaleHealth>([\s\S]*?)<\/scaleHealth>/gi, '<span class="desc-scale-hp">$1</span>');
+    html = html.replace(/<scaleMana>([\s\S]*?)<\/scaleMana>/gi, '<span class="desc-scale-mana">$1</span>');
+    html = html.replace(/<scaleArmor>([\s\S]*?)<\/scaleArmor>/gi, '<span class="desc-scale-armor">$1</span>');
+    html = html.replace(/<scaleMR>([\s\S]*?)<\/scaleMR>/gi, '<span class="desc-scale-mr">$1</span>');
+    html = html.replace(/<scaleLethality>([\s\S]*?)<\/scaleLethality>/gi, '<span class="desc-scale-lethality">$1</span>');
+
+    // 规则文本
+    html = html.replace(/<rules>([\s\S]*?)<\/rules>/gi, '<span class="desc-rules">$1</span>');
+
+    // 清理残留的未知标签
+    html = html.replace(/<\/?[a-zA-Z]+>/g, '');
+
+    // 清理技能标题后紧跟的换行（已经是块级元素了）
+    html = html.replace(/<\/div>(<br>)+/gi, '</div>');
+
+    // 清理开头的换行
+    html = html.replace(/^(<br>)+/gi, '');
+    // 将连续换行转为段落分隔
+    html = html.replace(/(<br>){2,}/gi, '<div class="desc-separator"></div>');
+
+    return html.trim();
+}
+
 function showItemDetail(itemId) {
     if (!itemsData || !itemsData[itemId]) return;
 
@@ -1369,44 +1540,42 @@ function showItemDetail(itemId) {
     const modal = document.getElementById('itemModal');
     modal.classList.add('show');
 
+    // 更新 URL（不触发 hashchange）
+    history.replaceState(null, '', `#ddragon/item/${itemId}`);
+
+    // 基本信息
     document.getElementById('modalItemName').textContent = item.name;
     document.getElementById('modalItemImage').src = `https://ddragon.leagueoflegends.com/cdn/${currentVersion}/img/item/${itemId}.png`;
+
+    // 道具品级
+    const tier = getItemTier(item);
+    const tierNames = { 'mythic': '神话', 'legendary': '传说', 'epic': '史诗', 'basic': '基础' };
+    const tierBadge = document.getElementById('modalItemTier');
+    tierBadge.textContent = tierNames[tier] || '道具';
+    tierBadge.className = `item-tier-badge tier-${tier}`;
+
+    // 标签
+    const tagsHTML = (item.tags || []).map(tag => {
+        const label = itemTagTranslations[tag] || tag;
+        return `<span class="item-tag">${label}</span>`;
+    }).join('');
+    document.getElementById('modalItemTags').innerHTML = tagsHTML;
 
     // 金币信息
     const gold = item.gold || {};
     const goldHTML = `
-        <div class="gold-item"><span class="gold-label">总价:</span> <span class="gold-value">⚜ ${gold.total || 0}</span></div>
-        <div class="gold-item"><span class="gold-label">基础价格:</span> <span class="gold-value">⚜ ${gold.base || 0}</span></div>
-        <div class="gold-item"><span class="gold-label">售价:</span> <span class="gold-value">⚜ ${gold.sell || 0}</span></div>
-        ${gold.purchasable === false ? '<div class="gold-item gold-not-purchasable">不可购买</div>' : ''}
+        <span class="gold-total">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="10"/>
+            </svg>
+            ${gold.total || 0}
+        </span>
+        <span class="gold-detail">基础 ${gold.base || 0} · 售出 ${gold.sell || 0}</span>
+        ${gold.purchasable === false ? '<span class="gold-detail" style="color:#ff6b6b;">不可购买</span>' : ''}
     `;
     document.getElementById('modalItemGold').innerHTML = goldHTML;
 
-    // 描述 - 优化HTML格式化
-    let description = item.description || item.plaintext || '无描述';
-    // 将<br>转换为换行，移除多余的HTML标签但保留基本格式
-    description = description
-        .replace(/<br\s*\/?>/gi, '\n')
-        .replace(/<li>/gi, '\n• ')
-        .replace(/<\/li>/gi, '')
-        .replace(/<ul>|<\/ul>/gi, '')
-        .replace(/<passive>/gi, '<span class="desc-passive-label">')
-        .replace(/<\/passive>/gi, '</span>')
-        .replace(/<active>/gi, '<span class="desc-active-label">')
-        .replace(/<\/active>/gi, '</span>')
-        .replace(/<stats>/gi, '<div class="desc-stats">')
-        .replace(/<\/stats>/gi, '</div>')
-        .replace(/<attention>/gi, '<span class="desc-highlight">')
-        .replace(/<\/attention>/gi, '</span>')
-        .replace(/<rarityMythic>/gi, '<span class="desc-mythic">')
-        .replace(/<\/rarityMythic>/gi, '</span>')
-        .replace(/<rarityLegendary>/gi, '<span class="desc-legendary">')
-        .replace(/<\/rarityLegendary>/gi, '</span>')
-        // 高亮数字和百分比 (cyan/blue color like in screenshot)
-        .replace(/(\d+(?:\.\d+)?%?)/g, '<span class="desc-number">$1</span>');
-    document.getElementById('modalItemDescription').innerHTML = description;
-
-    // 属性 - 使用 Community Dragon 官方图标
+    // 属性
     if (item.stats && Object.keys(item.stats).length > 0) {
         const CDRAGON_STATMODS = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perk-images/statmods';
 
@@ -1429,15 +1598,17 @@ function showItemDetail(itemId) {
             const iconUrl = statIcons[key] || `${CDRAGON_STATMODS}/statmodsadaptiveforceicon.png`;
             let displayValue = value;
             if (key.startsWith('Percent')) {
-                displayValue = `${(value * 100).toFixed(1)}%`;
+                displayValue = `+${(value * 100).toFixed(0)}%`;
             } else {
-                displayValue = `${value}`;
+                displayValue = `+${value}`;
             }
             return `
-                <div class="stat-item">
-                    <img class="stat-icon-img" src="${iconUrl}" alt="${label}" onerror="this.style.display='none'">
-                    <span class="stat-value">${displayValue}</span>
-                    <span class="stat-label">${label}</span>
+                <div class="item-stat-v2">
+                    <img src="${iconUrl}" alt="${label}" onerror="this.style.display='none'">
+                    <div class="item-stat-info">
+                        <div class="item-stat-value">${displayValue}</div>
+                        <div class="item-stat-label">${label}</div>
+                    </div>
                 </div>
             `;
         }).join('');
@@ -1447,19 +1618,32 @@ function showItemDetail(itemId) {
         document.getElementById('modalItemStatsSection').style.display = 'none';
     }
 
-    // 合成路线 - 优化展示
+    // 效果描述
+    const descContent = item.description || '';
+    const formattedDesc = formatItemDescription(descContent);
+    const descSection = document.getElementById('modalItemDescSection');
+    const descEl = document.getElementById('modalItemDesc');
+
+    if (formattedDesc && formattedDesc.trim()) {
+        descEl.innerHTML = formattedDesc;
+        descSection.style.display = 'block';
+    } else {
+        descSection.style.display = 'none';
+    }
+
+    // 合成路线
     let buildsHTML = '';
     if (item.from && item.from.length > 0) {
-        buildsHTML += '<div class="builds-group builds-from"><h4 class="builds-title">🔨 合成自:</h4><div class="builds-items">';
+        buildsHTML += '<div class="builds-group-v2"><div class="builds-title-v2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>合成材料</div><div class="builds-items-v2">';
         item.from.forEach(fromId => {
             const fromItem = itemsData[fromId];
             if (fromItem) {
                 const price = fromItem.gold?.total || 0;
                 buildsHTML += `
-                    <div class="build-item" onclick="showItemDetail('${fromId}')" title="${fromItem.name} (${price} 金币)">
+                    <div class="build-item-v2" onclick="showItemDetail('${fromId}')">
                         <img src="https://ddragon.leagueoflegends.com/cdn/${currentVersion}/img/item/${fromId}.png" alt="${fromItem.name}">
-                        <div class="build-item-name">${fromItem.name}</div>
-                        <div class="build-item-price">💰 ${price}</div>
+                        <div class="build-item-name-v2">${fromItem.name}</div>
+                        <div class="build-item-price-v2">${price}</div>
                     </div>
                 `;
             }
@@ -1468,17 +1652,16 @@ function showItemDetail(itemId) {
     }
 
     if (item.into && item.into.length > 0) {
-        buildsHTML += '<div class="builds-group builds-into"><h4 class="builds-title">⚡ 合成为:</h4><div class="builds-items">';
+        buildsHTML += '<div class="builds-group-v2"><div class="builds-title-v2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>可合成为</div><div class="builds-items-v2">';
         item.into.forEach(intoId => {
             const intoItem = itemsData[intoId];
             if (intoItem) {
                 const price = intoItem.gold?.total || 0;
-                const tier = getItemTier(intoItem);
                 buildsHTML += `
-                    <div class="build-item build-tier-${tier}" onclick="showItemDetail('${intoId}')" title="${intoItem.name} (${price} 金币)">
+                    <div class="build-item-v2" onclick="showItemDetail('${intoId}')">
                         <img src="https://ddragon.leagueoflegends.com/cdn/${currentVersion}/img/item/${intoId}.png" alt="${intoItem.name}">
-                        <div class="build-item-name">${intoItem.name}</div>
-                        <div class="build-item-price">💰 ${price}</div>
+                        <div class="build-item-name-v2">${intoItem.name}</div>
+                        <div class="build-item-price-v2">${price}</div>
                     </div>
                 `;
             }
@@ -1492,20 +1675,35 @@ function showItemDetail(itemId) {
     } else {
         document.getElementById('modalItemBuildsSection').style.display = 'none';
     }
+
+    // 地图可用性
+    if (item.maps) {
+        const mapsHTML = Object.entries(mapNames).map(([mapId, mapName]) => {
+            const available = item.maps[mapId] === true;
+            return `<span class="map-tag ${available ? 'available' : 'unavailable'}">${mapName}</span>`;
+        }).join('');
+        document.getElementById('modalItemMaps').innerHTML = mapsHTML;
+        document.getElementById('modalItemMapsSection').style.display = 'block';
+    } else {
+        document.getElementById('modalItemMapsSection').style.display = 'none';
+    }
 }
 
 function hideItemModal(e) {
     if (!e || e.target === document.getElementById('itemModal')) {
         document.getElementById('itemModal').classList.remove('show');
+        // 恢复到道具列表路由
+        history.replaceState(null, '', '#ddragon/items');
     }
 }
 
 async function loadSummonerSpells() {
     const grid = document.getElementById('summonerSpellsGrid');
+    grid.className = 'spells-grid-v2';
     grid.innerHTML = `
-        <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; gap: 20px;">
-            <div style="width: 48px; height: 48px; border: 3px solid var(--gold-dark); border-top-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            <div style="color: var(--text); font-size: 14px;">正在加载召唤师技能数据...</div>
+        <div class="loading-state">
+            <div class="loading-spinner"></div>
+            <span>正在加载召唤师技能数据...</span>
         </div>
     `;
 
@@ -1515,6 +1713,13 @@ async function loadSummonerSpells() {
         // 默认显示经典模式技能
         filterSummonerSpells();
         updateDataLink('summoner-spells');
+    } else {
+        grid.innerHTML = `
+            <div class="loading-state">
+                <span>加载失败，请检查网络连接</span>
+                <button onclick="loadSummonerSpells()" style="margin-top: 12px; padding: 8px 16px; background: var(--gold); color: var(--bg-dark); border: none; border-radius: 4px; cursor: pointer;">重试</button>
+            </div>
+        `;
     }
 }
 
@@ -1523,39 +1728,89 @@ const CLASSIC_SPELLS = ['SummonerFlash', 'SummonerHeal', 'SummonerTeleport', 'Su
 // 嚎哭深渊可用的技能（包括雪球）
 const ARAM_SPELLS = ['SummonerFlash', 'SummonerHeal', 'SummonerExhaust', 'SummonerBarrier', 'SummonerBoost', 'SummonerDot', 'SummonerHaste', 'SummonerMana', 'SummonerSnowball'];
 
+// 游戏模式筛选
 function filterSpellsByMode(mode) {
     currentSpellMode = mode;
 
-    // 更新按钮状态
-    document.querySelectorAll('.game-mode-tab').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.mode === mode);
+    // 更新模式卡片状态 (支持新旧两种选择器)
+    document.querySelectorAll('.spell-mode-card, .spells-mode-btn').forEach(card => {
+        card.classList.toggle('active', card.dataset.mode === mode);
     });
 
     filterSummonerSpells();
 }
 
+// 技能类型分类
+const SPELL_TYPES = {
+    // 伤害类
+    'SummonerDot': 'damage',      // 点燃
+    'SummonerSmite': 'damage',    // 惩戒
+    'SummonerSnowball': 'damage', // 雪球
+    // 位移类
+    'SummonerFlash': 'mobility',  // 闪现
+    'SummonerTeleport': 'mobility', // 传送
+    'SummonerHaste': 'mobility',  // 疾跑
+    // 防御类
+    'SummonerHeal': 'defensive',  // 治疗
+    'SummonerBarrier': 'defensive', // 护盾
+    'SummonerBoost': 'defensive', // 净化
+    // 功能类
+    'SummonerExhaust': 'utility', // 虚弱
+    'SummonerMana': 'utility',    // 清晰
+};
+
+const SPELL_TYPE_NAMES = {
+    'damage': '伤害',
+    'mobility': '位移',
+    'defensive': '防御',
+    'utility': '功能'
+};
+
 function displaySummonerSpells(spells) {
     const grid = document.getElementById('summonerSpellsGrid');
     const countEl = document.getElementById('spellCount');
-    countEl.textContent = `共 ${spells.length} 个技能`;
+    countEl.textContent = spells.length;
 
     if (spells.length === 0) {
-        grid.innerHTML = '<div class="empty-state">没有找到符合条件的技能</div>';
+        grid.className = 'spells-grid-v2';
+        grid.innerHTML = `
+            <div class="empty-state-v2">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <p>没有找到符合条件的技能</p>
+            </div>
+        `;
         return;
     }
 
+    grid.className = 'spells-grid-v2';
     grid.innerHTML = spells.map(spell => {
         const cooldown = spell.cooldown && spell.cooldown[0] ? spell.cooldown[0] : 0;
+        const level = spell.summonerLevel || 1;
         // 清理描述中的 HTML 标签
         const cleanDesc = (spell.description || '无描述').replace(/<[^>]*>/g, '');
+        // 截断过长描述
+        const shortDesc = cleanDesc.length > 80 ? cleanDesc.substring(0, 80) + '...' : cleanDesc;
+
+        // 获取技能类型
+        const spellType = SPELL_TYPES[spell.id] || 'utility';
+        const typeName = SPELL_TYPE_NAMES[spellType];
 
         return `
-        <div class="spell-card-new" onclick='showSpellDetail(${JSON.stringify(spell).replace(/'/g, "&apos;")})'>
-            <img class="spell-icon" src="https://ddragon.leagueoflegends.com/cdn/${currentVersion}/img/spell/${spell.image.full}" alt="${spell.name}">
-            <div class="spell-info">
-                <div class="spell-name">${spell.name}</div>
-                ${cooldown > 0 ? `<span class="spell-cooldown-badge">${cooldown}s 冷却</span>` : ''}
-                <div class="spell-desc">${cleanDesc}</div>
+        <div class="spell-card-v2" onclick='showSpellDetail(${JSON.stringify(spell).replace(/'/g, "&apos;")})'>
+            <span class="spell-type-tag ${spellType}">${typeName}</span>
+            <div class="spell-icon-wrapper">
+                <img class="spell-icon-v2" src="https://ddragon.leagueoflegends.com/cdn/${currentVersion}/img/spell/${spell.image.full}" alt="${spell.name}">
+            </div>
+            <div class="spell-info-v2">
+                <div class="spell-name-v2">${spell.name}</div>
+                <div class="spell-desc-v2">${shortDesc}</div>
+                <div class="spell-meta-v2">
+                    ${cooldown > 0 ? `<span class="spell-cooldown-v2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>${cooldown}s</span>` : ''}
+                    <span class="spell-level-v2">Lv.${level}</span>
+                </div>
             </div>
         </div>
     `}).join('');
@@ -1568,10 +1823,29 @@ function showSpellDetail(spell) {
     document.getElementById('modalSpellName').textContent = spell.name;
     document.getElementById('modalSpellImage').src = `https://ddragon.leagueoflegends.com/cdn/${currentVersion}/img/spell/${spell.image.full}`;
 
+    // 冷却时间
     const cooldowns = spell.cooldown && spell.cooldown.length > 0 ? spell.cooldown.filter(cd => cd > 0) : [];
-    const cooldownText = cooldowns.length > 0 ? `冷却时间: ${cooldowns.join(' / ')}s` : '';
+    const cooldownText = cooldowns.length > 0 ? `${cooldowns[0]}s` : '-';
     document.getElementById('modalSpellCooldown').textContent = cooldownText;
 
+    // 施法范围
+    const range = spell.range && spell.range[0] ? spell.range[0] : '-';
+    document.getElementById('modalSpellRange').textContent = range === 'self' ? '自身' : range;
+
+    // 解锁等级
+    const level = spell.summonerLevel || 1;
+    document.getElementById('modalSpellLevel').textContent = `Lv.${level}`;
+
+    // 可用模式标签
+    const modesContainer = document.getElementById('modalSpellModes');
+    const isClassic = CLASSIC_SPELLS.includes(spell.id);
+    const isAram = ARAM_SPELLS.includes(spell.id);
+    modesContainer.innerHTML = `
+        <span class="spell-mode-tag ${isClassic ? '' : 'unavailable'}">召唤师峡谷</span>
+        <span class="spell-mode-tag ${isAram ? '' : 'unavailable'}">嚎哭深渊</span>
+    `;
+
+    // 描述
     document.getElementById('modalSpellDescription').innerHTML = spell.description || '无描述';
 }
 
@@ -1610,6 +1884,10 @@ function filterSummonerSpells() {
                 return (a.cooldown?.[0] || 0) - (b.cooldown?.[0] || 0);
             case 'cooldown-desc':
                 return (b.cooldown?.[0] || 0) - (a.cooldown?.[0] || 0);
+            case 'level-asc':
+                return (a.summonerLevel || 1) - (b.summonerLevel || 1);
+            case 'level-desc':
+                return (b.summonerLevel || 1) - (a.summonerLevel || 1);
             default: // name
                 return a.name.localeCompare(b.name);
         }
@@ -1620,10 +1898,11 @@ function filterSummonerSpells() {
 
 async function loadProfileIcons() {
     const grid = document.getElementById('profileIconsGrid');
+    grid.className = 'icons-grid-v2';
     grid.innerHTML = `
-        <div style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; gap: 20px;">
-            <div style="width: 48px; height: 48px; border: 3px solid var(--gold-dark); border-top-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            <div style="color: var(--text); font-size: 14px;">正在加载召唤师图标数据...</div>
+        <div class="loading-state">
+            <div class="loading-spinner"></div>
+            <span>正在加载召唤师图标数据...</span>
         </div>
     `;
 
@@ -1633,6 +1912,13 @@ async function loadProfileIcons() {
         iconCurrentPage = 1;
         filterProfileIcons();
         updateDataLink('profile-icons');
+    } else {
+        grid.innerHTML = `
+            <div class="loading-state">
+                <span>加载失败，请检查网络连接</span>
+                <button onclick="loadProfileIcons()" style="margin-top: 12px; padding: 8px 16px; background: var(--gold); color: var(--bg-dark); border: none; border-radius: 4px; cursor: pointer;">重试</button>
+            </div>
+        `;
     }
 }
 
@@ -1653,25 +1939,37 @@ function displayProfileIcons(icons) {
     const endIndex = startIndex + iconPageSize;
     const pageIcons = icons.slice(startIndex, endIndex);
 
-    countEl.textContent = `共 ${totalCount} 个图标`;
+    countEl.textContent = totalCount;
     pageInfoEl.textContent = `${iconCurrentPage} / ${totalPages || 1}`;
 
-    // 更新分页按钮状态
-    const prevBtn = document.querySelector('.pagination-controls .page-btn:first-child');
-    const nextBtn = document.querySelector('.pagination-controls .page-btn:nth-child(3)');
-    if (prevBtn) prevBtn.disabled = iconCurrentPage <= 1;
-    if (nextBtn) nextBtn.disabled = iconCurrentPage >= totalPages;
+    // 更新分页按钮状态 (支持新旧两种选择器)
+    const prevBtns = document.querySelectorAll('.pagination-controls .page-btn:first-child, .page-nav-btn:first-of-type');
+    const nextBtns = document.querySelectorAll('.pagination-controls .page-btn:nth-child(3), .page-nav-btn:last-of-type');
+    prevBtns.forEach(btn => btn.disabled = iconCurrentPage <= 1);
+    nextBtns.forEach(btn => btn.disabled = iconCurrentPage >= totalPages);
 
     if (pageIcons.length === 0) {
-        grid.innerHTML = '<div class="empty-state">没有找到符合条件的图标</div>';
+        grid.className = 'icons-grid-v2';
+        grid.innerHTML = `
+            <div class="empty-state-v2">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M16 16s-1.5-2-4-2-4 2-4 2"/>
+                    <line x1="9" y1="9" x2="9.01" y2="9"/>
+                    <line x1="15" y1="9" x2="15.01" y2="9"/>
+                </svg>
+                <p>没有找到符合条件的图标</p>
+            </div>
+        `;
         return;
     }
 
+    grid.className = 'icons-grid-v2';
     grid.innerHTML = pageIcons.map(([id, icon]) => {
         return `
-        <div class="icon-card-new" title="ID: ${id}">
-            <img src="https://ddragon.leagueoflegends.com/cdn/${currentVersion}/img/profileicon/${id}.png" alt="图标 ${id}">
-            <span class="icon-id">${id}</span>
+        <div class="icon-card-v2" title="图标 ID: ${id}">
+            <img class="icon-img-v2" src="https://ddragon.leagueoflegends.com/cdn/${currentVersion}/img/profileicon/${id}.png" alt="图标 ${id}" loading="lazy">
+            <span class="icon-id-v2">${id}</span>
         </div>
     `}).join('');
 }
@@ -1805,7 +2103,7 @@ function hideLocaleManager(e) {
         document.getElementById('localeModal').classList.remove('show');
         // 清空结果
         const resultDiv = document.getElementById('localeResult');
-        resultDiv.style.display = 'none';
+        resultDiv.className = 'locale-result';
         resultDiv.textContent = '';
     }
 }
@@ -1859,17 +2157,13 @@ async function setLocale(method) {
 
     if (!localeCode) {
         resultDiv.textContent = '请先选择一个语言';
-        resultDiv.style.display = 'block';
-        resultDiv.style.borderColor = 'var(--red)';
-        resultDiv.style.color = 'var(--red)';
+        resultDiv.className = 'locale-result error';
         return;
     }
 
     // 显示加载中
     resultDiv.textContent = '正在切换语言，请稍候...';
-    resultDiv.style.display = 'block';
-    resultDiv.style.borderColor = 'var(--blue)';
-    resultDiv.style.color = 'var(--blue)';
+    resultDiv.className = 'locale-result loading';
 
     try {
         const response = await fetch('/api/locale/set', {
@@ -1887,22 +2181,19 @@ async function setLocale(method) {
 
         if (data.success) {
             resultDiv.textContent = data.message;
-            resultDiv.style.borderColor = 'var(--gold)';
-            resultDiv.style.color = 'var(--gold)';
+            resultDiv.className = 'locale-result success';
             showToast('语言切换成功！请重启游戏客户端', 'success');
 
             // 刷新当前语言显示
             setTimeout(() => loadCurrentLocale(), 1000);
         } else {
             resultDiv.textContent = data.message || '切换失败';
-            resultDiv.style.borderColor = 'var(--red)';
-            resultDiv.style.color = 'var(--red)';
+            resultDiv.className = 'locale-result error';
             showToast('语言切换失败', 'error');
         }
     } catch (error) {
         resultDiv.textContent = `切换失败: ${error.message}`;
-        resultDiv.style.borderColor = 'var(--red)';
-        resultDiv.style.color = 'var(--red)';
+        resultDiv.className = 'locale-result error';
         showToast('网络请求失败', 'error');
     }
 }
@@ -1929,9 +2220,16 @@ function handleRoute() {
 
     if (hash.startsWith('ddragon/')) {
         // Data Dragon 子标签: #ddragon/champions, #ddragon/items, #ddragon/summoner-spells
-        const subTab = hash.split('/')[1];
+        const parts = hash.split('/');
+        const subTab = parts[1];
         switchMainTab('ddragon', false);
-        if (subTab) {
+
+        if (subTab === 'item' && parts[2]) {
+            // 道具详情路由: #ddragon/item/3153
+            switchDDragonTab('items', false);
+            // 等待数据加载后显示道具详情
+            waitForItemsAndShow(parts[2]);
+        } else if (subTab) {
             switchDDragonTab(subTab, false);
         }
     } else if (hash === 'ddragon') {
@@ -1940,6 +2238,23 @@ function handleRoute() {
     } else if (hash === 'lcu') {
         // LCU API 测试器
         switchMainTab('lcu', false);
+    }
+}
+
+// 等待道具数据加载后显示详情
+function waitForItemsAndShow(itemId) {
+    if (itemsData && itemsData[itemId]) {
+        showItemDetail(itemId);
+    } else {
+        // 等待数据加载
+        const checkInterval = setInterval(() => {
+            if (itemsData && itemsData[itemId]) {
+                clearInterval(checkInterval);
+                showItemDetail(itemId);
+            }
+        }, 100);
+        // 5秒超时
+        setTimeout(() => clearInterval(checkInterval), 5000);
     }
 }
 

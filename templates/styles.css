@@ -4,6 +4,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
+            /* 基础色板 */
             --gold: #c8aa6e;
             --gold-light: #f0e6d2;
             --gold-dark: #785a28;
@@ -17,7 +18,30 @@
             --border-gold: #463714;
             --text: #a09b8c;
             --text-light: #f0e6d2;
+            --text-primary: #ffffff;
             --red: #c84040;
+
+            /* 强调色 */
+            --accent-red: #ff6b6b;
+            --accent-purple: #b48eff;
+
+            /* 伤害类型 */
+            --magic-damage: #5ce1e6;
+            --physical-damage: #ffaa55;
+            --true-damage: #ffffff;
+            --heal-color: #6ddc6d;
+            --shield-color: #e0e0e0;
+
+            /* 道具稀有度 */
+            --mythic-color: #ff6b9d;
+            --legendary-color: #ffa500;
+            --attention-color: #ff9500;
+            --status-color: #ff9ecd;
+
+            /* 属性颜色 */
+            --mana-color: #64b4ff;
+            --armor-color: #ffcc00;
+            --mr-color: #cc99ff;
         }
 
         body {
@@ -2508,65 +2532,1275 @@
             }
         }
 
-        /* ==================== 召唤师技能面板 ==================== */
+        /* ==================== 召唤师技能面板 V2 ==================== */
 
-        .spells-container {
+        .spells-page {
             display: flex;
             flex-direction: column;
             height: 100%;
+            overflow: hidden;
         }
 
-        /* 游戏模式选择卡片 */
-        .game-mode-tabs {
-            display: flex;
-            gap: 12px;
-            padding: 20px 16px;
-            background: var(--bg-card);
+        /* 顶部区域 */
+        .spells-header {
+            padding: 20px 24px;
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
             border-bottom: 1px solid var(--border);
         }
 
-        .game-mode-tab {
+        /* 模式选择卡片 */
+        .spells-mode-cards {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .spell-mode-card {
             flex: 1;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 14px;
             padding: 16px 20px;
             background: var(--bg-input);
             border: 2px solid var(--border);
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .game-mode-tab:hover {
+        .spell-mode-card:hover {
             border-color: var(--gold-dark);
-            background: rgba(200, 170, 110, 0.1);
+            background: rgba(200, 170, 110, 0.08);
+            transform: translateY(-2px);
         }
 
-        .game-mode-tab.active {
+        .spell-mode-card.active {
             border-color: var(--gold);
-            background: rgba(200, 170, 110, 0.15);
+            background: linear-gradient(135deg, rgba(200, 170, 110, 0.15) 0%, rgba(200, 170, 110, 0.05) 100%);
+            box-shadow: 0 4px 20px rgba(200, 170, 110, 0.2);
         }
 
-        .game-mode-tab .mode-icon {
-            font-size: 28px;
+        .mode-card-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(200, 170, 110, 0.1);
+            border-radius: 10px;
+            color: var(--text);
+            transition: all 0.25s;
         }
 
-        .game-mode-tab .mode-name {
-            font-size: 14px;
+        .spell-mode-card.active .mode-card-icon {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: var(--bg-dark);
+        }
+
+        .mode-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .mode-card-name {
+            font-size: 15px;
             font-weight: 600;
             color: var(--text-light);
         }
 
-        .game-mode-tab .mode-desc {
+        .spell-mode-card.active .mode-card-name {
+            color: var(--gold-light);
+        }
+
+        .mode-card-desc {
+            font-size: 12px;
+            color: var(--text);
+            opacity: 0.7;
+        }
+
+        /* 筛选栏 */
+        .spells-filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .spells-search-box {
+            position: relative;
+            flex: 1;
+            max-width: 300px;
+        }
+
+        .spells-search-box .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text);
+            opacity: 0.5;
+        }
+
+        .spells-search-box input {
+            width: 100%;
+            padding: 10px 14px 10px 44px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .spells-search-box input:focus {
+            outline: none;
+            border-color: var(--gold-dark);
+            box-shadow: 0 0 0 3px rgba(200, 170, 110, 0.1);
+        }
+
+        .spells-search-box input::placeholder {
+            color: var(--text);
+            opacity: 0.5;
+        }
+
+        /* 分类药丸按钮 */
+        .spells-filter-pills {
+            display: flex;
+            gap: 6px;
+        }
+
+        .spell-pill {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .spell-pill:hover {
+            border-color: var(--gold-dark);
+            color: var(--gold-light);
+        }
+
+        .spell-pill.active {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            border-color: transparent;
+            color: var(--bg-dark);
+            font-weight: 600;
+        }
+
+        /* 排序选择 */
+        .spell-sort-select {
+            padding: 8px 32px 8px 12px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-light);
+            font-size: 13px;
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a09b8c' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+        }
+
+        /* 结果计数 */
+        .spells-count-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 28px;
+            height: 28px;
+            padding: 0 10px;
+            background: var(--gold-dark);
+            border-radius: 14px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--bg-dark);
+        }
+
+        /* 技能展示区 */
+        .spells-showcase {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            align-content: start;
+        }
+
+        /* 技能卡片 - 全新设计 */
+        .spell-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        .spell-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(200, 170, 110, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .spell-card:hover {
+            border-color: var(--gold-dark);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .spell-card:hover::before {
+            opacity: 1;
+        }
+
+        .spell-card-icon {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            flex-shrink: 0;
+        }
+
+        .spell-card-icon img {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .spell-card:hover .spell-card-icon img {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(200, 170, 110, 0.4);
+        }
+
+        .spell-card-cooldown {
+            position: absolute;
+            bottom: -4px;
+            right: -4px;
+            padding: 2px 6px;
+            background: var(--bg-dark);
+            border: 1px solid var(--gold-dark);
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--gold-light);
+        }
+
+        .spell-card-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .spell-card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .spell-card-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .spell-card-category {
+            padding: 2px 8px;
+            background: rgba(200, 170, 110, 0.15);
+            border-radius: 4px;
+            font-size: 10px;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .spell-card-level {
+            padding: 2px 8px;
+            background: rgba(10, 200, 185, 0.15);
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--blue);
+        }
+
+        .spell-card-desc {
+            font-size: 12px;
+            color: var(--text);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 空状态 */
+        .spells-empty {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            gap: 16px;
+            color: var(--text);
+        }
+
+        .spells-empty svg {
+            opacity: 0.3;
+        }
+
+        .spells-empty p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* ========== 道具详情弹窗 V2 ========== */
+        .item-detail-modal-v2 {
+            position: relative;
+            width: 560px;
+            max-width: 95vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: linear-gradient(180deg, #1e2328 0%, #0a0c0f 100%);
+            border: 1px solid var(--gold-dark);
+            border-radius: 16px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+        }
+
+        .item-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .item-modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+
+        .item-modal-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 28px 28px 20px;
+            background: linear-gradient(180deg, rgba(200, 170, 110, 0.08) 0%, transparent 100%);
+        }
+
+        .item-modal-icon-area {
+            flex-shrink: 0;
+        }
+
+        .item-modal-icon-wrapper {
+            position: relative;
+        }
+
+        .item-modal-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            border: 3px solid var(--gold);
+            box-shadow: 0 8px 24px rgba(200, 170, 110, 0.3);
+        }
+
+        .item-tier-badge {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 3px 10px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--bg-dark);
+            white-space: nowrap;
+        }
+
+        .item-tier-badge.tier-mythic {
+            background: linear-gradient(135deg, #ff6b9d, #c850c0);
+        }
+
+        .item-tier-badge.tier-legendary {
+            background: linear-gradient(135deg, #ffa500, #ff6600);
+        }
+
+        .item-tier-badge.tier-epic {
+            background: linear-gradient(135deg, #9370db, #8a2be2);
+        }
+
+        .item-tier-badge.tier-basic {
+            background: linear-gradient(135deg, #6b7280, #4b5563);
+        }
+
+        .item-modal-title-area {
+            flex: 1;
+            min-width: 0;
+            padding-top: 4px;
+        }
+
+        .item-modal-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin: 0 0 10px 0;
+        }
+
+        .item-modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .item-tag {
+            padding: 3px 8px;
+            background: rgba(100, 180, 255, 0.12);
+            border: 1px solid rgba(100, 180, 255, 0.25);
+            border-radius: 4px;
+            font-size: 11px;
+            color: #64b4ff;
+        }
+
+        .item-modal-gold {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        .gold-total {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+
+        .gold-total svg {
+            color: var(--gold);
+        }
+
+        .gold-detail {
+            color: var(--text);
+            opacity: 0.7;
+            font-size: 12px;
+        }
+
+        .item-modal-stats-section {
+            padding: 0 28px 20px;
+        }
+
+        .item-modal-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 10px;
+        }
+
+        .item-stat-v2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .item-stat-v2 img {
+            width: 24px;
+            height: 24px;
+            opacity: 0.9;
+        }
+
+        .item-stat-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .item-stat-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #5ce1e6;
+        }
+
+        .item-stat-label {
             font-size: 11px;
             color: var(--text);
             opacity: 0.7;
         }
 
-        .game-mode-tab.active .mode-name {
+        /* 效果描述区域 */
+        .item-modal-desc-section {
+            padding: 0 28px 20px;
+        }
+
+        .item-modal-desc {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        /* 技能标题区块 */
+        .item-modal-desc .desc-ability {
+            display: block;
+            margin-top: 12px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .item-modal-desc .desc-ability:first-child {
+            margin-top: 0;
+        }
+
+        /* 段落分隔 */
+        .item-modal-desc .desc-separator {
+            height: 12px;
+        }
+
+        /* 技能名称样式（仅在技能标题内生效） */
+        .item-modal-desc .desc-ability .desc-passive { color: var(--gold); }
+        .item-modal-desc .desc-ability .desc-active { color: var(--accent-red); }
+        .item-modal-desc .desc-ability .desc-aura { color: var(--accent-purple); }
+
+        /* 描述中引用的技能名称（行内显示） */
+        .item-modal-desc .desc-passive-ref { color: var(--gold); }
+        .item-modal-desc .desc-active-ref { color: var(--accent-red); }
+        .item-modal-desc .desc-aura-ref { color: var(--accent-purple); }
+
+        /* 关键词 */
+        .item-modal-desc .desc-keyword { color: var(--gold-light); }
+        .item-modal-desc .desc-stealth { color: var(--accent-purple); }
+
+        /* 数值强调 */
+        .item-modal-desc .desc-attention { color: var(--attention-color); font-weight: 600; }
+
+        /* 伤害类型 */
+        .item-modal-desc .desc-magic { color: var(--magic-damage); }
+        .item-modal-desc .desc-physical { color: var(--physical-damage); }
+        .item-modal-desc .desc-true { color: var(--true-damage); }
+
+        /* 治疗/护盾 */
+        .item-modal-desc .desc-heal { color: var(--heal-color); }
+        .item-modal-desc .desc-shield { color: var(--shield-color); }
+
+        /* 状态效果 */
+        .item-modal-desc .desc-status { color: var(--status-color); }
+
+        /* 稀有度 */
+        .item-modal-desc .desc-mythic { color: var(--mythic-color); font-weight: 600; }
+        .item-modal-desc .desc-legendary { color: var(--legendary-color); font-weight: 600; }
+
+        /* 缩放属性 */
+        .item-modal-desc .desc-scale-ap { color: var(--magic-damage); }
+        .item-modal-desc .desc-scale-ad { color: var(--physical-damage); }
+        .item-modal-desc .desc-scale-hp { color: var(--heal-color); }
+        .item-modal-desc .desc-scale-mana { color: var(--mana-color); }
+        .item-modal-desc .desc-scale-armor { color: var(--armor-color); }
+        .item-modal-desc .desc-scale-mr { color: var(--mr-color); }
+        .item-modal-desc .desc-scale-lethality { color: var(--accent-red); }
+
+        /* 规则文本 */
+        .item-modal-desc .desc-rules {
+            color: var(--text);
+            font-size: 12px;
+        }
+
+        .item-modal-builds-section {
+            padding: 0 28px 20px;
+        }
+
+        .item-modal-builds {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .builds-group-v2 {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .builds-title-v2 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            opacity: 0.7;
+        }
+
+        .builds-items-v2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .build-item-v2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 80px;
+        }
+
+        .build-item-v2:hover {
+            border-color: var(--gold-dark);
+            background: rgba(200, 170, 110, 0.08);
+        }
+
+        .build-item-v2 img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid var(--border);
+        }
+
+        .build-item-v2:hover img {
+            border-color: var(--gold);
+        }
+
+        .build-item-name-v2 {
+            font-size: 11px;
+            color: var(--text-light);
+            text-align: center;
+            max-width: 70px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .build-item-price-v2 {
+            font-size: 10px;
+            color: var(--gold);
+        }
+
+        .item-modal-maps-section {
+            padding: 20px 28px;
+            border-top: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .item-modal-maps-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+            opacity: 0.6;
+        }
+
+        .item-modal-maps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .map-tag {
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .map-tag.available {
+            background: rgba(100, 220, 100, 0.12);
+            border: 1px solid rgba(100, 220, 100, 0.3);
+            color: #6ddc6d;
+        }
+
+        .map-tag.unavailable {
+            background: rgba(255, 85, 85, 0.08);
+            border: 1px solid rgba(255, 85, 85, 0.2);
+            color: #ff6b6b;
+            opacity: 0.5;
+        }
+
+        /* ========== 语言切换弹窗 V2 ========== */
+        .locale-modal-v2 {
+            position: relative;
+            width: 420px;
+            max-width: 95vw;
+            background: linear-gradient(180deg, #1e2328 0%, #0a0c0f 100%);
+            border: 1px solid var(--gold-dark);
+            border-radius: 16px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+            padding: 28px;
+        }
+
+        .locale-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .locale-modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+
+        .locale-modal-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .locale-modal-header svg {
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .locale-modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin: 0 0 4px 0;
+        }
+
+        .locale-modal-subtitle {
+            font-size: 13px;
+            color: var(--text);
+            margin: 0;
+            opacity: 0.7;
+        }
+
+        .locale-current-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: rgba(200, 170, 110, 0.08);
+            border: 1px solid rgba(200, 170, 110, 0.2);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .locale-current-label {
+            font-size: 13px;
+            color: var(--text);
+            opacity: 0.7;
+        }
+
+        .locale-current-value {
+            font-size: 15px;
+            font-weight: 600;
             color: var(--gold-light);
+        }
+
+        .locale-current-value.error {
+            color: #ff6b6b;
+        }
+
+        .locale-select-section {
+            margin-bottom: 20px;
+        }
+
+        .locale-select-label {
+            display: block;
+            font-size: 13px;
+            color: var(--text);
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+
+        .locale-select-wrapper {
+            position: relative;
+        }
+
+        .locale-select {
+            width: 100%;
+            padding: 14px 44px 14px 16px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-size: 15px;
+            cursor: pointer;
+            appearance: none;
+            transition: all 0.2s;
+        }
+
+        .locale-select:focus {
+            outline: none;
+            border-color: var(--gold-dark);
+        }
+
+        .locale-select-arrow {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text);
+            pointer-events: none;
+        }
+
+        .locale-apply-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            border: none;
+            border-radius: 10px;
+            color: var(--bg-dark);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .locale-apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(200, 170, 110, 0.3);
+        }
+
+        .locale-apply-btn:active {
+            transform: translateY(0);
+        }
+
+        .locale-result {
+            display: none;
+            margin-top: 16px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .locale-result.success {
+            display: block;
+            background: rgba(100, 220, 100, 0.1);
+            border: 1px solid rgba(100, 220, 100, 0.3);
+            color: #6ddc6d;
+        }
+
+        .locale-result.error {
+            display: block;
+            background: rgba(255, 85, 85, 0.1);
+            border: 1px solid rgba(255, 85, 85, 0.3);
+            color: #ff6b6b;
+        }
+
+        .locale-result.loading {
+            display: block;
+            background: rgba(100, 180, 255, 0.1);
+            border: 1px solid rgba(100, 180, 255, 0.3);
+            color: #64b4ff;
+        }
+
+        .locale-tip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text);
+            opacity: 0.6;
+        }
+
+        .locale-tip svg {
+            flex-shrink: 0;
+            opacity: 0.7;
+        }
+
+        /* ========== 技能详情弹窗 V2 ========== */
+        .spell-detail-modal {
+            position: relative;
+            width: 480px;
+            max-width: 95vw;
+            background: linear-gradient(180deg, #1e2328 0%, #0a0c0f 100%);
+            border: 1px solid var(--gold-dark);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+        }
+
+        .spell-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .spell-modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+
+        .spell-modal-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            padding: 28px 28px 20px;
+            background: linear-gradient(180deg, rgba(200, 170, 110, 0.08) 0%, transparent 100%);
+        }
+
+        .spell-modal-icon-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .spell-modal-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            border: 3px solid var(--gold);
+            box-shadow: 0 8px 24px rgba(200, 170, 110, 0.3);
+        }
+
+        .spell-modal-keys {
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 4px;
+        }
+
+        .key-tag {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--bg-dark);
+        }
+
+        .spell-modal-title-area {
+            flex: 1;
+            padding-top: 4px;
+        }
+
+        .spell-modal-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin: 0 0 10px 0;
+        }
+
+        .spell-modal-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .spell-mode-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: rgba(10, 200, 185, 0.15);
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--blue);
+        }
+
+        .spell-mode-tag.unavailable {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            opacity: 0.5;
+            text-decoration: line-through;
+        }
+
+        .spell-modal-stats {
+            display: flex;
+            gap: 12px;
+            padding: 0 28px 24px;
+        }
+
+        .spell-modal-stat {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg-input);
+            border-radius: 10px;
+        }
+
+        .spell-modal-stat svg {
+            color: var(--gold);
+            flex-shrink: 0;
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .spell-modal-desc {
+            padding: 0 28px 28px;
+        }
+
+        .desc-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .desc-content {
+            padding: 16px;
+            background: var(--bg-input);
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* 保留旧版样式兼容 */
+        .spells-layout { display: none; }
+
+        /* 技能侧边栏 */
+        .spells-sidebar {
+            width: 220px;
+            flex-shrink: 0;
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow-y: auto;
+        }
+
+        .spells-search input {
+            width: 100%;
+            padding: 10px 12px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        .spells-search input:focus {
+            outline: none;
+            border-color: var(--gold-dark);
+        }
+
+        .spells-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .spells-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* 游戏模式按钮 */
+        .spells-mode-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .spells-mode-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+        }
+
+        .spells-mode-btn:hover {
+            background: rgba(200, 170, 110, 0.1);
+        }
+
+        .spells-mode-btn.active {
+            background: rgba(200, 170, 110, 0.15);
+            border-color: var(--gold-dark);
+            color: var(--gold-light);
+        }
+
+        .mode-icon-small {
+            font-size: 16px;
+        }
+
+        /* 技能分类按钮 */
+        .spells-category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .spells-cat-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            background: transparent;
+            border: none;
+            border-radius: 4px;
+            color: var(--text);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: left;
+        }
+
+        .spells-cat-btn:hover {
+            background: rgba(200, 170, 110, 0.1);
+        }
+
+        .spells-cat-btn.active {
+            background: rgba(200, 170, 110, 0.15);
+            color: var(--gold-light);
+        }
+
+        .spells-cat-btn .cat-icon {
+            font-size: 14px;
+        }
+
+        /* 排序选择框 */
+        .spells-sort-select {
+            width: 100%;
+            padding: 8px 10px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--text-light);
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        /* 重置按钮 */
+        .spells-reset-btn {
+            margin-top: auto;
+            padding: 10px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .spells-reset-btn:hover {
+            border-color: var(--gold-dark);
+            color: var(--gold-light);
+        }
+
+        /* 技能主内容区 */
+        .spells-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 技能工具栏 */
+        .spells-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .spells-count {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .spells-view-toggle {
+            display: flex;
+            gap: 4px;
         }
 
         /* 召唤师技能网格 */
@@ -2575,12 +3809,17 @@
             overflow-y: auto;
             padding: 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 16px;
             align-content: start;
         }
 
-        /* 技能卡片 - 新设计 */
+        .spells-grid.list-view {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        /* 技能卡片 - 网格视图 */
         .spell-card-new {
             display: flex;
             gap: 16px;
@@ -2590,12 +3829,30 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spell-card-new::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+            opacity: 0;
+            transition: opacity 0.2s;
         }
 
         .spell-card-new:hover {
             border-color: var(--gold-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .spell-card-new:hover::before {
+            opacity: 1;
         }
 
         .spell-card-new .spell-icon {
@@ -2604,28 +3861,69 @@
             border-radius: 8px;
             border: 2px solid var(--border);
             flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .spell-card-new:hover .spell-icon {
+            border-color: var(--gold-dark);
+            box-shadow: 0 0 12px rgba(200, 170, 110, 0.3);
         }
 
         .spell-card-new .spell-info {
             flex: 1;
             min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .spell-card-new .spell-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
         }
 
         .spell-card-new .spell-name {
             font-size: 15px;
             font-weight: 600;
             color: var(--text-light);
-            margin-bottom: 4px;
+        }
+
+        .spell-card-new .spell-key-badge {
+            padding: 2px 6px;
+            background: var(--gold-dark);
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--bg-dark);
+        }
+
+        .spell-card-new .spell-meta {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 8px;
         }
 
         .spell-card-new .spell-cooldown-badge {
-            display: inline-block;
-            padding: 2px 8px;
-            background: rgba(10, 200, 185, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            background: rgba(10, 200, 185, 0.15);
             border-radius: 4px;
             font-size: 11px;
             color: var(--blue);
-            margin-bottom: 8px;
+        }
+
+        .spell-card-new .spell-category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            background: rgba(200, 170, 110, 0.15);
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--gold-light);
         }
 
         .spell-card-new .spell-desc {
@@ -2633,9 +3931,163 @@
             color: var(--text);
             line-height: 1.5;
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
+        }
+
+        /* 技能卡片 - 列表视图 */
+        .spells-grid.list-view .spell-card-new {
+            padding: 12px 16px;
+        }
+
+        .spells-grid.list-view .spell-card-new .spell-icon {
+            width: 48px;
+            height: 48px;
+        }
+
+        .spells-grid.list-view .spell-card-new .spell-desc {
+            -webkit-line-clamp: 1;
+        }
+
+        /* 技能详情弹窗增强 */
+        .spell-modal {
+            max-width: 560px;
+        }
+
+        .spell-detail-container {
+            display: flex;
+            gap: 24px;
+        }
+
+        .spell-detail-left {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .spell-detail-image {
+            width: 96px;
+            height: 96px;
+            border-radius: 12px;
+            border: 3px solid var(--gold-dark);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .spell-detail-key {
+            display: flex;
+            gap: 6px;
+        }
+
+        .spell-detail-key .key-badge {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--bg-dark);
+        }
+
+        .spell-detail-right {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .spell-detail-stats {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .spell-stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 10px 14px;
+            background: var(--bg-input);
+            border-radius: 8px;
+            min-width: 80px;
+        }
+
+        .spell-stat-icon {
+            font-size: 18px;
+        }
+
+        .spell-stat-label {
+            font-size: 10px;
+            color: var(--text);
+            text-transform: uppercase;
+        }
+
+        .spell-stat-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .spell-detail-modes {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .spell-mode-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: rgba(200, 170, 110, 0.15);
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--gold-light);
+        }
+
+        .spell-mode-tag.unavailable {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            opacity: 0.5;
+            text-decoration: line-through;
+        }
+
+        .spell-detail-desc-section {
+            background: var(--bg-input);
+            border-radius: 8px;
+            padding: 14px;
+        }
+
+        .spell-detail-desc-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .spell-detail-description {
+            font-size: 13px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* 旧版样式保留（兼容） */
+        .spells-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .game-mode-tabs {
+            display: none;
         }
 
         /* ==================== 召唤师图标面板 ==================== */
@@ -2739,18 +4191,32 @@
                 width: 200px;
             }
 
-            .game-mode-tabs {
-                flex-direction: column;
+            /* 召唤师技能 V2 响应式 */
+            .spells-mode-cards {
+                gap: 8px;
             }
 
-            .game-mode-tab {
-                flex-direction: row;
-                justify-content: flex-start;
-                padding: 12px 16px;
+            .spell-mode-card {
+                padding: 12px 14px;
             }
 
-            .game-mode-tab .mode-icon {
-                font-size: 24px;
+            .mode-card-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .spells-filter-bar {
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .spells-search-box {
+                max-width: none;
+                flex: 1 1 100%;
+            }
+
+            .spells-showcase {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             }
         }
 
@@ -2766,11 +4232,1213 @@
                 max-height: 200px;
             }
 
-            .spells-grid {
-                grid-template-columns: 1fr;
-            }
-
             .icons-grid {
                 grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
             }
+
+            /* 召唤师技能 V2 移动端 */
+            .spells-header {
+                padding: 16px;
+            }
+
+            .spells-mode-cards {
+                flex-direction: column;
+                gap: 8px;
+                margin-bottom: 16px;
+            }
+
+            .spell-mode-card {
+                padding: 12px 16px;
+            }
+
+            .mode-card-icon {
+                width: 36px;
+                height: 36px;
+            }
+
+            .mode-card-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .mode-card-name {
+                font-size: 14px;
+            }
+
+            .spells-filter-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .spells-search-box {
+                max-width: none;
+            }
+
+            .spell-sort-select {
+                width: 100%;
+            }
+
+            .spells-count-badge {
+                display: none;
+            }
+
+            .spells-showcase {
+                padding: 16px;
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .spell-card {
+                padding: 14px;
+            }
+
+            .spell-card-icon {
+                width: 52px;
+                height: 52px;
+            }
+
+            /* 弹窗移动端 */
+            .spell-detail-modal {
+                width: 95vw;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .spell-modal-header {
+                padding: 20px 20px 16px;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .spell-modal-icon {
+                width: 72px;
+                height: 72px;
+            }
+
+            .spell-modal-stats {
+                padding: 0 20px 20px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .spell-modal-stat {
+                padding: 12px;
+            }
+
+            .spell-modal-desc {
+                padding: 0 20px 20px;
+            }
+
+            .desc-content {
+                padding: 12px;
+            }
+
+            /* 隐藏旧版样式元素 */
+            .spells-layout { display: none; }
+            .spells-sidebar { display: none; }
+            .spells-grid { display: none; }
         }
+
+        /* 旧版兼容 - 隐藏 */
+        .spells-section {
+                flex: 1;
+                min-width: 150px;
+            }
+
+            .spells-mode-list {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .spells-mode-btn {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+
+            .spells-category-list {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .spells-cat-btn {
+                padding: 4px 8px;
+            }
+
+            .spells-reset-btn {
+                margin-top: 0;
+            }
+
+            .spells-toolbar {
+                padding: 8px 12px;
+            }
+
+            .spells-grid {
+                padding: 12px;
+                gap: 10px;
+            }
+
+            .spell-card-new {
+                padding: 12px;
+                gap: 12px;
+            }
+
+            .spell-card-new .spell-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            /* 技能详情弹窗移动端 */
+            .spell-modal {
+                max-width: 95%;
+                margin: 10px;
+            }
+
+            .spell-detail-container {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .spell-detail-left {
+                flex-direction: row;
+                justify-content: center;
+                gap: 16px;
+            }
+
+            .spell-detail-image {
+                width: 72px;
+                height: 72px;
+            }
+
+            .spell-detail-stats {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .spell-stat-item {
+                min-width: 70px;
+                padding: 8px 10px;
+            }
+        }
+
+/* ==================== V2 统一页面样式 ==================== */
+
+/* 通用加载状态 */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 1;
+    min-height: 400px;
+    gap: 20px;
+    color: var(--text);
+}
+
+/* 当加载状态是唯一子元素时，让父容器撑满 */
+.grid:has(.loading-state),
+.items-grid-v2:has(.loading-state),
+.spells-grid-v2:has(.loading-state),
+.icons-grid-v2:has(.loading-state) {
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+}
+
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(200, 170, 110, 0.15);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite, pulse-glow 2s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(200, 170, 110, 0.1);
+}
+
+.loading-state span {
+    font-size: 14px;
+    color: var(--text);
+    opacity: 0.7;
+    letter-spacing: 0.5px;
+}
+
+/* 加载状态脉冲动画 */
+@keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(200, 170, 110, 0.1); }
+    50% { box-shadow: 0 0 30px rgba(200, 170, 110, 0.25); }
+}
+
+/* 通用空状态 */
+.empty-state-v2 {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    gap: 20px;
+    color: var(--text);
+}
+
+.empty-state-v2 svg {
+    opacity: 0.3;
+    color: var(--gold-dark);
+}
+
+.empty-state-v2 p {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text);
+    opacity: 0.6;
+}
+
+/* ==================== 物品页面 V2 ==================== */
+
+.items-page-v2 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: linear-gradient(180deg, #0a0e14 0%, #0d1117 100%);
+}
+
+.items-header-v2 {
+    padding: 20px 24px;
+    background: rgba(13, 17, 23, 0.9);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 地图模式选择器 */
+.items-mode-selector {
+    display: flex;
+    gap: 8px;
+}
+
+.items-mode-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.items-mode-btn svg {
+    opacity: 0.7;
+}
+
+.items-mode-btn:hover {
+    background: rgba(200, 170, 110, 0.08);
+    border-color: var(--gold-dark);
+    color: var(--gold-light);
+}
+
+.items-mode-btn.active {
+    background: linear-gradient(135deg, rgba(200, 170, 110, 0.15), rgba(200, 170, 110, 0.08));
+    border-color: var(--gold);
+    color: var(--gold-light);
+}
+
+.items-mode-btn.active svg {
+    opacity: 1;
+    stroke: var(--gold);
+}
+
+/* 其他地图按钮 - 减淡半透明样式 */
+.items-mode-btn.items-mode-other {
+    opacity: 0.5;
+    border-style: dashed;
+}
+
+.items-mode-btn.items-mode-other:hover {
+    opacity: 0.75;
+}
+
+.items-mode-btn.items-mode-other.active {
+    opacity: 1;
+    border-style: solid;
+}
+
+/* 工具栏 */
+.items-toolbar-v2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.items-search-box {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+}
+
+.items-search-box .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text);
+    opacity: 0.5;
+}
+
+.items-search-box input {
+    width: 100%;
+    padding: 10px 14px 10px 44px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.items-search-box input:focus {
+    outline: none;
+    border-color: var(--gold-dark);
+}
+
+.items-search-box input::placeholder {
+    color: var(--text);
+    opacity: 0.5;
+}
+
+.items-sort-select {
+    padding: 10px 36px 10px 14px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 13px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a09b8c' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+.items-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 32px;
+    padding: 0 12px;
+    background: var(--gold-dark);
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--bg-dark);
+}
+
+/* 筛选标签区 */
+.items-filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid var(--border);
+}
+
+.filter-tag-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.filter-tag-label {
+    font-size: 11px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-right: 4px;
+}
+
+.filter-tag {
+    padding: 5px 12px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.filter-tag:hover {
+    background: rgba(200, 170, 110, 0.1);
+    border-color: var(--gold-dark);
+    color: var(--gold-light);
+}
+
+.filter-tag.active {
+    background: rgba(10, 200, 185, 0.15);
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.filter-reset-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.filter-reset-btn:hover {
+    background: rgba(200, 64, 64, 0.1);
+    border-color: var(--red);
+    color: var(--red);
+}
+
+/* 物品展示区 */
+.items-showcase-v2 {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.items-grid-v2 {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    flex: 1;
+}
+
+.items-flat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 56px);
+    gap: 8px;
+    justify-content: start;
+}
+
+/* 分层区块 */
+.items-tier-section {
+    background: rgba(10, 20, 40, 0.3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.items-tier-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid var(--border);
+}
+
+.tier-indicator {
+    width: 4px;
+    height: 20px;
+    border-radius: 2px;
+}
+
+.tier-indicator.tier-legendary {
+    background: linear-gradient(180deg, #ff6b35, #e55a2b);
+    box-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
+}
+
+.tier-indicator.tier-epic {
+    background: linear-gradient(180deg, #9b59b6, #8e44ad);
+    box-shadow: 0 0 8px rgba(155, 89, 182, 0.4);
+}
+
+.tier-indicator.tier-basic {
+    background: linear-gradient(180deg, #95a5a6, #7f8c8d);
+}
+
+.tier-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.tier-count {
+    margin-left: auto;
+    font-size: 12px;
+    color: var(--text);
+    opacity: 0.7;
+}
+
+.items-tier-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 56px);
+    gap: 8px;
+    padding: 16px;
+}
+
+/* 物品卡片 V2 */
+.item-card-v2 {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    background: #1a1f2e;
+    border: 2px solid #2d3548;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    overflow: hidden;
+}
+
+.item-card-v2:hover {
+    transform: scale(1.2);
+    z-index: 10;
+    border-color: var(--gold);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.item-card-v2.tier-legendary {
+    border-color: rgba(255, 107, 53, 0.5);
+}
+
+.item-card-v2.tier-legendary:hover {
+    border-color: #ff6b35;
+    box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+}
+
+.item-card-v2.tier-epic {
+    border-color: rgba(155, 89, 182, 0.4);
+}
+
+.item-card-v2.tier-epic:hover {
+    border-color: #9b59b6;
+    box-shadow: 0 8px 24px rgba(155, 89, 182, 0.3);
+}
+
+.item-icon-v2 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 4px;
+    transition: opacity 0.2s;
+}
+
+.item-card-v2:hover .item-card-overlay {
+    opacity: 1;
+}
+
+.item-name-v2 {
+    font-size: 9px;
+    color: var(--text-light);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.item-price-v2 {
+    font-size: 10px;
+    color: var(--gold);
+    font-weight: 600;
+}
+
+/* ==================== 召唤师技能页面 V2 ==================== */
+
+.spells-page-v2 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: linear-gradient(180deg, #0a0e14 0%, #0d1117 100%);
+}
+
+.spells-header-v2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: rgba(13, 17, 23, 0.9);
+    border-bottom: 1px solid var(--border);
+}
+
+.spells-mode-selector {
+    display: flex;
+    gap: 8px;
+}
+
+.spells-mode-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.spells-mode-btn svg {
+    opacity: 0.7;
+}
+
+.spells-mode-btn:hover {
+    background: rgba(200, 170, 110, 0.08);
+    border-color: var(--gold-dark);
+    color: var(--gold-light);
+}
+
+.spells-mode-btn.active {
+    background: linear-gradient(135deg, rgba(200, 170, 110, 0.15), rgba(200, 170, 110, 0.08));
+    border-color: var(--gold);
+    color: var(--gold-light);
+}
+
+.spells-mode-btn.active svg {
+    opacity: 1;
+    stroke: var(--gold);
+}
+
+.spells-toolbar-v2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.spells-search-box-v2 {
+    position: relative;
+    width: 240px;
+}
+
+.spells-search-box-v2 .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text);
+    opacity: 0.5;
+}
+
+.spells-search-box-v2 input {
+    width: 100%;
+    padding: 10px 14px 10px 40px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.spells-search-box-v2 input:focus {
+    outline: none;
+    border-color: var(--gold-dark);
+}
+
+.spells-sort-select {
+    padding: 10px 36px 10px 14px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 13px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a09b8c' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+.spells-count-badge-v2 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 32px;
+    padding: 0 12px;
+    background: var(--gold-dark);
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--bg-dark);
+}
+
+.spells-showcase-v2 {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.spells-grid-v2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    align-content: start;
+    flex: 1;
+}
+
+/* 技能卡片 V2 */
+.spell-card-v2 {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 28px 20px 20px;
+    background: linear-gradient(180deg, rgba(30, 35, 45, 0.9) 0%, rgba(20, 25, 32, 0.95) 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+}
+
+.spell-card-v2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.spell-card-v2:hover {
+    border-color: var(--gold-dark);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.spell-card-v2:hover::before {
+    opacity: 1;
+}
+
+.spell-icon-wrapper {
+    position: relative;
+    flex-shrink: 0;
+    margin-bottom: 16px;
+}
+
+.spell-icon-v2 {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    border: 3px solid var(--border);
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.spell-card-v2:hover .spell-icon-v2 {
+    border-color: var(--gold);
+    box-shadow: 0 0 24px rgba(200, 170, 110, 0.4), 0 8px 24px rgba(0, 0, 0, 0.4);
+    transform: scale(1.05);
+}
+
+.spell-key-hints {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+}
+
+.key-hint {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #1a1f28 0%, #0d1117 100%);
+    border: 1px solid var(--gold-dark);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.spell-info-v2 {
+    width: 100%;
+}
+
+.spell-name-v2 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 8px;
+}
+
+.spell-desc-v2 {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 14px;
+    min-height: 42px;
+}
+
+.spell-meta-v2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+.spell-cooldown-v2 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--blue);
+    font-weight: 500;
+}
+
+.spell-cooldown-v2 svg {
+    opacity: 0.9;
+}
+
+.spell-level-v2 {
+    font-size: 12px;
+    color: var(--gold);
+    padding: 4px 10px;
+    background: rgba(200, 170, 110, 0.12);
+    border: 1px solid rgba(200, 170, 110, 0.25);
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* 技能类型标签 */
+.spell-type-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.spell-type-tag.damage {
+    background: rgba(255, 85, 85, 0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 85, 85, 0.3);
+}
+
+.spell-type-tag.mobility {
+    background: rgba(100, 180, 255, 0.15);
+    color: #64b4ff;
+    border: 1px solid rgba(100, 180, 255, 0.3);
+}
+
+.spell-type-tag.utility {
+    background: rgba(200, 170, 110, 0.15);
+    color: var(--gold-light);
+    border: 1px solid rgba(200, 170, 110, 0.3);
+}
+
+.spell-type-tag.defensive {
+    background: rgba(100, 220, 100, 0.15);
+    color: #6ddc6d;
+    border: 1px solid rgba(100, 220, 100, 0.3);
+}
+
+/* ==================== 召唤师图标页面 V2 ==================== */
+
+.icons-page-v2 {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: linear-gradient(180deg, #0a0e14 0%, #0d1117 100%);
+}
+
+.icons-header-v2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background: rgba(13, 17, 23, 0.9);
+    border-bottom: 1px solid var(--border);
+}
+
+.icons-toolbar-v2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icons-search-box {
+    position: relative;
+    width: 200px;
+}
+
+.icons-search-box .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text);
+    opacity: 0.5;
+}
+
+.icons-search-box input {
+    width: 100%;
+    padding: 10px 14px 10px 40px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+.icons-search-box input:focus {
+    outline: none;
+    border-color: var(--gold-dark);
+}
+
+.icons-sort-select {
+    padding: 10px 36px 10px 14px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 13px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a09b8c' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+.icons-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 32px;
+    padding: 0 12px;
+    background: var(--gold-dark);
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--bg-dark);
+}
+
+.icons-pagination {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.page-nav-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.page-nav-btn:hover:not(:disabled) {
+    background: rgba(200, 170, 110, 0.1);
+    border-color: var(--gold-dark);
+    color: var(--gold-light);
+}
+
+.page-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.page-indicator {
+    min-width: 60px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text);
+}
+
+.page-size-select {
+    padding: 8px 30px 8px 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text-light);
+    font-size: 12px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23a09b8c' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+}
+
+.icons-showcase-v2 {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.icons-grid-v2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 72px);
+    gap: 12px;
+    justify-content: start;
+    flex: 1;
+}
+
+/* 图标卡片 V2 */
+.icon-card-v2 {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    background: #1a1f2e;
+    border: 2px solid #2d3548;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.icon-card-v2:hover {
+    transform: scale(1.1);
+    border-color: var(--gold);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    z-index: 10;
+}
+
+.icon-img-v2 {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.icon-id-v2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 4px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    font-size: 10px;
+    color: var(--text-light);
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.icon-card-v2:hover .icon-id-v2 {
+    opacity: 1;
+}
+
+/* ==================== 响应式设计 V2 ==================== */
+
+@media (max-width: 1024px) {
+    .items-header-v2 {
+        padding: 16px;
+    }
+
+    .items-mode-selector {
+        flex-wrap: wrap;
+    }
+
+    .items-toolbar-v2 {
+        flex-wrap: wrap;
+    }
+
+    .items-filter-tags {
+        padding: 12px 16px;
+    }
+
+    .spells-header-v2 {
+        flex-direction: column;
+        gap: 16px;
+        align-items: stretch;
+    }
+
+    .spells-mode-selector {
+        justify-content: center;
+    }
+
+    .spells-toolbar-v2 {
+        justify-content: center;
+    }
+
+    .icons-header-v2 {
+        flex-direction: column;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .items-mode-btn span,
+    .spells-mode-btn span {
+        display: none;
+    }
+
+    .items-mode-btn,
+    .spells-mode-btn {
+        padding: 10px 14px;
+    }
+
+    .items-search-box,
+    .spells-search-box-v2 {
+        width: 100%;
+        max-width: none;
+    }
+
+    .filter-tag-group {
+        flex-wrap: wrap;
+    }
+
+    .filter-reset-btn {
+        margin-left: 0;
+        width: 100%;
+        justify-content: center;
+        margin-top: 8px;
+    }
+
+    .spells-grid-v2 {
+        grid-template-columns: 1fr;
+    }
+
+    .icons-grid-v2 {
+        grid-template-columns: repeat(auto-fill, 64px);
+        gap: 8px;
+    }
+
+    .icon-card-v2 {
+        width: 64px;
+        height: 64px;
+    }
+}

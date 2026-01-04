@@ -151,176 +151,230 @@
 								</div>
 							</div>
 							<div id="championsGrid" class="grid">
-								<div class="loading">正在加载英雄数据...</div>
+								<div class="loading-state">
+									<div class="loading-spinner"></div>
+									<span>正在加载英雄数据...</span>
+								</div>
 							</div>
 						</div>
 
 						<!-- 道具标签页 -->
 						<div id="itemsTab" class="tab-content">
-							<div class="shop-layout">
-								<!-- 左侧边栏 -->
-								<aside class="shop-sidebar">
-									<!-- 搜索框 -->
-									<div class="shop-search">
-										<input type="text" id="itemSearch" placeholder="搜索道具..." oninput="filterItems()" />
+							<div class="items-page-v2">
+								<!-- 顶部筛选区 -->
+								<div class="items-header-v2">
+									<!-- 地图模式选择 -->
+									<div class="items-mode-selector">
+										<button class="items-mode-btn active" data-map="11" onclick="filterItemsByMap('11')">
+											<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<polygon points="12,2 22,8.5 22,15.5 12,22 2,15.5 2,8.5"/>
+											</svg>
+											<span>召唤师峡谷</span>
+										</button>
+										<button class="items-mode-btn" data-map="12" onclick="filterItemsByMap('12')">
+											<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<path d="M12 2L2 7v10l10 5 10-5V7L12 2z"/>
+											</svg>
+											<span>嚎哭深渊</span>
+										</button>
+										<button class="items-mode-btn items-mode-other" data-map="other" onclick="filterItemsByMap('other')">
+											<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<circle cx="12" cy="12" r="3"/>
+												<circle cx="12" cy="12" r="8" stroke-dasharray="4 2"/>
+											</svg>
+											<span>其他地图</span>
+										</button>
 									</div>
 
-									<!-- 地图筛选 -->
-									<div class="shop-section">
-										<div class="shop-section-title">地图</div>
-										<div class="shop-map-btns">
-											<button class="shop-map-btn active" data-map="11" onclick="filterItemsByMap('11')">峡谷</button>
-											<button class="shop-map-btn" data-map="12" onclick="filterItemsByMap('12')">大乱斗</button>
-											<button class="shop-map-btn" data-map="" onclick="filterItemsByMap('')">全部</button>
+									<!-- 搜索和排序 -->
+									<div class="items-toolbar-v2">
+										<div class="items-search-box">
+											<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<circle cx="11" cy="11" r="8"/>
+												<path d="M21 21l-4.35-4.35"/>
+											</svg>
+											<input type="text" id="itemSearch" placeholder="搜索道具名称或描述..." oninput="filterItems()" />
 										</div>
-									</div>
-
-									<!-- 分类筛选 -->
-									<div class="shop-section">
-										<div class="shop-section-title">分类</div>
-										<div class="shop-category-list" id="shopCategoryList">
-											<button class="shop-cat-btn active" data-type="all" onclick="filterItemsByType('all')">
-												<span class="cat-icon">📦</span>全部道具
-											</button>
-											<button class="shop-cat-btn" data-type="Boots" onclick="filterItemsByType('Boots')">
-												<img src="https://ddragon.leagueoflegends.com/cdn/14.1.1/img/item/1001.png" alt="">鞋子
-											</button>
-											<button class="shop-cat-btn" data-type="Consumable" onclick="filterItemsByType('Consumable')">
-												<img src="https://ddragon.leagueoflegends.com/cdn/14.1.1/img/item/2003.png" alt="">消耗品
-											</button>
-											<button class="shop-cat-btn" data-type="Jungle" onclick="filterItemsByType('Jungle')">
-												<img src="https://ddragon.leagueoflegends.com/cdn/14.1.1/img/item/1101.png" alt="">打野装备
-											</button>
-											<button class="shop-cat-btn" data-type="Lane" onclick="filterItemsByType('Lane')">
-												<img src="https://ddragon.leagueoflegends.com/cdn/14.1.1/img/item/1055.png" alt="">起始装备
-											</button>
-											<button class="shop-cat-btn" data-type="Trinket" onclick="filterItemsByType('Trinket')">
-												<img src="https://ddragon.leagueoflegends.com/cdn/14.1.1/img/item/3340.png" alt="">饰品
-											</button>
-										</div>
-									</div>
-
-									<!-- 属性筛选 -->
-									<div class="shop-section">
-										<div class="shop-section-title">属性</div>
-										<div class="shop-stat-list" id="shopStatList">
-											<button class="shop-stat-btn active" data-stat="all" onclick="filterItemsByStat('all')">全部</button>
-											<button class="shop-stat-btn" data-stat="Damage" onclick="filterItemsByStat('Damage')">攻击力</button>
-											<button class="shop-stat-btn" data-stat="SpellDamage" onclick="filterItemsByStat('SpellDamage')">法术强度</button>
-											<button class="shop-stat-btn" data-stat="AttackSpeed" onclick="filterItemsByStat('AttackSpeed')">攻击速度</button>
-											<button class="shop-stat-btn" data-stat="CriticalStrike" onclick="filterItemsByStat('CriticalStrike')">暴击</button>
-											<button class="shop-stat-btn" data-stat="Health" onclick="filterItemsByStat('Health')">生命值</button>
-											<button class="shop-stat-btn" data-stat="Armor" onclick="filterItemsByStat('Armor')">护甲</button>
-											<button class="shop-stat-btn" data-stat="SpellBlock" onclick="filterItemsByStat('SpellBlock')">魔抗</button>
-											<button class="shop-stat-btn" data-stat="Mana" onclick="filterItemsByStat('Mana')">法力值</button>
-											<button class="shop-stat-btn" data-stat="LifeSteal" onclick="filterItemsByStat('LifeSteal')">生命偷取</button>
-										</div>
-									</div>
-
-									<!-- 价格筛选 -->
-									<div class="shop-section">
-										<div class="shop-section-title">价格</div>
-										<div class="shop-price-btns">
-											<button class="shop-price-btn active" data-price="all" onclick="filterItemsByPrice('all')">全部</button>
-											<button class="shop-price-btn" data-price="low" onclick="filterItemsByPrice('low')">&lt;1000</button>
-											<button class="shop-price-btn" data-price="mid" onclick="filterItemsByPrice('mid')">1k-2.5k</button>
-											<button class="shop-price-btn" data-price="high" onclick="filterItemsByPrice('high')">&gt;2500</button>
-										</div>
-									</div>
-
-									<!-- 重置按钮 -->
-									<button class="shop-reset-btn" onclick="resetItemFilters()">重置筛选</button>
-								</aside>
-
-								<!-- 右侧主内容区 -->
-								<main class="shop-main">
-									<!-- 顶部信息栏 -->
-									<div class="shop-header">
-										<span id="itemCount" class="shop-count">加载中...</span>
-										<select id="itemSortFilter" class="shop-sort" onchange="filterItems()">
-											<option value="tier">按品质</option>
-											<option value="name">按名称</option>
-											<option value="price-asc">价格从低到高</option>
-											<option value="price-desc">价格从高到低</option>
+										<select id="itemSortFilter" class="items-sort-select" onchange="filterItems()">
+											<option value="tier">按品质分组</option>
+											<option value="name">按名称排序</option>
+											<option value="price-asc">价格 ↑</option>
+											<option value="price-desc">价格 ↓</option>
 										</select>
+										<span id="itemCount" class="items-count-badge">0</span>
 									</div>
+								</div>
 
-									<!-- 道具网格 -->
-									<div class="shop-grid-container">
-										<div id="itemsGrid" class="shop-grid">
-											<div class="items-loading">
-												<div class="items-loading-spinner"></div>
-												<div class="items-loading-text">正在加载道具数据...</div>
-											</div>
+								<!-- 快速筛选标签 -->
+								<div class="items-filter-tags">
+									<div class="filter-tag-group">
+										<span class="filter-tag-label">分类</span>
+										<button class="filter-tag active" data-type="all" onclick="filterItemsByType('all')">全部</button>
+										<button class="filter-tag" data-type="Boots" onclick="filterItemsByType('Boots')">鞋子</button>
+										<button class="filter-tag" data-type="Consumable" onclick="filterItemsByType('Consumable')">消耗品</button>
+										<button class="filter-tag" data-type="Jungle" onclick="filterItemsByType('Jungle')">打野</button>
+										<button class="filter-tag" data-type="Lane" onclick="filterItemsByType('Lane')">起始</button>
+										<button class="filter-tag" data-type="Trinket" onclick="filterItemsByType('Trinket')">饰品</button>
+									</div>
+									<div class="filter-tag-group">
+										<span class="filter-tag-label">属性</span>
+										<button class="filter-tag active" data-stat="all" onclick="filterItemsByStat('all')">全部</button>
+										<button class="filter-tag" data-stat="Damage" onclick="filterItemsByStat('Damage')">攻击</button>
+										<button class="filter-tag" data-stat="SpellDamage" onclick="filterItemsByStat('SpellDamage')">法强</button>
+										<button class="filter-tag" data-stat="Health" onclick="filterItemsByStat('Health')">生命</button>
+										<button class="filter-tag" data-stat="Armor" onclick="filterItemsByStat('Armor')">护甲</button>
+										<button class="filter-tag" data-stat="SpellBlock" onclick="filterItemsByStat('SpellBlock')">魔抗</button>
+										<button class="filter-tag" data-stat="AttackSpeed" onclick="filterItemsByStat('AttackSpeed')">攻速</button>
+										<button class="filter-tag" data-stat="CriticalStrike" onclick="filterItemsByStat('CriticalStrike')">暴击</button>
+										<button class="filter-tag" data-stat="LifeSteal" onclick="filterItemsByStat('LifeSteal')">吸血</button>
+										<button class="filter-tag" data-stat="Mana" onclick="filterItemsByStat('Mana')">法力</button>
+										<button class="filter-tag" data-stat="ManaRegen" onclick="filterItemsByStat('ManaRegen')">回蓝</button>
+										<button class="filter-tag" data-stat="HealthRegen" onclick="filterItemsByStat('HealthRegen')">回血</button>
+										<button class="filter-tag" data-stat="CooldownReduction" onclick="filterItemsByStat('CooldownReduction')">技能急速</button>
+										<button class="filter-tag" data-stat="NonbootsMovement" onclick="filterItemsByStat('NonbootsMovement')">移速</button>
+										<button class="filter-tag" data-stat="ArmorPenetration" onclick="filterItemsByStat('ArmorPenetration')">穿甲</button>
+										<button class="filter-tag" data-stat="MagicPenetration" onclick="filterItemsByStat('MagicPenetration')">法穿</button>
+										<button class="filter-tag" data-stat="OnHit" onclick="filterItemsByStat('OnHit')">命中特效</button>
+									</div>
+									<div class="filter-tag-group">
+										<span class="filter-tag-label">价格</span>
+										<button class="filter-tag active" data-price="all" onclick="filterItemsByPrice('all')">全部</button>
+										<button class="filter-tag" data-price="low" onclick="filterItemsByPrice('low')">&lt;1000</button>
+										<button class="filter-tag" data-price="mid" onclick="filterItemsByPrice('mid')">1k-2.5k</button>
+										<button class="filter-tag" data-price="high" onclick="filterItemsByPrice('high')">&gt;2500</button>
+									</div>
+									<button class="filter-reset-btn" onclick="resetItemFilters()">
+										<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+											<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+											<path d="M3 3v5h5"/>
+										</svg>
+										重置
+									</button>
+								</div>
+
+								<!-- 道具展示区 -->
+								<div class="items-showcase-v2">
+									<div id="itemsGrid" class="items-grid-v2">
+										<div class="loading-state">
+											<div class="loading-spinner"></div>
+											<span>正在加载道具数据...</span>
 										</div>
 									</div>
-								</main>
+								</div>
 							</div>
 						</div>
 
 						<!-- 召唤师技能标签页 -->
 						<div id="summoner-spellsTab" class="tab-content">
-							<div class="spells-container">
-								<!-- 游戏模式选择 -->
-								<div class="game-mode-tabs">
-									<button class="game-mode-tab active" data-mode="classic" onclick="filterSpellsByMode('classic')">
-										<span class="mode-icon">&#x1F3D4;</span>
-										<span class="mode-name">召唤师峡谷</span>
-										<span class="mode-desc">经典 5v5</span>
-									</button>
-									<button class="game-mode-tab" data-mode="aram" onclick="filterSpellsByMode('aram')">
-										<span class="mode-icon">&#x2744;</span>
-										<span class="mode-name">嚎哭深渊</span>
-										<span class="mode-desc">极地大乱斗</span>
-									</button>
-									<button class="game-mode-tab" data-mode="all" onclick="filterSpellsByMode('all')">
-										<span class="mode-icon">&#x1F30D;</span>
-										<span class="mode-name">全部技能</span>
-										<span class="mode-desc">包含特殊模式</span>
-									</button>
+							<div class="spells-page-v2">
+								<!-- 顶部控制区 -->
+								<div class="spells-header-v2">
+									<!-- 游戏模式选择 -->
+									<div class="spells-mode-selector">
+										<button class="spells-mode-btn active" data-mode="classic" onclick="filterSpellsByMode('classic')">
+											<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<polygon points="12,2 22,8.5 22,15.5 12,22 2,15.5 2,8.5"/>
+											</svg>
+											<span>召唤师峡谷</span>
+										</button>
+										<button class="spells-mode-btn" data-mode="aram" onclick="filterSpellsByMode('aram')">
+											<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<path d="M12 2L2 7v10l10 5 10-5V7L12 2z"/>
+											</svg>
+											<span>嚎哭深渊</span>
+										</button>
+										<button class="spells-mode-btn" data-mode="all" onclick="filterSpellsByMode('all')">
+											<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+												<circle cx="12" cy="12" r="10"/>
+												<path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>
+											</svg>
+											<span>全部技能</span>
+										</button>
+									</div>
+
+									<!-- 搜索和排序 -->
+									<div class="spells-toolbar-v2">
+										<div class="spells-search-box-v2">
+											<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<circle cx="11" cy="11" r="8"/>
+												<path d="M21 21l-4.35-4.35"/>
+											</svg>
+											<input type="text" id="spellSearch" placeholder="搜索技能名称..." oninput="filterSummonerSpells()" />
+										</div>
+										<select id="spellSortFilter" class="spells-sort-select" onchange="filterSummonerSpells()">
+											<option value="name">名称排序</option>
+											<option value="cooldown-asc">冷却 ↑</option>
+											<option value="cooldown-desc">冷却 ↓</option>
+											<option value="level-asc">等级 ↑</option>
+											<option value="level-desc">等级 ↓</option>
+										</select>
+										<span id="spellCount" class="spells-count-badge-v2">0</span>
+									</div>
 								</div>
-								<!-- 工具栏 -->
-								<div class="panel-toolbar">
-									<input type="text" id="spellSearch" class="search-input" placeholder="搜索技能名称..." oninput="filterSummonerSpells()" />
-									<select id="spellSortFilter" class="filter-select" onchange="filterSummonerSpells()">
-										<option value="name">按名称</option>
-										<option value="cooldown-asc">冷却时间 ↑</option>
-										<option value="cooldown-desc">冷却时间 ↓</option>
-									</select>
-									<span id="spellCount" class="filter-count">加载中...</span>
-								</div>
-								<!-- 技能网格 -->
-								<div id="summonerSpellsGrid" class="spells-grid">
-									<div class="loading">正在加载召唤师技能数据...</div>
+
+								<!-- 技能展示区 -->
+								<div class="spells-showcase-v2">
+									<div id="summonerSpellsGrid" class="spells-grid-v2">
+										<div class="loading-state">
+											<div class="loading-spinner"></div>
+											<span>正在加载召唤师技能数据...</span>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 
 						<!-- 召唤师图标标签页 -->
 						<div id="profile-iconsTab" class="tab-content">
-							<div class="icons-container">
-								<!-- 工具栏 -->
-								<div class="panel-toolbar">
-									<input type="text" id="iconSearch" class="search-input" placeholder="搜索图标 ID..." oninput="filterProfileIcons()" />
-									<select id="iconSortFilter" class="filter-select" onchange="filterProfileIcons()">
-										<option value="id-desc">最新优先</option>
-										<option value="id-asc">最旧优先</option>
-									</select>
-									<div class="pagination-controls">
-										<button class="page-btn" onclick="changeIconPage(-1)">&#x276E;</button>
-										<span id="iconPageInfo" class="page-info">1 / 1</span>
-										<button class="page-btn" onclick="changeIconPage(1)">&#x276F;</button>
-										<select id="iconPageSize" class="filter-select" onchange="changeIconPageSize()">
-											<option value="50">50个/页</option>
-											<option value="100" selected>100个/页</option>
-											<option value="200">200个/页</option>
+							<div class="icons-page-v2">
+								<!-- 顶部控制区 -->
+								<div class="icons-header-v2">
+									<!-- 搜索和排序 -->
+									<div class="icons-toolbar-v2">
+										<div class="icons-search-box">
+											<svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<circle cx="11" cy="11" r="8"/>
+												<path d="M21 21l-4.35-4.35"/>
+											</svg>
+											<input type="text" id="iconSearch" placeholder="搜索图标 ID..." oninput="filterProfileIcons()" />
+										</div>
+										<select id="iconSortFilter" class="icons-sort-select" onchange="filterProfileIcons()">
+											<option value="id-desc">最新优先</option>
+											<option value="id-asc">最旧优先</option>
+										</select>
+										<span id="iconCount" class="icons-count-badge">0</span>
+									</div>
+
+									<!-- 分页控制 -->
+									<div class="icons-pagination">
+										<button class="page-nav-btn" onclick="changeIconPage(-1)">
+											<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<polyline points="15 18 9 12 15 6"/>
+											</svg>
+										</button>
+										<span id="iconPageInfo" class="page-indicator">1 / 1</span>
+										<button class="page-nav-btn" onclick="changeIconPage(1)">
+											<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+												<polyline points="9 18 15 12 9 6"/>
+											</svg>
+										</button>
+										<select id="iconPageSize" class="page-size-select" onchange="changeIconPageSize()">
+											<option value="50">50/页</option>
+											<option value="100" selected>100/页</option>
+											<option value="200">200/页</option>
+											<option value="500">500/页</option>
 										</select>
 									</div>
-									<span id="iconCount" class="filter-count">加载中...</span>
 								</div>
-								<!-- 图标网格 -->
-								<div id="profileIconsGrid" class="icons-grid">
-									<div class="loading">正在加载召唤师图标数据...</div>
+
+								<!-- 图标展示区 -->
+								<div class="icons-showcase-v2">
+									<div id="profileIconsGrid" class="icons-grid-v2">
+										<div class="loading-state">
+											<div class="loading-spinner"></div>
+											<span>正在加载召唤师图标数据...</span>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -360,84 +414,164 @@
 
 		<!-- 道具详情弹窗 -->
 		<div id="itemModal" class="modal-overlay" onclick="hideItemModal(event)">
-			<div class="modal modal-large" onclick="event.stopPropagation()">
-				<div class="modal-header">
-					<button class="modal-close" onclick="hideItemModal()">&times;</button>
-					<h2 id="modalItemName" class="modal-title">道具名称</h2>
-				</div>
-				<div class="modal-body">
-					<div class="item-detail-container">
-						<div class="item-detail-left">
-							<img id="modalItemImage" class="item-detail-image" src="" alt="道具图标" />
-							<div id="modalItemGold" class="item-detail-gold">加载中...</div>
-						</div>
-						<div class="item-detail-right">
-							<div id="modalItemDescription" class="item-detail-description">加载中...</div>
-							<div id="modalItemStatsSection" class="modal-section">
-								<h3 class="modal-section-title">属性</h3>
-								<div id="modalItemStats" class="item-stats-list">加载中...</div>
-							</div>
-							<div id="modalItemBuildsSection" class="modal-section">
-								<h3 class="modal-section-title">合成路线</h3>
-								<div id="modalItemBuilds">加载中...</div>
-							</div>
+			<div class="item-detail-modal-v2" onclick="event.stopPropagation()">
+				<button class="item-modal-close" onclick="hideItemModal()">&times;</button>
+
+				<!-- 顶部信息区 -->
+				<div class="item-modal-header">
+					<div class="item-modal-icon-area">
+						<div class="item-modal-icon-wrapper">
+							<img id="modalItemImage" class="item-modal-icon" src="" alt="" />
+							<span id="modalItemTier" class="item-tier-badge">传说</span>
 						</div>
 					</div>
+					<div class="item-modal-title-area">
+						<h2 id="modalItemName" class="item-modal-name">道具名称</h2>
+						<div id="modalItemTags" class="item-modal-tags"></div>
+						<div id="modalItemGold" class="item-modal-gold"></div>
+					</div>
+				</div>
+
+				<!-- 属性统计 -->
+				<div id="modalItemStatsSection" class="item-modal-stats-section">
+					<div id="modalItemStats" class="item-modal-stats"></div>
+				</div>
+
+				<!-- 效果描述 -->
+				<div id="modalItemDescSection" class="item-modal-desc-section">
+					<div id="modalItemDesc" class="item-modal-desc"></div>
+				</div>
+
+				<!-- 合成路线 -->
+				<div id="modalItemBuildsSection" class="item-modal-builds-section">
+					<div id="modalItemBuilds" class="item-modal-builds"></div>
+				</div>
+
+				<!-- 地图可用性 -->
+				<div id="modalItemMapsSection" class="item-modal-maps-section">
+					<div class="item-modal-maps-title">可用地图</div>
+					<div id="modalItemMaps" class="item-modal-maps"></div>
 				</div>
 			</div>
 		</div>
 
 		<!-- 召唤师技能详情弹窗 -->
 		<div id="spellModal" class="modal-overlay" onclick="hideSpellModal(event)">
-			<div class="modal" onclick="event.stopPropagation()">
-				<div class="modal-header">
-					<button class="modal-close" onclick="hideSpellModal()">&times;</button>
-					<h2 id="modalSpellName" class="modal-title">技能名称</h2>
-				</div>
-				<div class="modal-body">
-					<div class="spell-detail-container">
-						<div class="spell-detail-left">
-							<img id="modalSpellImage" class="spell-detail-image" src="" alt="技能图标" />
-						</div>
-						<div class="spell-detail-right">
-							<div id="modalSpellCooldown" class="spell-detail-cooldown">加载中...</div>
-							<div id="modalSpellDescription" class="item-detail-description">加载中...</div>
+			<div class="spell-detail-modal" onclick="event.stopPropagation()">
+				<button class="spell-modal-close" onclick="hideSpellModal()">&times;</button>
+
+				<!-- 顶部技能信息 -->
+				<div class="spell-modal-header">
+					<div class="spell-modal-icon-wrapper">
+						<img id="modalSpellImage" class="spell-modal-icon" src="" alt="" />
+						<div class="spell-modal-keys">
+							<span class="key-tag">D</span>
+							<span class="key-tag">F</span>
 						</div>
 					</div>
+					<div class="spell-modal-title-area">
+						<h2 id="modalSpellName" class="spell-modal-name">技能名称</h2>
+						<div class="spell-modal-tags" id="modalSpellModes"></div>
+					</div>
+				</div>
+
+				<!-- 属性统计 -->
+				<div class="spell-modal-stats">
+					<div class="spell-modal-stat">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<circle cx="12" cy="12" r="10"/>
+							<polyline points="12,6 12,12 16,14"/>
+						</svg>
+						<div class="stat-info">
+							<span class="stat-label">冷却时间</span>
+							<span class="stat-value" id="modalSpellCooldown">-</span>
+						</div>
+					</div>
+					<div class="spell-modal-stat">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<circle cx="12" cy="12" r="3"/>
+							<path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+						</svg>
+						<div class="stat-info">
+							<span class="stat-label">施法范围</span>
+							<span class="stat-value" id="modalSpellRange">-</span>
+						</div>
+					</div>
+					<div class="spell-modal-stat">
+						<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+						</svg>
+						<div class="stat-info">
+							<span class="stat-label">解锁等级</span>
+							<span class="stat-value" id="modalSpellLevel">-</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- 技能描述 -->
+				<div class="spell-modal-desc">
+					<div class="desc-title">技能效果</div>
+					<div id="modalSpellDescription" class="desc-content">加载中...</div>
 				</div>
 			</div>
 		</div>
 
 		<!-- 语言切换弹窗 -->
 		<div id="localeModal" class="modal-overlay" onclick="hideLocaleManager(event)">
-			<div class="modal" onclick="event.stopPropagation()">
-				<div class="modal-header">
-					<button class="modal-close" onclick="hideLocaleManager()">&times;</button>
-					<h2 class="modal-title">游戏语言切换</h2>
-					<p class="modal-subtitle">切换英雄联盟客户端语言</p>
-				</div>
-				<div class="modal-body">
-					<div class="modal-section">
-						<h3 class="modal-section-title">当前语言</h3>
-						<p id="currentLocaleText" class="modal-text">检测中...</p>
+			<div class="locale-modal-v2" onclick="event.stopPropagation()">
+				<button class="locale-modal-close" onclick="hideLocaleManager()">&times;</button>
+
+				<!-- 标题区 -->
+				<div class="locale-modal-header">
+					<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+						<circle cx="12" cy="12" r="10"/>
+						<path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/>
+					</svg>
+					<div>
+						<h2 class="locale-modal-title">游戏语言切换</h2>
+						<p class="locale-modal-subtitle">切换英雄联盟客户端显示语言</p>
 					</div>
-					<div class="modal-section">
-						<h3 class="modal-section-title">选择目标语言</h3>
-						<select id="localeSelect" class="select" style="width: 100%; margin-bottom: 16px;">
+				</div>
+
+				<!-- 当前语言状态 -->
+				<div class="locale-current-section">
+					<div class="locale-current-label">当前语言</div>
+					<div id="currentLocaleText" class="locale-current-value">检测中...</div>
+				</div>
+
+				<!-- 语言选择 -->
+				<div class="locale-select-section">
+					<label class="locale-select-label">选择目标语言</label>
+					<div class="locale-select-wrapper">
+						<select id="localeSelect" class="locale-select">
 							<option value="">加载中...</option>
 						</select>
-						<div style="display: flex; gap: 12px;">
-							<button class="btn primary" style="flex: 1;" onclick="setLocale('copy')">方法一（推荐）</button>
-							<button class="btn" style="flex: 1;" onclick="setLocale('config')">方法二</button>
-						</div>
-						<p style="margin-top: 12px; font-size: 12px; color: var(--text);">
-							方法一：复制语言资源文件（更稳定）<br />
-							方法二：修改配置文件（可能被重置）
-						</p>
+						<svg class="locale-select-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+							<polyline points="6 9 12 15 18 9"/>
+						</svg>
 					</div>
-					<div id="localeResult" class="modal-section" style="display: none; padding: 12px; border: 1px solid var(--border); margin-top: 16px;">
-						<!-- 切换结果显示区 -->
-					</div>
+				</div>
+
+				<!-- 切换按钮 -->
+				<button class="locale-apply-btn" onclick="setLocale('config')">
+					<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<path d="M5 12h14M12 5l7 7-7 7"/>
+					</svg>
+					应用语言设置
+				</button>
+
+				<!-- 结果提示 -->
+				<div id="localeResult" class="locale-result">
+					<!-- 切换结果显示区 -->
+				</div>
+
+				<!-- 提示信息 -->
+				<div class="locale-tip">
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+						<circle cx="12" cy="12" r="10"/>
+						<path d="M12 16v-4M12 8h.01"/>
+					</svg>
+					语言切换后需要重启游戏客户端才能生效
 				</div>
 			</div>
 		</div>
