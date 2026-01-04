@@ -1,0 +1,1268 @@
+[
+  {
+    "name": "账户信息",
+    "endpoints": [
+      [
+        "获取当前召唤师",
+        "GET",
+        "/lol-summoner/v1/current-summoner"
+      ],
+      [
+        "获取游戏状态",
+        "GET",
+        "/lol-gameflow/v1/gameflow-phase"
+      ],
+      [
+        "获取排位数据",
+        "GET",
+        "/lol-ranked/v1/current-ranked-stats"
+      ],
+      [
+        "获取赛季里程碑",
+        "GET",
+        "/lol-ranked/v1/splits-config"
+      ],
+      [
+        "获取荣誉等级",
+        "GET",
+        "/lol-honor-v2/v1/profile"
+      ],
+      [
+        "获取等级奖励",
+        "GET",
+        "/lol-player-level-up/v1/level-up-notifications"
+      ]
+    ]
+  },
+  {
+    "name": "货币/精粹",
+    "endpoints": [
+      [
+        "获取钱包(RP/BE)",
+        "GET",
+        "/lol-inventory/v1/wallet/currency"
+      ],
+      [
+        "获取战利品/材料",
+        "GET",
+        "/lol-loot/v1/player-loot"
+      ],
+      [
+        "获取战利品映射",
+        "GET",
+        "/lol-loot/v1/player-loot-map"
+      ],
+      [
+        "获取代币/通行证",
+        "GET",
+        "/lol-loot/v1/loot-grants"
+      ]
+    ]
+  },
+  {
+    "name": "对局/历史",
+    "context_note": "仅在游戏对局中可用",
+    "endpoints": [
+      [
+        "获取对局历史",
+        "GET",
+        "/lol-match-history/v1/products/lol/current-summoner/matches"
+      ],
+      [
+        "获取当前对局",
+        "GET",
+        "/lol-gameflow/v1/session"
+      ],
+      [
+        "获取结算数据",
+        "GET",
+        "/lol-end-of-game/v1/eog-stats-block"
+      ],
+      [
+        "获取最近队友",
+        "GET",
+        "/lol-match-history/v1/recently-played-summoners"
+      ]
+    ]
+  },
+  {
+    "name": "大厅/匹配",
+    "context_note": "仅在大厅/房间内可用",
+    "endpoints": [
+      [
+        "获取当前大厅",
+        "GET",
+        "/lol-lobby/v2/lobby"
+      ],
+      [
+        "获取地图模式",
+        "GET",
+        "/lol-lobby/v1/parties/gamemode"
+      ],
+      [
+        "创建自定义房间",
+        "POST",
+        "/lol-lobby/v2/lobby",
+        [
+          {
+            "name": "5v5 召唤师峡谷",
+            "data": {
+              "customGameLobby": {
+                "configuration": {
+                  "gameMode": "CLASSIC",
+                  "gameMutator": "",
+                  "gameServerRegion": "",
+                  "mapId": 11,
+                  "mutators": {
+                    "id": 1
+                  },
+                  "spectatorPolicy": "AllAllowed",
+                  "teamSize": 5
+                },
+                "lobbyName": "Custom Game",
+                "lobbyPassword": ""
+              },
+              "isCustom": true
+            }
+          },
+          {
+            "name": "训练模式",
+            "data": {
+              "customGameLobby": {
+                "configuration": {
+                  "gameMode": "PRACTICETOOL",
+                  "gameMutator": "",
+                  "gameServerRegion": "",
+                  "mapId": 11,
+                  "mutators": {
+                    "id": 1
+                  },
+                  "spectatorPolicy": "AllAllowed",
+                  "teamSize": 1
+                },
+                "lobbyName": "Practice Tool",
+                "lobbyPassword": ""
+              },
+              "isCustom": true
+            }
+          },
+          {
+            "name": "极地大乱斗",
+            "data": {
+              "customGameLobby": {
+                "configuration": {
+                  "gameMode": "ARAM",
+                  "gameMutator": "",
+                  "gameServerRegion": "",
+                  "mapId": 12,
+                  "mutators": {
+                    "id": 1
+                  },
+                  "spectatorPolicy": "AllAllowed",
+                  "teamSize": 5
+                },
+                "lobbyName": "ARAM Custom",
+                "lobbyPassword": ""
+              },
+              "isCustom": true
+            }
+          }
+        ]
+      ],
+      [
+        "退出大厅",
+        "DELETE",
+        "/lol-lobby/v2/lobby"
+      ],
+      [
+        "切换队伍",
+        "POST",
+        "/lol-lobby/v1/lobby/custom/switch-teams"
+      ],
+      [
+        "邀请玩家",
+        "POST",
+        "/lol-lobby/v2/lobby/invitations",
+        [
+          {
+            "name": "邀请示例",
+            "data": [
+              {
+                "toSummonerId": "12345678"
+              }
+            ]
+          }
+        ]
+      ],
+      [
+        "获取可用机器人",
+        "GET",
+        "/lol-lobby/v2/lobby/custom/available-bots"
+      ],
+      [
+        "添加机器人",
+        "POST",
+        "/lol-lobby/v1/lobby/custom/bots",
+        [
+          {
+            "name": "添加简单AI",
+            "data": {
+              "championId": "{botChampionId}",
+              "botDifficulty": "EASY",
+              "teamId": "100"
+            }
+          },
+          {
+            "name": "添加中等AI",
+            "data": {
+              "championId": "{botChampionId}",
+              "botDifficulty": "MEDIUM",
+              "teamId": "100"
+            }
+          },
+          {
+            "name": "添加困难AI",
+            "data": {
+              "championId": "{botChampionId}",
+              "botDifficulty": "HARD",
+              "teamId": "100"
+            }
+          },
+          {
+            "name": "敌方添加简单AI",
+            "data": {
+              "championId": "{botChampionId}",
+              "botDifficulty": "EASY",
+              "teamId": "200"
+            }
+          }
+        ]
+      ],
+      [
+        "移除机器人",
+        "DELETE",
+        "/lol-lobby/v1/lobby/custom/bots/{botChampionId}"
+      ],
+      [
+        "踢出玩家",
+        "POST",
+        "/lol-lobby/v2/lobby/members/{summonerId}/kick"
+      ],
+      [
+        "转让房主",
+        "POST",
+        "/lol-lobby/v2/lobby/members/{summonerId}/promote"
+      ],
+      [
+        "撤销邀请",
+        "POST",
+        "/lol-lobby/v2/lobby/members/{summonerId}/revoke-invite"
+      ],
+      [
+        "设置位置偏好",
+        "PUT",
+        "/lol-lobby/v2/lobby/members/localMember/position-preferences",
+        [
+          {
+            "name": "上路优先",
+            "data": {
+              "firstPreference": "TOP",
+              "secondPreference": "FILL"
+            }
+          },
+          {
+            "name": "中路优先",
+            "data": {
+              "firstPreference": "MIDDLE",
+              "secondPreference": "FILL"
+            }
+          },
+          {
+            "name": "下路优先",
+            "data": {
+              "firstPreference": "BOTTOM",
+              "secondPreference": "FILL"
+            }
+          },
+          {
+            "name": "辅助优先",
+            "data": {
+              "firstPreference": "UTILITY",
+              "secondPreference": "FILL"
+            }
+          },
+          {
+            "name": "补位",
+            "data": {
+              "firstPreference": "FILL",
+              "secondPreference": "FILL"
+            }
+          }
+        ]
+      ],
+      [
+        "获取可用队列",
+        "GET",
+        "/lol-lobby/v2/eligibility/party"
+      ],
+      [
+        "获取匹配状态",
+        "GET",
+        "/lol-lobby/v2/lobby/matchmaking/search-state"
+      ],
+      [
+        "获取自定义房间列表",
+        "GET",
+        "/lol-lobby/v1/custom-games"
+      ],
+      [
+        "开始选英雄",
+        "POST",
+        "/lol-lobby/v1/lobby/custom/start-champ-select"
+      ],
+      [
+        "开始匹配",
+        "POST",
+        "/lol-lobby/v2/lobby/matchmaking/search"
+      ],
+      [
+        "取消匹配",
+        "DELETE",
+        "/lol-lobby/v2/lobby/matchmaking/search"
+      ],
+      [
+        "接受对局",
+        "POST",
+        "/lol-matchmaking/v1/ready-check/accept"
+      ],
+      [
+        "拒绝对局",
+        "POST",
+        "/lol-matchmaking/v1/ready-check/decline"
+      ]
+    ]
+  },
+  {
+    "name": "游戏队列",
+    "endpoints": [
+      [
+        "获取所有队列",
+        "GET",
+        "/lol-game-queues/v1/queues"
+      ],
+      [
+        "获取队列详情",
+        "GET",
+        "/lol-game-queues/v1/queues/{queueId}"
+      ],
+      [
+        "创建匹配大厅",
+        "POST",
+        "/lol-lobby/v2/lobby",
+        [
+          {
+            "name": "单人匹配",
+            "data": {
+              "queueId": 420
+            }
+          },
+          {
+            "name": "灵活组排",
+            "data": {
+              "queueId": 440
+            }
+          },
+          {
+            "name": "极地大乱斗",
+            "data": {
+              "queueId": 450
+            }
+          },
+          {
+            "name": "普通匹配",
+            "data": {
+              "queueId": 400
+            }
+          },
+          {
+            "name": "云顶之弈",
+            "data": {
+              "queueId": 1090
+            }
+          }
+        ]
+      ]
+    ]
+  },
+  {
+    "name": "英雄选择",
+    "context_note": "仅在英雄选择阶段可用",
+    "endpoints": [
+      [
+        "获取选人会话",
+        "GET",
+        "/lol-champ-select/v1/session"
+      ],
+      [
+        "获取可选英雄",
+        "GET",
+        "/lol-champ-select/v1/pickable-champion-ids"
+      ],
+      [
+        "获取可禁英雄",
+        "GET",
+        "/lol-champ-select/v1/bannable-champion-ids"
+      ],
+      [
+        "获取当前英雄",
+        "GET",
+        "/lol-champ-select/v1/current-champion"
+      ],
+      [
+        "选择英雄",
+        "PATCH",
+        "/lol-champ-select/v1/session/actions/{actionId}",
+        [
+          {
+            "name": "选择亚索(157)",
+            "data": {
+              "championId": 157,
+              "completed": true
+            }
+          },
+          {
+            "name": "选择劫(238)",
+            "data": {
+              "championId": 238,
+              "completed": true
+            }
+          },
+          {
+            "name": "锁定当前英雄",
+            "data": {
+              "completed": true
+            }
+          }
+        ]
+      ],
+      [
+        "Ban英雄",
+        "PATCH",
+        "/lol-champ-select/v1/session/actions/{actionId}",
+        [
+          {
+            "name": "Ban掉亚索",
+            "data": {
+              "championId": 157,
+              "completed": true,
+              "type": "ban"
+            }
+          }
+        ]
+      ],
+      [
+        "选择皮肤",
+        "PATCH",
+        "/lol-champ-select/v1/session/my-selection",
+        [
+          {
+            "name": "使用默认皮肤",
+            "data": {
+              "selectedSkinId": 0
+            }
+          },
+          {
+            "name": "亚索-西部牛仔",
+            "data": {
+              "championId": 157,
+              "selectedSkinId": 157001
+            }
+          }
+        ]
+      ],
+      [
+        "获取英雄详情",
+        "GET",
+        "/lol-champ-select/v1/grid-champions/{championId}"
+      ],
+      [
+        "获取皮肤轮盘",
+        "GET",
+        "/lol-champ-select/v1/skin-carousel-skins"
+      ],
+      [
+        "获取队伍加成",
+        "GET",
+        "/lol-champ-select/v1/team-boost"
+      ],
+      [
+        "购买队伍加成",
+        "POST",
+        "/lol-champ-select/v1/team-boost/purchase"
+      ],
+      [
+        "重新roll随机英雄",
+        "POST",
+        "/lol-champ-select/v1/session/my-selection/reroll"
+      ]
+    ]
+  },
+  {
+    "name": "符文/天赋",
+    "endpoints": [
+      [
+        "获取所有符文页",
+        "GET",
+        "/lol-perks/v1/pages"
+      ],
+      [
+        "获取当前符文页",
+        "GET",
+        "/lol-perks/v1/currentpage"
+      ],
+      [
+        "获取符文库存",
+        "GET",
+        "/lol-perks/v1/inventory"
+      ],
+      [
+        "获取符文样式",
+        "GET",
+        "/lol-perks/v1/styles"
+      ],
+      [
+        "创建符文页",
+        "POST",
+        "/lol-perks/v1/pages",
+        [
+          {
+            "name": "征服者 - 战士",
+            "data": {
+              "name": "征服者战士",
+              "primaryStyleId": 8000,
+              "selectedPerkIds": [
+                8010,
+                9111,
+                9104,
+                8014,
+                8304,
+                8347,
+                5005,
+                5008,
+                5002
+              ],
+              "subStyleId": 8300
+            }
+          },
+          {
+            "name": "电刑 - 刺客",
+            "data": {
+              "name": "电刑刺客",
+              "primaryStyleId": 8100,
+              "selectedPerkIds": [
+                8112,
+                8126,
+                8138,
+                8135,
+                8304,
+                8347,
+                5005,
+                5008,
+                5002
+              ],
+              "subStyleId": 8300
+            }
+          },
+          {
+            "name": "艾黎 - 法师",
+            "data": {
+              "name": "艾黎法师",
+              "primaryStyleId": 8200,
+              "selectedPerkIds": [
+                8229,
+                8226,
+                8210,
+                8237,
+                8304,
+                8347,
+                5008,
+                5008,
+                5001
+              ],
+              "subStyleId": 8300
+            }
+          },
+          {
+            "name": "余震 - 坦克",
+            "data": {
+              "name": "余震坦克",
+              "primaryStyleId": 8400,
+              "selectedPerkIds": [
+                8439,
+                8473,
+                8444,
+                8451,
+                8304,
+                8347,
+                5002,
+                5002,
+                5001
+              ],
+              "subStyleId": 8300
+            }
+          },
+          {
+            "name": "迅捷步法 - ADC",
+            "data": {
+              "name": "迅捷ADC",
+              "primaryStyleId": 8000,
+              "selectedPerkIds": [
+                8021,
+                9111,
+                9104,
+                8014,
+                8304,
+                8347,
+                5005,
+                5008,
+                5002
+              ],
+              "subStyleId": 8300
+            }
+          }
+        ]
+      ],
+      [
+        "删除符文页",
+        "DELETE",
+        "/lol-perks/v1/pages/{id}"
+      ],
+      [
+        "更新符文页",
+        "PUT",
+        "/lol-perks/v1/pages/{id}"
+      ]
+    ]
+  },
+  {
+    "name": "召唤师技能",
+    "endpoints": [
+      [
+        "获取召唤师技能",
+        "GET",
+        "/lol-champ-select/v1/summoner-spells"
+      ],
+      [
+        "选择召唤师技能",
+        "PATCH",
+        "/lol-champ-select/v1/session/my-selection",
+        [
+          {
+            "name": "闪现+引燃",
+            "data": {
+              "spell1Id": 4,
+              "spell2Id": 14
+            }
+          },
+          {
+            "name": "闪现+传送",
+            "data": {
+              "spell1Id": 4,
+              "spell2Id": 12
+            }
+          },
+          {
+            "name": "闪现+惩戒",
+            "data": {
+              "spell1Id": 4,
+              "spell2Id": 11
+            }
+          },
+          {
+            "name": "闪现+治疗",
+            "data": {
+              "spell1Id": 4,
+              "spell2Id": 7
+            }
+          },
+          {
+            "name": "闪现+虚弱",
+            "data": {
+              "spell1Id": 4,
+              "spell2Id": 3
+            }
+          }
+        ]
+      ]
+    ]
+  },
+  {
+    "name": "社交/好友",
+    "endpoints": [
+      [
+        "获取好友列表",
+        "GET",
+        "/lol-chat/v1/friends"
+      ],
+      [
+        "获取聊天设置",
+        "GET",
+        "/lol-chat/v1/settings"
+      ],
+      [
+        "获取在线状态",
+        "GET",
+        "/lol-chat/v1/me"
+      ],
+      [
+        "设置在线状态",
+        "PUT",
+        "/lol-chat/v1/me",
+        [
+          {
+            "name": "设置为在线",
+            "data": {
+              "availability": "chat",
+              "statusMessage": "准备开黑！"
+            }
+          },
+          {
+            "name": "设置为离开",
+            "data": {
+              "availability": "away",
+              "statusMessage": "暂时离开"
+            }
+          },
+          {
+            "name": "设置为勿扰",
+            "data": {
+              "availability": "dnd",
+              "statusMessage": "游戏中请勿打扰"
+            }
+          },
+          {
+            "name": "设置为离线",
+            "data": {
+              "availability": "offline"
+            }
+          }
+        ]
+      ],
+      [
+        "添加好友",
+        "POST",
+        "/lol-chat/v2/friend-requests",
+        [
+          {
+            "name": "通过召唤师名添加",
+            "data": {
+              "name": "SummonerName"
+            }
+          }
+        ]
+      ],
+      [
+        "删除好友",
+        "DELETE",
+        "/lol-chat/v1/friends/{summonerId}"
+      ],
+      [
+        "屏蔽玩家",
+        "POST",
+        "/lol-chat/v1/blocked-players",
+        [
+          {
+            "name": "屏蔽示例",
+            "data": {
+              "summonerId": "12345678",
+              "name": "PlayerName"
+            }
+          }
+        ]
+      ],
+      [
+        "取消屏蔽",
+        "DELETE",
+        "/lol-chat/v1/blocked-players/{summonerId}"
+      ],
+      [
+        "获取被屏蔽列表",
+        "GET",
+        "/lol-chat/v1/blocked-players"
+      ],
+      [
+        "获取好友请求",
+        "GET",
+        "/lol-chat/v1/friend-requests"
+      ],
+      [
+        "接受好友请求",
+        "PUT",
+        "/lol-chat/v1/friend-requests/{summonerId}"
+      ],
+      [
+        "拒绝好友请求",
+        "DELETE",
+        "/lol-chat/v1/friend-requests/{summonerId}"
+      ],
+      [
+        "获取会话列表",
+        "GET",
+        "/lol-chat/v1/conversations"
+      ],
+      [
+        "发送消息",
+        "POST",
+        "/lol-chat/v1/conversations/{conversationId}/messages",
+        [
+          {
+            "name": "发送文本消息",
+            "data": {
+              "body": "你好！一起玩吗？",
+              "type": "chat"
+            }
+          }
+        ]
+      ]
+    ]
+  },
+  {
+    "name": "战利品/合成",
+    "endpoints": [
+      [
+        "开启战利品",
+        "POST",
+        "/lol-loot/v1/recipes/{recipeName}/craft",
+        [
+          {
+            "name": "开启英雄碎片",
+            "data": {
+              "lootNames": [
+                "CHAMPION_RENTAL_1"
+              ],
+              "repeat": 1
+            }
+          },
+          {
+            "name": "开启皮肤碎片",
+            "data": {
+              "lootNames": [
+                "CHEST_128"
+              ],
+              "repeat": 1
+            }
+          }
+        ]
+      ],
+      [
+        "合成永久英雄",
+        "POST",
+        "/lol-loot/v1/recipes/CHAMPION_RENTAL_disenchant/craft",
+        [
+          {
+            "name": "合成永久英雄示例",
+            "data": {
+              "lootNames": [
+                "CHAMPION_RENTAL_157"
+              ],
+              "repeat": 1
+            }
+          }
+        ]
+      ],
+      [
+        "分解获取精粹",
+        "POST",
+        "/lol-loot/v1/recipes/disenchant/craft",
+        [
+          {
+            "name": "分解英雄碎片",
+            "data": {
+              "lootNames": [
+                "CHAMPION_RENTAL_157"
+              ],
+              "repeat": 1
+            }
+          }
+        ]
+      ],
+      [
+        "升级英雄成就",
+        "POST",
+        "/lol-loot/v1/recipes/CHAMPION_MASTERY_{championId}_{level}/craft",
+        [
+          {
+            "name": "升级成就到6级",
+            "data": {
+              "lootNames": [
+                "CHAMPION_TOKEN_157"
+              ],
+              "repeat": 2
+            }
+          }
+        ]
+      ],
+      [
+        "获取可用配方",
+        "GET",
+        "/lol-loot/v1/recipes"
+      ],
+      [
+        "获取配方详情",
+        "GET",
+        "/lol-loot/v1/recipes/{recipeName}"
+      ]
+    ]
+  },
+  {
+    "name": "英雄成就",
+    "endpoints": [
+      [
+        "获取所有英雄成就",
+        "GET",
+        "/lol-collections/v1/inventories/{summonerId}/champion-mastery"
+      ],
+      [
+        "获取英雄成就Top",
+        "GET",
+        "/lol-collections/v1/inventories/{summonerId}/champion-mastery/top"
+      ],
+      [
+        "获取单个英雄成就",
+        "GET",
+        "/lol-collections/v1/inventories/{summonerId}/champion-mastery/champions/{championId}"
+      ],
+      [
+        "获取成就总分",
+        "GET",
+        "/lol-collections/v1/inventories/{summonerId}/champion-mastery/score"
+      ]
+    ]
+  },
+  {
+    "name": "荣誉系统",
+    "endpoints": [
+      [
+        "获取荣誉配置",
+        "GET",
+        "/lol-honor-v2/v1/config"
+      ],
+      [
+        "获取荣誉概况",
+        "GET",
+        "/lol-honor-v2/v1/profile"
+      ],
+      [
+        "投票荣誉",
+        "POST",
+        "/lol-honor-v2/v1/honor-player",
+        [
+          {
+            "name": "好队友",
+            "data": {
+              "summonerId": "12345678",
+              "honorCategory": "SHOTCALLER"
+            }
+          },
+          {
+            "name": "团队精神",
+            "data": {
+              "summonerId": "12345678",
+              "honorCategory": "HEART"
+            }
+          },
+          {
+            "name": "稳重可靠",
+            "data": {
+              "summonerId": "12345678",
+              "honorCategory": "GG_HEART"
+            }
+          }
+        ]
+      ],
+      [
+        "获取可投票名单",
+        "GET",
+        "/lol-honor-v2/v1/ballot"
+      ],
+      [
+        "获取荣誉奖励",
+        "GET",
+        "/lol-honor-v2/v1/rewards"
+      ]
+    ]
+  },
+  {
+    "name": "收藏/库存",
+    "endpoints": [
+      [
+        "获取拥有英雄",
+        "GET",
+        "/lol-champions/v1/owned-champions-minimal"
+      ],
+      [
+        "获取所有英雄",
+        "GET",
+        "/lol-champions/v1/inventories/{summonerId}/champions"
+      ],
+      [
+        "获取拥有皮肤",
+        "GET",
+        "/lol-inventory/v2/inventory/CHAMPION_SKIN"
+      ],
+      [
+        "获取拥有表情",
+        "GET",
+        "/lol-inventory/v2/inventory/EMOTE"
+      ],
+      [
+        "获取拥有守卫",
+        "GET",
+        "/lol-inventory/v2/inventory/WARD_SKIN"
+      ],
+      [
+        "获取所有库存",
+        "GET",
+        "/lol-inventory/v2/inventory"
+      ],
+      [
+        "获取召唤师图标",
+        "GET",
+        "/lol-inventory/v2/inventory/SUMMONER_ICON"
+      ]
+    ]
+  },
+  {
+    "name": "任务/事件",
+    "endpoints": [
+      [
+        "获取任务列表",
+        "GET",
+        "/lol-missions/v1/missions"
+      ],
+      [
+        "获取活动通行证",
+        "GET",
+        "/lol-event-shop/v1/info"
+      ],
+      [
+        "获取挑战进度",
+        "GET",
+        "/lol-challenges/v1/my-updated-challenges"
+      ],
+      [
+        "获取挑战摘要",
+        "GET",
+        "/lol-challenges/v1/summary-player-data/local-player"
+      ]
+    ]
+  },
+  {
+    "name": "商城",
+    "endpoints": [
+      [
+        "获取商城目录",
+        "GET",
+        "/lol-store/v1/catalog"
+      ],
+      [
+        "获取特惠商品",
+        "GET",
+        "/lol-store/v1/offers"
+      ],
+      [
+        "获取每周折扣",
+        "GET",
+        "/lol-store/v1/featured"
+      ],
+      [
+        "获取神秘商店",
+        "GET",
+        "/lol-store/v1/order-notifications"
+      ]
+    ]
+  },
+  {
+    "name": "设置/装扮",
+    "endpoints": [
+      [
+        "获取游戏设置",
+        "GET",
+        "/lol-settings/v2/local/lol-settings"
+      ],
+      [
+        "获取装备页面",
+        "GET",
+        "/lol-cosmetics/v1/inventories/{summonerId}/loadouts"
+      ],
+      [
+        "获取当前装扮",
+        "GET",
+        "/lol-cosmetics/v1/inventories/{summonerId}/sets"
+      ],
+      [
+        "获取表情轮盘",
+        "GET",
+        "/lol-cosmetics/v1/inventories/{summonerId}/companions"
+      ]
+    ]
+  },
+  {
+    "name": "系统/调试",
+    "endpoints": [
+      [
+        "获取客户端版本",
+        "GET",
+        "/system/v1/builds"
+      ],
+      [
+        "获取区域配置",
+        "GET",
+        "/riotclient/region-locale"
+      ],
+      [
+        "获取会话信息",
+        "GET",
+        "/lol-login/v1/session"
+      ],
+      [
+        "重新连接对局",
+        "POST",
+        "/lol-gameflow/v1/reconnect"
+      ],
+      [
+        "Dodge退出对局",
+        "POST",
+        "/lol-login/v1/session/invoke?destination=gameService&method=quitGame&args=[]"
+      ]
+    ]
+  },
+  {
+    "name": "语音通话",
+    "context_note": "仅在启用语音功能时可用",
+    "endpoints": [
+      [
+        "获取语音状态",
+        "GET",
+        "/lol-voice-chat/v1/state"
+      ],
+      [
+        "获取语音设置",
+        "GET",
+        "/lol-voice-chat/v1/config"
+      ],
+      [
+        "更新语音设置",
+        "PUT",
+        "/lol-voice-chat/v1/config",
+        [
+          {
+            "name": "开启语音",
+            "data": {
+              "isVoiceEnabled": true,
+              "isMuted": false
+            }
+          },
+          {
+            "name": "关闭语音",
+            "data": {
+              "isVoiceEnabled": false
+            }
+          }
+        ]
+      ],
+      [
+        "获取音频设备",
+        "GET",
+        "/lol-voice-chat/v1/audio-properties"
+      ],
+      [
+        "静音自己",
+        "PUT",
+        "/lol-voice-chat/v1/push-to-talk",
+        [
+          {
+            "name": "开启静音",
+            "data": {
+              "isMuted": true
+            }
+          }
+        ]
+      ]
+    ]
+  },
+  {
+    "name": "回放/录像",
+    "context_note": "仅在有回放文件时可用",
+    "endpoints": [
+      [
+        "获取回放列表",
+        "GET",
+        "/lol-replays/v1/rofls"
+      ],
+      [
+        "获取当前回放",
+        "GET",
+        "/lol-replays/v1/rofls/current"
+      ],
+      [
+        "下载回放",
+        "POST",
+        "/lol-replays/v1/rofls/{gameId}/download"
+      ],
+      [
+        "播放回放",
+        "POST",
+        "/lol-replays/v1/rofls/{gameId}/watch"
+      ],
+      [
+        "获取元数据",
+        "GET",
+        "/lol-replays/v1/metadata/{gameId}"
+      ],
+      [
+        "获取回放配置",
+        "GET",
+        "/lol-replays/v1/configuration"
+      ]
+    ]
+  },
+  {
+    "name": "客户端通知",
+    "endpoints": [
+      [
+        "获取所有通知",
+        "GET",
+        "/player-notifications/v1/notifications"
+      ],
+      [
+        "创建通知",
+        "POST",
+        "/player-notifications/v1/notifications",
+        [
+          {
+            "name": "显示提示消息",
+            "data": {
+              "backgroundUrl": "",
+              "critical": true,
+              "data": {},
+              "detailKey": "pre_translated_details",
+              "expires": "",
+              "iconUrl": "",
+              "id": 0,
+              "source": "",
+              "state": "toast",
+              "titleKey": "自定义通知",
+              "type": "system"
+            }
+          }
+        ]
+      ],
+      [
+        "删除通知",
+        "DELETE",
+        "/player-notifications/v1/notifications/{notificationId}"
+      ]
+    ]
+  }
+]

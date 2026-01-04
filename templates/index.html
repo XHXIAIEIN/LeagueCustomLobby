@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>英雄联盟客户端工具集</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+
+	<body>
+		<!-- 顶部导航栏 -->
+		<header class="header">
+			<div class="logo">
+				<div class="logo-icon"></div>
+				<h1>LOL Client Toolbox</h1>
+			</div>
+		</header>
+
+		<!-- 主导航标签 -->
+		<nav class="main-nav">
+			<button class="main-nav-tab active" onclick="switchMainTab('lcu')">LCU API 测试器</button>
+			<button class="main-nav-tab" onclick="switchMainTab('ddragon')">Data Dragon 数据查询</button>
+
+			<!-- 连接状态（右对齐） -->
+			<div class="nav-status">
+				<div id="statusBox" class="status-box disconnected">
+					<span class="status-dot"></span>
+					<span id="statusText">未连接</span>
+					<span id="portInfo" class="port-text"></span>
+				</div>
+				<button class="btn nav-connect-btn" id="connectBtn" onclick="connectLCU()">连接</button>
+			</div>
+		</nav>
+
+		<!-- 主内容区域 -->
+		<div class="main-content">
+			<!-- LCU API 测试器面板 -->
+			<div id="lcuPanel" class="main-panel active">
+				<div class="lcu-container">
+					<!-- 左侧预设列表 -->
+					<div class="sidebar">
+						<div class="sidebar-title">API 端点预设</div>
+						<div class="preset-list" id="presetList">
+							<!-- 由 JS 动态生成 -->
+						</div>
+						<div class="sidebar-footer">
+							<button class="sidebar-btn" onclick="openDocs()">API 文档</button>
+							<button class="sidebar-btn" onclick="showLocaleManager()">语言切换</button>
+						</div>
+					</div>
+
+					<!-- 右侧内容区 -->
+					<div class="lcu-content">
+						<!-- 请求面板 -->
+						<div class="request-panel">
+							<div class="request-line">
+								<select id="method" class="method-select">
+									<option value="GET">GET</option>
+									<option value="POST">POST</option>
+									<option value="PUT">PUT</option>
+									<option value="PATCH">PATCH</option>
+									<option value="DELETE">DELETE</option>
+								</select>
+								<div class="endpoint-wrapper">
+									<input type="text" id="endpoint" class="endpoint-input" placeholder="/lol-summoner/v1/current-summoner" value="/lol-summoner/v1/current-summoner" />
+									<button class="auto-fill-btn" onclick="autoFillParams()" title="自动填充参数">&#x2728;</button>
+								</div>
+								<button class="btn primary" onclick="sendLCURequest()">发送</button>
+							</div>
+						</div>
+
+						<!-- 请求体面板 -->
+						<div class="body-panel">
+							<label class="body-label">请求体 (JSON)</label>
+							<textarea id="body" class="body-input" placeholder='{"key": "value"}'></textarea>
+						</div>
+
+						<!-- 响应面板 -->
+						<div class="response-panel">
+							<div class="response-header">
+								<div class="response-info">
+									<span class="response-label">响应</span>
+									<span id="statusCode" class="status-badge">-</span>
+									<span id="responseTime" class="response-time"></span>
+								</div>
+								<button class="btn" onclick="copyResponse()">复制</button>
+							</div>
+							<pre class="response-body" id="response">等待请求...</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Data Dragon 数据查询面板 -->
+			<div id="ddragonPanel" class="main-panel">
+				<div class="ddragon-container">
+					<!-- 控制栏 -->
+					<div class="ddragon-controls">
+						<div class="select-group">
+							<label class="select-label">语言</label>
+							<select id="languageSelect" class="select" onchange="onLanguageChange()">
+								<option value="zh_CN">加载中...</option>
+							</select>
+						</div>
+						<div class="select-group">
+							<label class="select-label">版本</label>
+							<select id="versionSelect" class="select" onchange="onVersionChange()">
+								<option value="">加载中...</option>
+							</select>
+						</div>
+						<a id="ddragonDataLink" href="#" target="_blank" class="btn" style="margin-left: auto; display: none;">查看原始数据</a>
+					</div>
+
+					<!-- 子导航标签 -->
+					<nav class="sub-nav">
+						<button class="sub-nav-tab active" onclick="switchDDragonTab('champions')">英雄</button>
+						<button class="sub-nav-tab" onclick="switchDDragonTab('items')">道具</button>
+						<button class="sub-nav-tab" onclick="switchDDragonTab('summoner-spells')">召唤师技能</button>
+						<button class="sub-nav-tab" onclick="switchDDragonTab('profile-icons')">召唤师图标</button>
+					</nav>
+
+					<!-- 内容区 -->
+					<div class="ddragon-content">
+						<!-- 英雄标签页 -->
+						<div id="championsTab" class="tab-content active">
+							<div class="filter-panel">
+								<div class="filter-toolbar">
+									<input type="text" id="championSearch" class="search-input" placeholder="搜索英雄名称..." oninput="filterChampions()" />
+									<div class="role-filter-group">
+										<button class="role-filter-btn active" onclick="filterChampionsByRole(this, '')">全部</button>
+										<button class="role-filter-btn" onclick="filterChampionsByRole(this, 'Fighter')">战士</button>
+										<button class="role-filter-btn" onclick="filterChampionsByRole(this, 'Tank')">坦克</button>
+										<button class="role-filter-btn" onclick="filterChampionsByRole(this, 'Mage')">法师</button>
+										<button class="role-filter-btn" onclick="filterChampionsByRole(this, 'Assassin')">刺客</button>
+										<button class="role-filter-btn" onclick="filterChampionsByRole(this, 'Support')">辅助</button>
+										<button class="role-filter-btn" onclick="filterChampionsByRole(this, 'Marksman')">射手</button>
+									</div>
+									<select id="championSortFilter" class="filter-select" onchange="filterChampions()">
+										<option value="name">按名称</option>
+										<option value="difficulty-asc">难度 ↑</option>
+										<option value="difficulty-desc">难度 ↓</option>
+										<option value="attack-desc">攻击力 ↓</option>
+										<option value="defense-desc">防御力 ↓</option>
+										<option value="magic-desc">魔法力 ↓</option>
+									</select>
+									<div class="view-toggle">
+										<button class="view-btn active" data-view="grid" onclick="switchView('champions', 'grid')">&#9638;</button>
+										<button class="view-btn" data-view="list" onclick="switchView('champions', 'list')">&#9776;</button>
+									</div>
+									<span id="championCount" class="filter-count">加载中...</span>
+								</div>
+							</div>
+							<div id="championsGrid" class="grid">
+								<div class="loading">正在加载英雄数据...</div>
+							</div>
+						</div>
+
+						<!-- 道具标签页 -->
+						<div id="itemsTab" class="tab-content">
+							<div class="shop-layout">
+								<!-- 左侧边栏 -->
+								<aside class="shop-sidebar">
+									<!-- 搜索框 -->
+									<div class="shop-search">
+										<input type="text" id="itemSearch" placeholder="搜索道具..." oninput="filterItems()" />
+									</div>
+
+									<!-- 地图筛选 -->
+									<div class="shop-section">
+										<div class="shop-section-title">地图</div>
+										<div class="shop-map-btns">
+											<button class="shop-map-btn active" data-map="11" onclick="filterItemsByMap('11')">峡谷</button>
+											<button class="shop-map-btn" data-map="12" onclick="filterItemsByMap('12')">大乱斗</button>
+											<button class="shop-map-btn" data-map="" onclick="filterItemsByMap('')">全部</button>
+										</div>
+									</div>
+
+									<!-- 分类筛选 -->
+									<div class="shop-section">
+										<div class="shop-section-title">分类</div>
+										<div class="shop-category-list" id="shopCategoryList">
+											<button class="shop-cat-btn active" data-type="all" onclick="filterItemsByType('all')">
+												<span class="cat-icon">📦</span>全部道具
+											</button>
+											<button class="shop-cat-btn" data-type="Boots" onclick="filterItemsByType('Boots')">
+												<img src="https://ddragon.leagueoflegends.com/cdn/14.1.1/img/item/1001.png" alt="">鞋子
+											</button>
+											<button class="shop-cat-btn" data-type="Consumable" onclick="filterItemsByType('Consumable')">
+												<img src="https://ddragon.leagueoflegends.com/cdn/14.1.1/img/item/2003.png" alt="">消耗品
+											</button>
+											<button class="shop-cat-btn" data-type="Jungle" onclick="filterItemsByType('Jungle')">
+												<img src="https://ddragon.leagueoflegends.com/cdn/14.1.1/img/item/1101.png" alt="">打野装备
+											</button>
+											<button class="shop-cat-btn" data-type="Lane" onclick="filterItemsByType('Lane')">
+												<img src="https://ddragon.leagueoflegends.com/cdn/14.1.1/img/item/1055.png" alt="">起始装备
+											</button>
+											<button class="shop-cat-btn" data-type="Trinket" onclick="filterItemsByType('Trinket')">
+												<img src="https://ddragon.leagueoflegends.com/cdn/14.1.1/img/item/3340.png" alt="">饰品
+											</button>
+										</div>
+									</div>
+
+									<!-- 属性筛选 -->
+									<div class="shop-section">
+										<div class="shop-section-title">属性</div>
+										<div class="shop-stat-list" id="shopStatList">
+											<button class="shop-stat-btn active" data-stat="all" onclick="filterItemsByStat('all')">全部</button>
+											<button class="shop-stat-btn" data-stat="Damage" onclick="filterItemsByStat('Damage')">攻击力</button>
+											<button class="shop-stat-btn" data-stat="SpellDamage" onclick="filterItemsByStat('SpellDamage')">法术强度</button>
+											<button class="shop-stat-btn" data-stat="AttackSpeed" onclick="filterItemsByStat('AttackSpeed')">攻击速度</button>
+											<button class="shop-stat-btn" data-stat="CriticalStrike" onclick="filterItemsByStat('CriticalStrike')">暴击</button>
+											<button class="shop-stat-btn" data-stat="Health" onclick="filterItemsByStat('Health')">生命值</button>
+											<button class="shop-stat-btn" data-stat="Armor" onclick="filterItemsByStat('Armor')">护甲</button>
+											<button class="shop-stat-btn" data-stat="SpellBlock" onclick="filterItemsByStat('SpellBlock')">魔抗</button>
+											<button class="shop-stat-btn" data-stat="Mana" onclick="filterItemsByStat('Mana')">法力值</button>
+											<button class="shop-stat-btn" data-stat="LifeSteal" onclick="filterItemsByStat('LifeSteal')">生命偷取</button>
+										</div>
+									</div>
+
+									<!-- 价格筛选 -->
+									<div class="shop-section">
+										<div class="shop-section-title">价格</div>
+										<div class="shop-price-btns">
+											<button class="shop-price-btn active" data-price="all" onclick="filterItemsByPrice('all')">全部</button>
+											<button class="shop-price-btn" data-price="low" onclick="filterItemsByPrice('low')">&lt;1000</button>
+											<button class="shop-price-btn" data-price="mid" onclick="filterItemsByPrice('mid')">1k-2.5k</button>
+											<button class="shop-price-btn" data-price="high" onclick="filterItemsByPrice('high')">&gt;2500</button>
+										</div>
+									</div>
+
+									<!-- 重置按钮 -->
+									<button class="shop-reset-btn" onclick="resetItemFilters()">重置筛选</button>
+								</aside>
+
+								<!-- 右侧主内容区 -->
+								<main class="shop-main">
+									<!-- 顶部信息栏 -->
+									<div class="shop-header">
+										<span id="itemCount" class="shop-count">加载中...</span>
+										<select id="itemSortFilter" class="shop-sort" onchange="filterItems()">
+											<option value="tier">按品质</option>
+											<option value="name">按名称</option>
+											<option value="price-asc">价格从低到高</option>
+											<option value="price-desc">价格从高到低</option>
+										</select>
+									</div>
+
+									<!-- 道具网格 -->
+									<div class="shop-grid-container">
+										<div id="itemsGrid" class="shop-grid">
+											<div class="items-loading">
+												<div class="items-loading-spinner"></div>
+												<div class="items-loading-text">正在加载道具数据...</div>
+											</div>
+										</div>
+									</div>
+								</main>
+							</div>
+						</div>
+
+						<!-- 召唤师技能标签页 -->
+						<div id="summoner-spellsTab" class="tab-content">
+							<div class="spells-container">
+								<!-- 游戏模式选择 -->
+								<div class="game-mode-tabs">
+									<button class="game-mode-tab active" data-mode="classic" onclick="filterSpellsByMode('classic')">
+										<span class="mode-icon">&#x1F3D4;</span>
+										<span class="mode-name">召唤师峡谷</span>
+										<span class="mode-desc">经典 5v5</span>
+									</button>
+									<button class="game-mode-tab" data-mode="aram" onclick="filterSpellsByMode('aram')">
+										<span class="mode-icon">&#x2744;</span>
+										<span class="mode-name">嚎哭深渊</span>
+										<span class="mode-desc">极地大乱斗</span>
+									</button>
+									<button class="game-mode-tab" data-mode="all" onclick="filterSpellsByMode('all')">
+										<span class="mode-icon">&#x1F30D;</span>
+										<span class="mode-name">全部技能</span>
+										<span class="mode-desc">包含特殊模式</span>
+									</button>
+								</div>
+								<!-- 工具栏 -->
+								<div class="panel-toolbar">
+									<input type="text" id="spellSearch" class="search-input" placeholder="搜索技能名称..." oninput="filterSummonerSpells()" />
+									<select id="spellSortFilter" class="filter-select" onchange="filterSummonerSpells()">
+										<option value="name">按名称</option>
+										<option value="cooldown-asc">冷却时间 ↑</option>
+										<option value="cooldown-desc">冷却时间 ↓</option>
+									</select>
+									<span id="spellCount" class="filter-count">加载中...</span>
+								</div>
+								<!-- 技能网格 -->
+								<div id="summonerSpellsGrid" class="spells-grid">
+									<div class="loading">正在加载召唤师技能数据...</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 召唤师图标标签页 -->
+						<div id="profile-iconsTab" class="tab-content">
+							<div class="icons-container">
+								<!-- 工具栏 -->
+								<div class="panel-toolbar">
+									<input type="text" id="iconSearch" class="search-input" placeholder="搜索图标 ID..." oninput="filterProfileIcons()" />
+									<select id="iconSortFilter" class="filter-select" onchange="filterProfileIcons()">
+										<option value="id-desc">最新优先</option>
+										<option value="id-asc">最旧优先</option>
+									</select>
+									<div class="pagination-controls">
+										<button class="page-btn" onclick="changeIconPage(-1)">&#x276E;</button>
+										<span id="iconPageInfo" class="page-info">1 / 1</span>
+										<button class="page-btn" onclick="changeIconPage(1)">&#x276F;</button>
+										<select id="iconPageSize" class="filter-select" onchange="changeIconPageSize()">
+											<option value="50">50个/页</option>
+											<option value="100" selected>100个/页</option>
+											<option value="200">200个/页</option>
+										</select>
+									</div>
+									<span id="iconCount" class="filter-count">加载中...</span>
+								</div>
+								<!-- 图标网格 -->
+								<div id="profileIconsGrid" class="icons-grid">
+									<div class="loading">正在加载召唤师图标数据...</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 英雄详情弹窗 -->
+		<div id="championModal" class="modal-overlay" onclick="hideModal(event)">
+			<div class="modal modal-large" onclick="event.stopPropagation()">
+				<div class="modal-header">
+					<button class="modal-close" onclick="hideModal()">&times;</button>
+					<h2 id="modalChampionName" class="modal-title">英雄名称</h2>
+					<p id="modalChampionTitle" class="modal-subtitle">英雄称号</p>
+				</div>
+				<div class="modal-body">
+					<div class="modal-section">
+						<h3 class="modal-section-title">背景故事</h3>
+						<p id="modalChampionLore" class="modal-text">加载中...</p>
+					</div>
+					<div class="modal-section">
+						<h3 class="modal-section-title">属性</h3>
+						<div id="modalChampionStats" class="stats-detail-grid">加载中...</div>
+					</div>
+					<div class="modal-section">
+						<h3 class="modal-section-title">技能</h3>
+						<div id="modalChampionSkills" class="skills-detail-grid">加载中...</div>
+					</div>
+					<div class="modal-section">
+						<h3 class="modal-section-title">皮肤</h3>
+						<div id="modalChampionSkins" class="skins-grid">加载中...</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 道具详情弹窗 -->
+		<div id="itemModal" class="modal-overlay" onclick="hideItemModal(event)">
+			<div class="modal modal-large" onclick="event.stopPropagation()">
+				<div class="modal-header">
+					<button class="modal-close" onclick="hideItemModal()">&times;</button>
+					<h2 id="modalItemName" class="modal-title">道具名称</h2>
+				</div>
+				<div class="modal-body">
+					<div class="item-detail-container">
+						<div class="item-detail-left">
+							<img id="modalItemImage" class="item-detail-image" src="" alt="道具图标" />
+							<div id="modalItemGold" class="item-detail-gold">加载中...</div>
+						</div>
+						<div class="item-detail-right">
+							<div id="modalItemDescription" class="item-detail-description">加载中...</div>
+							<div id="modalItemStatsSection" class="modal-section">
+								<h3 class="modal-section-title">属性</h3>
+								<div id="modalItemStats" class="item-stats-list">加载中...</div>
+							</div>
+							<div id="modalItemBuildsSection" class="modal-section">
+								<h3 class="modal-section-title">合成路线</h3>
+								<div id="modalItemBuilds">加载中...</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 召唤师技能详情弹窗 -->
+		<div id="spellModal" class="modal-overlay" onclick="hideSpellModal(event)">
+			<div class="modal" onclick="event.stopPropagation()">
+				<div class="modal-header">
+					<button class="modal-close" onclick="hideSpellModal()">&times;</button>
+					<h2 id="modalSpellName" class="modal-title">技能名称</h2>
+				</div>
+				<div class="modal-body">
+					<div class="spell-detail-container">
+						<div class="spell-detail-left">
+							<img id="modalSpellImage" class="spell-detail-image" src="" alt="技能图标" />
+						</div>
+						<div class="spell-detail-right">
+							<div id="modalSpellCooldown" class="spell-detail-cooldown">加载中...</div>
+							<div id="modalSpellDescription" class="item-detail-description">加载中...</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 语言切换弹窗 -->
+		<div id="localeModal" class="modal-overlay" onclick="hideLocaleManager(event)">
+			<div class="modal" onclick="event.stopPropagation()">
+				<div class="modal-header">
+					<button class="modal-close" onclick="hideLocaleManager()">&times;</button>
+					<h2 class="modal-title">游戏语言切换</h2>
+					<p class="modal-subtitle">切换英雄联盟客户端语言</p>
+				</div>
+				<div class="modal-body">
+					<div class="modal-section">
+						<h3 class="modal-section-title">当前语言</h3>
+						<p id="currentLocaleText" class="modal-text">检测中...</p>
+					</div>
+					<div class="modal-section">
+						<h3 class="modal-section-title">选择目标语言</h3>
+						<select id="localeSelect" class="select" style="width: 100%; margin-bottom: 16px;">
+							<option value="">加载中...</option>
+						</select>
+						<div style="display: flex; gap: 12px;">
+							<button class="btn primary" style="flex: 1;" onclick="setLocale('copy')">方法一（推荐）</button>
+							<button class="btn" style="flex: 1;" onclick="setLocale('config')">方法二</button>
+						</div>
+						<p style="margin-top: 12px; font-size: 12px; color: var(--text);">
+							方法一：复制语言资源文件（更稳定）<br />
+							方法二：修改配置文件（可能被重置）
+						</p>
+					</div>
+					<div id="localeResult" class="modal-section" style="display: none; padding: 12px; border: 1px solid var(--border); margin-top: 16px;">
+						<!-- 切换结果显示区 -->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Toast 通知 -->
+		<div class="toast" id="toast"></div>
+
+		<script>
+			// 注入端点配置数据
+			globalThis.GROUPS_DATA = GROUPS_DATA;
+		</script>
+		<script src="app.js"></script>
+	</body>
+</html>
