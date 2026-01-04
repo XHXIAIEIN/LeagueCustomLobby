@@ -29,8 +29,14 @@ import os
 import time
 import mimetypes
 import signal
+import io
 from functools import lru_cache
 from typing import Optional, Dict, Any
+
+# 设置标准输出为 UTF-8 编码（解决 Windows GBK 编码问题）
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 # Windows 下的键盘输入支持
 if sys.platform == 'win32':
