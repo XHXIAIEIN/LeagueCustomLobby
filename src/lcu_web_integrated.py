@@ -441,10 +441,8 @@ class IntegratedHandler(http.server.SimpleHTTPRequestHandler):
             if not locale_code:
                 return {'success': False, 'message': '未指定语言代码'}
 
-            if method == 'copy':
-                success, msg = locale_manager.set_locale_by_copy(locale_code)
-            else:
-                success, msg = locale_manager.set_locale_by_config(locale_code)
+            # 使用配置文件方式设置语言（唯一方法）
+            success, msg = locale_manager.set_locale(locale_code)
 
             return {
                 'success': success,
