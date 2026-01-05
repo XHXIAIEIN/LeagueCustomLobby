@@ -255,7 +255,7 @@ class IntegratedHandler(http.server.SimpleHTTPRequestHandler):
             html = load_html_template()
             # 注入预设数据
             groups_json = json.dumps(ENDPOINT_GROUPS, ensure_ascii=False)
-            html = html.replace('GROUPS_DATA', groups_json)
+            html = html.replace('__GROUPS_DATA_PLACEHOLDER__', groups_json)
 
             self._send_response(200, html, 'text/html; charset=utf-8')
         except Exception as e:

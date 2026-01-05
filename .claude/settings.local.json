@@ -4,7 +4,7 @@
       "Bash",
       "WebFetch",
       "Bash(git add:*)",
-      "Bash(git commit -m \"$\\(cat <<''EOF''\nfix: 修复 Windows 控制台 Unicode 编码问题\n\n添加 UTF-8 编码设置解决 GBK 无法编码 Unicode 字符的问题\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git commit:*)",
       "Bash(git push)"
     ]
   }

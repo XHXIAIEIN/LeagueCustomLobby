@@ -580,8 +580,8 @@
 		<div class="toast" id="toast"></div>
 
 		<script>
-			// 注入端点配置数据
-			globalThis.GROUPS_DATA = GROUPS_DATA;
+			// 注入端点配置数据（由服务器替换 __GROUPS_DATA_PLACEHOLDER__）
+			globalThis.GROUPS_DATA = __GROUPS_DATA_PLACEHOLDER__;
 		</script>
 		<script src="app.js"></script>
 	</body>
